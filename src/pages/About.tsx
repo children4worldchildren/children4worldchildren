@@ -32,7 +32,7 @@ const About = () => {
     tagline: 'Environmental Excellence, Engineering Solutions',
     mission: 'To provide innovative, sustainable, and cost-effective environmental and engineering solutions that protect natural resources, ensure regulatory compliance, and support sustainable development across Nigeria and West Africa.',
     vision: 'To be the leading environmental and engineering consultancy firm in Nigeria, recognized for our technical excellence, innovative solutions, and unwavering commitment to environmental stewardship and sustainable development.',
-    description: 'Leading environmental consultancy and engineering services provider in Nigeria, committed to sustainable development and environmental protection with offices in Lagos and Abuja.',
+    description: 'Leading environmental consultancy and engineering services provider in Nigeria, committed to sustainable development and environmental protection with offices in F.C.T Abuja and Rivers State.',
     foundedYear: '2013',
     employees: '15+'
   });

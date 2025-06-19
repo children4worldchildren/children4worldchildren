@@ -43,7 +43,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       try {
         const token = localStorage.getItem('authToken');
         if (token) {
-          const response = await apiService.getCurrentUser();
+          // Add timeout to prevent hanging
+          const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('Request timeout')), 3000)
+          );
+          
+          const responsePromise = apiService.getCurrentUser();
+          const response = await Promise.race([responsePromise, timeoutPromise]) as any;
           setUser(response.user);
         }
       } catch (error) {

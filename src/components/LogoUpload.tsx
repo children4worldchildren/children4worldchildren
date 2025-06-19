@@ -22,10 +22,17 @@ const LogoUpload: React.FC<LogoUploadProps> = ({ showUpload = false }) => {
     try {
       setIsLoading(true);
       setError(null);
-      const response = await apiService.getImageUrl('logo');
+      
+      // Add timeout to prevent hanging
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Request timeout')), 3000)
+      );
+      
+      const responsePromise = apiService.getImageUrl('logo');
+      const response = await Promise.race([responsePromise, timeoutPromise]) as any;
       setCustomLogo(response.url);
     } catch (error) {
-      console.log('No custom logo found, using default');
+      console.log('No custom logo found or backend unavailable, using default');
       setCustomLogo(null);
     } finally {
       setIsLoading(false);

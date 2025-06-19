@@ -31,7 +31,7 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <Link to="/" className="flex items-center space-x-2">
+              <Link to="/" className="flex items-center space-x-2 cursor-pointer">
                 <LogoUpload />
               </Link>
             </div>
@@ -92,7 +92,8 @@ const Navbar = () => {
               )}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-gray-700 hover:text-emerald-600 p-2"
+                className="text-gray-700 hover:text-emerald-600 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
+                aria-label="Toggle menu"
               >
                 {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>

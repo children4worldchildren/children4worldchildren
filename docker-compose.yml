@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  johnbabs-website:
+    build: .
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./logs:/var/log/nginx
+    networks:
+      - johnbabs-network
+
+networks:
+  johnbabs-network:
+    driver: bridge 

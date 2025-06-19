@@ -19,10 +19,9 @@ const Management = () => {
       position: 'Chief Executive Officer',
       image: `${import.meta.env.BASE_URL}ceo.jpg`,
       qualifications: [
-        'Ph.D. Environmental Engineering',
-        'M.Sc. Civil Engineering',
-        'B.Eng. Civil Engineering',
-        'COREN Registered Engineer'
+        'Ph.D. Environment and Development',
+        'M.Sc. Environmental Assessment and Monitoring',
+        'Pg.D. Project Management'
       ],
       experience: '20+ years in environmental consulting and engineering design',
       specializations: ['Environmental Impact Assessment', 'Water Resources Management', 'Project Management'],
@@ -39,7 +38,7 @@ const Management = () => {
         'PMP Certified'
       ],
       experience: '15+ years in operations management and environmental systems',
-      specializations: ['Operations Management', 'Compliance', 'Quality Assurance'],
+      specializations: ['Operations Management', 'Compliance', 'Quality Assurance', 'ICT Specialist'],
       email: 'operations@jbees.ng',
       phone: '+234 (0) 803 332 1234'
     },
@@ -118,10 +117,9 @@ const Management = () => {
           position: 'Chief Executive Officer',
           image: `${import.meta.env.BASE_URL}ceo.jpg`,
           qualifications: [
-            'Ph.D. Environmental Engineering',
-            'M.Sc. Civil Engineering',
-            'B.Eng. Civil Engineering',
-            'COREN Registered Engineer'
+            'Ph.D. Environment and Development',
+            'M.Sc. Environmental Assessment and Monitoring',
+            'Pg.D. Project Management'
           ],
           experience: '20+ years in environmental consulting and engineering design',
           specializations: ['Environmental Impact Assessment', 'Water Resources Management', 'Project Management'],
@@ -138,7 +136,7 @@ const Management = () => {
             'PMP Certified'
           ],
           experience: '15+ years in operations management and environmental systems',
-          specializations: ['Operations Management', 'Compliance', 'Quality Assurance'],
+          specializations: ['Operations Management', 'Compliance', 'Quality Assurance', 'ICT Specialist'],
           email: 'operations@jbees.ng',
           phone: '+234 (0) 803 332 1234'
         },

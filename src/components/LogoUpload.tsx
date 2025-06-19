@@ -12,7 +12,7 @@ const LogoUpload: React.FC<LogoUploadProps> = ({ showUpload = false }) => {
   const [customLogo, setCustomLogo] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const defaultLogo = `${import.meta.env.BASE_URL}logo.png`;
+  const defaultLogo = `${import.meta.env.BASE_URL}logo.jpg`;
 
   useEffect(() => {
     loadLogo();

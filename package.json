@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/update-manifest.js && vite build",
+    "build:dev": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "deploy": "npm run build && docker build -t johnbabs-website . && docker-compose up -d",

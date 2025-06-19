@@ -26,7 +26,7 @@ const users = [
     id: '1',
     username: 'admin',
     email: 'admin@johnbabs.com',
-    password: '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/HS.iK8i', // admin123
+    password: '$2a$12$favbYcq50lNnjiYDUA2D1ubxtJhMttW6r3yqFrxrqgq41RnGL4FUm', // admin123
     role: 'admin',
     isActive: true
   }

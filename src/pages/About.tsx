@@ -52,7 +52,7 @@ const About = () => {
     generalPhone: '+234 (0) 802 219 2956'
   });
 
-  const [aboutImage, setAboutImage] = useState('/bpit.jpeg');
+  const [aboutImage, setAboutImage] = useState(`${import.meta.env.BASE_URL}bpit.jpeg`);
 
   useEffect(() => {
     // Only load from localStorage if no hardcoded values are set

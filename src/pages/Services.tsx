@@ -12,11 +12,11 @@ import {
 
 const Services = () => {
   const [serviceImages, setServiceImages] = useState<{[key: string]: string}>({
-    services1: '/bpit.jpeg',
+    services1: `${import.meta.env.BASE_URL}bpit.jpeg`,
     services2: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800',
     services3: 'https://images.pexels.com/photos/3862132/pexels-photo-3862132.jpeg?auto=compress&cs=tinysrgb&w=800',
-    services4: '/com-sens.jpeg',
-    services5: '/env2.jpeg',
+    services4: `${import.meta.env.BASE_URL}com-sens.jpeg`,
+    services5: `${import.meta.env.BASE_URL}env2.jpeg`,
     services6: 'https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg?auto=compress&cs=tinysrgb&w=800'
   });
 

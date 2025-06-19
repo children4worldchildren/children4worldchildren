@@ -17,7 +17,7 @@ const Management = () => {
     {
       name: 'Dr John Babington Chibunna',
       position: 'Chief Executive Officer',
-      image: '/ceo.jpg',
+      image: `${import.meta.env.BASE_URL}ceo.jpg`,
       qualifications: [
         'Ph.D. Environmental Engineering',
         'M.Sc. Civil Engineering',
@@ -32,7 +32,7 @@ const Management = () => {
     {
       name: 'Eng. Ikenna Iwuoha',
       position: 'Director of Operations',
-      image: '/doo.jpg',
+      image: `${import.meta.env.BASE_URL}doo.jpg`,
       qualifications: [
         'M.Sc. Computer Science',
         'BiT. Software Engineering',
@@ -116,7 +116,7 @@ const Management = () => {
         {
           name: 'Dr John Babington Chibunna',
           position: 'Chief Executive Officer',
-          image: '/ceo.jpg',
+          image: `${import.meta.env.BASE_URL}ceo.jpg`,
           qualifications: [
             'Ph.D. Environmental Engineering',
             'M.Sc. Civil Engineering',
@@ -131,7 +131,7 @@ const Management = () => {
         {
           name: 'Eng. Ikenna Iwuoha',
           position: 'Director of Operations',
-          image: '/doo.jpg',
+          image: `${import.meta.env.BASE_URL}doo.jpg`,
           qualifications: [
             'M.Sc. Computer Science',
             'BiT. Software Engineering',
@@ -301,9 +301,9 @@ const Management = () => {
                             // Fallback to default image if saved image fails to load
                             const target = e.target as HTMLImageElement;
                             if (index === 0) {
-                              target.src = '/ceo.jpg';
+                              target.src = `${import.meta.env.BASE_URL}ceo.jpg`;
                             } else {
-                              target.src = 'https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=400';
+                              target.src = `${import.meta.env.BASE_URL}doo.jpg`;
                             }
                           }}
                         />

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Shield, Users, Award, Target, CheckCircle } from 'lucide-react';
 
 const Home = () => {
-  const [heroImage, setHeroImage] = useState('/env1.jpeg');
+  const [heroImage, setHeroImage] = useState(`${import.meta.env.BASE_URL}env1.jpeg`);
 
   useEffect(() => {
     // Load saved images from localStorage

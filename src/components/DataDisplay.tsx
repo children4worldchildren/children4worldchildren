@@ -56,12 +56,12 @@ const DataDisplay: React.FC<DataDisplayProps> = ({ dataType }) => {
         setData([
           {
             id: '1',
-            name: 'Dr John Babington Chibunna',
-            position: 'Chief Executive Officer',
-            email: 'john.babs@johnbabs.com',
+            name: 'John Babatunde',
+            position: 'CEO',
+            email: 'john@johnbabs.com',
             phone: '+234 123 456 7890',
-            image: '/ceo.jpg',
-            experience: 'Over 15 years of experience in environmental consulting and engineering services.',
+            image: `${import.meta.env.BASE_URL}ceo.jpg`,
+            experience: 'Experienced environmental consultant',
             qualifications: ['Ph.D. Environmental Engineering', 'M.Sc. Environmental Management', 'B.Eng. Civil Engineering'],
             specializations: ['Environmental Impact Assessment', 'Waste Management', 'Environmental Restoration']
           }
@@ -73,7 +73,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({ dataType }) => {
             title: 'Environmental Impact Assessment',
             description: 'Comprehensive EIA for major infrastructure project',
             category: 'Environmental Consultancy',
-            image: '/env1.jpeg',
+            image: `${import.meta.env.BASE_URL}env1.jpeg`,
             status: 'Completed',
             year: '2023'
           }

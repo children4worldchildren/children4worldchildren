@@ -12,7 +12,7 @@ const LogoUpload: React.FC<LogoUploadProps> = ({ showUpload = false }) => {
   const [customLogo, setCustomLogo] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const defaultLogo = `${import.meta.env.BASE_URL}logo.jpg`;
+  const defaultLogo = '/logo.png';
 
   useEffect(() => {
     loadLogo();
@@ -30,7 +30,12 @@ const LogoUpload: React.FC<LogoUploadProps> = ({ showUpload = false }) => {
       
       const responsePromise = apiService.getImageUrl('logo');
       const response = await Promise.race([responsePromise, timeoutPromise]) as any;
-      setCustomLogo(response.url);
+      // Only set customLogo if the URL is valid and not empty
+      if (response && response.url) {
+        setCustomLogo(response.url);
+      } else {
+        setCustomLogo(null);
+      }
     } catch (error) {
       console.log('No custom logo found or backend unavailable, using default');
       setCustomLogo(null);
@@ -125,9 +130,15 @@ const LogoUpload: React.FC<LogoUploadProps> = ({ showUpload = false }) => {
           <Loader2 className="h-6 w-6 text-gray-400 animate-spin" />
         ) : customLogo ? (
           <img
-            src={customLogo}
+            src={customLogo || defaultLogo}
             alt="Company Logo"
             className="w-full h-full object-contain rounded-full"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              if (target.src !== window.location.origin + defaultLogo) {
+                target.src = defaultLogo;
+              }
+            }}
           />
         ) : (
           <img

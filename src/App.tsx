@@ -9,6 +9,8 @@ import Services from './pages/Services';
 import Projects from './pages/Projects';
 import Management from './pages/Management';
 import Contact from './pages/Contact';
+import Consultation from './pages/Consultation';
+import Quote from './pages/Quote';
 // import Admin from './pages/Admin';
 import './index.css';
 
@@ -25,6 +27,8 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/management" element={<Management />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/consultation" element={<Consultation />} />
+          <Route path="/quote" element={<Quote />} />
           {/* <Route path="/admin" element={<Admin />} /> */}
         </Routes>
         <Footer />

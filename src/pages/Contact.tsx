@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Phone, Mail, Clock, Send, Building, Users } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface ContactInfo {
   headOffice: {
@@ -17,6 +18,7 @@ interface ContactInfo {
 }
 
 const Contact = () => {
+  const navigate = useNavigate();
   const [contactInfo, setContactInfo] = useState<ContactInfo>({
     headOffice: {
       address: 'Suite 35b Silla Zeka Plaza, By 29 Adebayo Adedeji Crescent, Utako, F.C.T Abuja, Nigeria',
@@ -390,10 +392,16 @@ const Contact = () => {
             our team is ready to help you achieve your goals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="inline-flex items-center px-8 py-3 border-2 border-white text-base font-medium rounded-full text-white bg-transparent hover:bg-white hover:text-emerald-600 transition-all duration-200 shadow-lg hover:shadow-xl">
+            <button 
+              onClick={() => navigate('/consultation')}
+              className="inline-flex items-center px-8 py-3 border-2 border-white text-base font-medium rounded-full text-white bg-transparent hover:bg-white hover:text-emerald-600 transition-all duration-200 shadow-lg hover:shadow-xl"
+            >
               Schedule Consultation
             </button>
-            <button className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-emerald-600 bg-white hover:bg-emerald-50 transition-all duration-200 shadow-lg hover:shadow-xl">
+            <button 
+              onClick={() => navigate('/quote')}
+              className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-emerald-600 bg-white hover:bg-emerald-50 transition-all duration-200 shadow-lg hover:shadow-xl"
+            >
               Request Quote
             </button>
           </div>

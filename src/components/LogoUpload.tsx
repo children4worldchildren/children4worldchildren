@@ -149,9 +149,9 @@ const LogoUpload: React.FC<LogoUploadProps> = ({ showUpload = false, textColor =
           />
         )}
       </div>
-      <div className="hidden sm:block min-w-48">
-        <span className={`text-2xl font-bold ${textColor === 'light' ? 'text-white' : 'text-gray-900'}`}>Johnbabs</span>
-        <div className={`text-sm font-medium ${textColor === 'light' ? 'text-emerald-300' : 'text-emerald-600'}`}>Environmental & Engineering</div>
+      <div className="min-w-32 sm:min-w-48">
+        <span className={`text-lg sm:text-2xl font-bold ${textColor === 'light' ? 'text-white' : 'text-gray-900'}`}>Johnbabs</span>
+        <div className={`text-xs sm:text-sm font-medium ${textColor === 'light' ? 'text-emerald-300' : 'text-emerald-600'}`}>Environmental & Engineering</div>
       </div>
     </div>
   );

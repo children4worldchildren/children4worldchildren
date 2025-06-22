@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Leaf, Upload, Loader2 } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
+// import { useAuth } from '../contexts/AuthContext';
 import apiService from '../services/api';
 
 interface LogoUploadProps {
   showUpload?: boolean;
+  textColor?: 'dark' | 'light';
 }
 
-const LogoUpload: React.FC<LogoUploadProps> = ({ showUpload = false }) => {
-  const { isAuthenticated } = useAuth();
+const LogoUpload: React.FC<LogoUploadProps> = ({ showUpload = false, textColor = 'dark' }) => {
+  // const { isAuthenticated } = useAuth();
   const [customLogo, setCustomLogo] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -45,10 +46,10 @@ const LogoUpload: React.FC<LogoUploadProps> = ({ showUpload = false }) => {
   };
 
   const handleLogoUpload = async (file: File) => {
-    if (!isAuthenticated) {
-      setError('You must be logged in to upload logo');
-      return;
-    }
+    // if (!isAuthenticated) {
+    //   setError('You must be logged in to upload logo');
+    //   return;
+    // }
 
     try {
       setIsLoading(true);
@@ -148,9 +149,9 @@ const LogoUpload: React.FC<LogoUploadProps> = ({ showUpload = false }) => {
           />
         )}
       </div>
-      <div className="hidden sm:block">
-        <span className="text-xl font-bold text-gray-900">Johnbabs</span>
-        <div className="text-xs text-emerald-600 font-medium">Environmental & Engineering</div>
+      <div className="hidden sm:block min-w-48">
+        <span className={`text-2xl font-bold ${textColor === 'light' ? 'text-white' : 'text-gray-900'}`}>Johnbabs</span>
+        <div className={`text-sm font-medium ${textColor === 'light' ? 'text-emerald-300' : 'text-emerald-600'}`}>Environmental & Engineering</div>
       </div>
     </div>
   );

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Settings } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import LogoUpload from './LogoUpload';
-import { useAuth } from '../contexts/AuthContext';
-import LoginModal from './LoginModal';
+// import { useAuth } from '../contexts/AuthContext';
+// import LoginModal from './LoginModal';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  // const [showLoginModal, setShowLoginModal] = useState(false);
   const location = useLocation();
-  const { isAuthenticated, user } = useAuth();
+  // const { isAuthenticated, user } = useAuth();
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -54,7 +54,7 @@ const Navbar = () => {
               
               {/* Admin/Login Section */}
               <div className="flex items-center space-x-4 ml-4">
-                {isAuthenticated ? (
+                {/* {isAuthenticated ? (
                   <Link
                     to="/admin"
                     className="inline-flex items-center px-3 py-2 text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors"
@@ -69,13 +69,13 @@ const Navbar = () => {
                   >
                     Login
                   </button>
-                )}
+                )} */}
               </div>
             </div>
 
             {/* Mobile menu button */}
             <div className="lg:hidden flex items-center space-x-2">
-              {isAuthenticated ? (
+              {/* {isAuthenticated ? (
                 <Link
                   to="/admin"
                   className="inline-flex items-center px-3 py-2 text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors"
@@ -89,7 +89,7 @@ const Navbar = () => {
                 >
                   Login
                 </button>
-              )}
+              )} */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="text-gray-700 hover:text-emerald-600 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
@@ -125,10 +125,10 @@ const Navbar = () => {
       </nav>
 
       {/* Login Modal */}
-      <LoginModal
+      {/* <LoginModal
         isOpen={showLoginModal}
         onClose={() => setShowLoginModal(false)}
-      />
+      /> */}
     </>
   );
 };

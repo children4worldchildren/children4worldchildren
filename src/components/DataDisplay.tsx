@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Edit, Trash2, Save, X } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
+// import { useAuth } from '../contexts/AuthContext';
 import apiService from '../services/api';
 
 interface DataDisplayProps {
@@ -30,7 +30,7 @@ interface Project {
 }
 
 const DataDisplay: React.FC<DataDisplayProps> = ({ dataType }) => {
-  const { isAuthenticated } = useAuth();
+  // const { isAuthenticated } = useAuth();
   const [data, setData] = useState<(TeamMember | Project)[]>([]);
   const [isEditing, setIsEditing] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);

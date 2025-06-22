@@ -9,7 +9,7 @@ import Services from './pages/Services';
 import Projects from './pages/Projects';
 import Management from './pages/Management';
 import Contact from './pages/Contact';
-import Admin from './pages/Admin';
+// import Admin from './pages/Admin';
 import './index.css';
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/management" element={<Management />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/admin" element={<Admin />} />
+          {/* <Route path="/admin" element={<Admin />} /> */}
         </Routes>
         <Footer />
       </div>

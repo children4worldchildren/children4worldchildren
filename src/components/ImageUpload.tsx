@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Upload, X, Image as ImageIcon, Loader2 } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
+// import { useAuth } from '../contexts/AuthContext';
 import apiService from '../services/api';
 
 interface ImageUploadProps {
@@ -18,7 +18,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   description,
   category
 }) => {
-  const { isAuthenticated } = useAuth();
+  // const { isAuthenticated } = useAuth();
   const [dragActive, setDragActive] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
   const [currentImageUrl, setCurrentImageUrl] = useState<string | null>(null);
@@ -39,7 +39,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   }, [defaultImageKey]);
 
   const loadCurrentImage = async () => {
-    if (!isAuthenticated) return;
+    // if (!isAuthenticated) return;
     
     try {
       setIsLoading(true);
@@ -47,7 +47,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       const response = await apiService.getImageUrl(defaultImageKey);
       setCurrentImageUrl(response.url);
       setPreview(response.url);
-    } catch (error) {
+    } catch (error: unknown) {
       console.log(`No image found for key: ${defaultImageKey}`);
       setCurrentImageUrl(null);
       setPreview(null);
@@ -84,10 +84,10 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   };
 
   const handleFile = async (file: File) => {
-    if (!isAuthenticated) {
-      setError('You must be logged in to upload images');
-      return;
-    }
+    // if (!isAuthenticated) {
+    //   setError('You must be logged in to upload images');
+    //   return;
+    // }
 
     if (!file.type.startsWith('image/')) {
       setError('Please select a valid image file.');
@@ -116,7 +116,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       
       // Reload the image to get the new URL
       await loadCurrentImage();
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Upload failed:', error);
       setError(error instanceof Error ? error.message : 'Upload failed. Please try again.');
       setPreview(currentImageUrl);
@@ -126,18 +126,18 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   };
 
   const onButtonClick = () => {
-    if (!isAuthenticated) {
-      setError('You must be logged in to upload images');
-      return;
-    }
+    // if (!isAuthenticated) {
+    //   setError('You must be logged in to upload images');
+    //   return;
+    // }
     inputRef.current?.click();
   };
 
   const removeImage = async () => {
-    if (!isAuthenticated) {
-      setError('You must be logged in to remove images');
-      return;
-    }
+    // if (!isAuthenticated) {
+    //   setError('You must be logged in to remove images');
+    //   return;
+    // }
 
     try {
       setIsUploading(true);
@@ -145,7 +145,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       await apiService.deleteImage(defaultImageKey);
       setPreview(null);
       setCurrentImageUrl(null);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Delete failed:', error);
       setError(error instanceof Error ? error.message : 'Delete failed. Please try again.');
     } finally {

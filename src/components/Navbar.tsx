@@ -37,7 +37,7 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden lg:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-8">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
@@ -74,7 +74,7 @@ const Navbar = () => {
             </div>
 
             {/* Mobile menu button */}
-            <div className="lg:hidden flex items-center space-x-2">
+            <div className="md:hidden flex items-center space-x-2">
               {/* {isAuthenticated ? (
                 <Link
                   to="/admin"
@@ -103,7 +103,7 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="lg:hidden bg-white border-t border-gray-200">
+          <div className="md:hidden bg-white border-t border-gray-200">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigation.map((item) => (
                 <Link

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Calendar, Clock, User, Mail, Phone, Building, MessageSquare, ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import apiService from '../services/api';
 
 const Consultation = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,6 +18,8 @@ const Consultation = () => {
     urgency: '',
     additionalNotes: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -24,12 +28,23 @@ const Consultation = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Consultation request submitted:', formData);
-    // You would typically send this data to your backend
-    alert('Thank you! Your consultation request has been submitted. We will contact you within 24 hours to confirm your appointment.');
+    setIsSubmitting(true);
+    setSubmitError(null);
+    
+    try {
+      const response = await apiService.submitConsultation(formData);
+      console.log('Consultation request successful:', response);
+      alert('Thank you! Your consultation request has been submitted. We will contact you within 24 hours to confirm your appointment.');
+      // Optionally redirect to a success page or clear the form
+      navigate('/contact');
+    } catch (error: any) {
+      console.error('Consultation request error:', error);
+      setSubmitError(error.message || 'There was an error submitting your consultation request. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const consultationTypes = [
@@ -306,11 +321,27 @@ const Consultation = () => {
 
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-lg text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors duration-200 shadow-lg hover:shadow-xl"
+                disabled={isSubmitting}
+                className="w-full inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-lg text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Schedule Consultation
-                <Calendar className="ml-2 h-5 w-5" />
+                {isSubmitting ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                    Submitting...
+                  </>
+                ) : (
+                  <>
+                    Schedule Consultation
+                    <Calendar className="ml-2 h-5 w-5" />
+                  </>
+                )}
               </button>
+
+              {submitError && (
+                <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-red-600 text-sm">{submitError}</p>
+                </div>
+              )}
             </form>
           </div>
         </div>

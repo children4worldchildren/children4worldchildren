@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Phone, Mail, Clock, Send, Building, Users } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import apiService from '../services/api';
 
 interface ContactInfo {
   headOffice: {
@@ -62,6 +63,10 @@ const Contact = () => {
     message: ''
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
@@ -69,11 +74,22 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // You would typically send this data to your backend
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setSubmitSuccess(false);
+    try {
+      await apiService.submitContact(formData);
+      setSubmitSuccess(true);
+      setFormData({
+        name: '', email: '', phone: '', company: '', service: '', message: ''
+      });
+    } catch (error: any) {
+      setSubmitError(error.message || 'There was an error submitting your message. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const offices = [
@@ -283,11 +299,31 @@ const Contact = () => {
 
                   <button
                     type="submit"
-                    className="w-full inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors duration-200 shadow-lg hover:shadow-xl"
+                    disabled={isSubmitting}
+                    className="w-full inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Send Message
-                    <Send className="ml-2 h-5 w-5" />
+                    {isSubmitting ? (
+                      <>
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <Send className="ml-2 h-5 w-5" />
+                      </>
+                    )}
                   </button>
+                  {submitSuccess && (
+                    <div className="mt-4 p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+                      <p className="text-emerald-700 text-sm">Thank you! Your message has been sent. We will get back to you soon.</p>
+                    </div>
+                  )}
+                  {submitError && (
+                    <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                      <p className="text-red-600 text-sm">{submitError}</p>
+                    </div>
+                  )}
                 </form>
               </div>
             </div>

@@ -192,6 +192,72 @@ class ApiService {
       method: 'DELETE',
     });
   }
+
+  // Consultation methods
+  async submitConsultation(consultationData: any): Promise<any> {
+    return await this.request('/consultations/submit', {
+      method: 'POST',
+      body: JSON.stringify(consultationData),
+    });
+  }
+
+  async getConsultations(): Promise<{ consultations: any[] }> {
+    return await this.request('/consultations');
+  }
+
+  async getConsultation(id: string): Promise<any> {
+    return await this.request(`/consultations/${id}`);
+  }
+
+  async updateConsultationStatus(id: string, statusData: any): Promise<any> {
+    return await this.request(`/consultations/${id}/status`, {
+      method: 'PATCH',
+      body: JSON.stringify(statusData),
+    });
+  }
+
+  async deleteConsultation(id: string): Promise<any> {
+    return await this.request(`/consultations/${id}`, {
+      method: 'DELETE',
+    });
+  }
+
+  // Quote methods
+  async submitQuote(quoteData: any): Promise<any> {
+    return await this.request('/quotes/submit', {
+      method: 'POST',
+      body: JSON.stringify(quoteData),
+    });
+  }
+
+  async getQuotes(): Promise<{ quotes: any[] }> {
+    return await this.request('/quotes');
+  }
+
+  async getQuote(id: string): Promise<any> {
+    return await this.request(`/quotes/${id}`);
+  }
+
+  async updateQuote(id: string, quoteData: any): Promise<any> {
+    return await this.request(`/quotes/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(quoteData),
+    });
+  }
+
+  async deleteQuote(id: string): Promise<any> {
+    return await this.request(`/quotes/${id}`, {
+      method: 'DELETE',
+    });
+  }
+
+  // Contact form method
+  async submitContact(contactData: any): Promise<any> {
+    return await this.request('/contact', {
+      method: 'POST',
+      body: JSON.stringify(contactData),
+    });
+  }
 }
 
 const apiService = new ApiService();

@@ -28,6 +28,8 @@ const companyRoutes = require('./routes/company');
 const imageRoutes = require('./routes/images');
 const projectRoutes = require('./routes/projects');
 const teamRoutes = require('./routes/team');
+const consultationRoutes = require('./routes/consultations');
+const quoteRoutes = require('./routes/quotes');
 
 // Route middleware
 app.use('/api/auth', authRoutes);
@@ -35,6 +37,8 @@ app.use('/api/company', companyRoutes);
 app.use('/api/images', imageRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/team', teamRoutes);
+app.use('/api/consultations', consultationRoutes);
+app.use('/api/quotes', quoteRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

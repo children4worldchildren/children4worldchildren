@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const nodemailer = require('nodemailer');
 require('dotenv').config({ path: './config.env' });
 
 const app = express();
@@ -59,6 +60,207 @@ const projects = [
 ];
 
 const images = {};
+
+const consultations = [];
+const quotes = [];
+
+// Email configuration
+const createTransporter = () => {
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER || 'test@example.com',
+      pass: process.env.EMAIL_PASS || 'test-password'
+    }
+  });
+};
+
+// Email templates
+const emailTemplates = {
+  consultationRequest: (data) => ({
+    subject: 'New Consultation Request - Johnbabs Environmental Services',
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #059669;">New Consultation Request</h2>
+        <p>A new consultation request has been submitted through the website.</p>
+        
+        <h3 style="color: #374151;">Client Information</h3>
+        <ul>
+          <li><strong>Name:</strong> ${data.name}</li>
+          <li><strong>Email:</strong> ${data.email}</li>
+          <li><strong>Phone:</strong> ${data.phone}</li>
+          <li><strong>Company:</strong> ${data.company || 'Not provided'}</li>
+        </ul>
+        
+        <h3 style="color: #374151;">Consultation Details</h3>
+        <ul>
+          <li><strong>Type:</strong> ${data.consultationType}</li>
+          <li><strong>Service:</strong> ${data.service}</li>
+          <li><strong>Preferred Date:</strong> ${new Date(data.preferredDate).toLocaleDateString()}</li>
+          <li><strong>Preferred Time:</strong> ${data.preferredTime}</li>
+          <li><strong>Urgency:</strong> ${data.urgency || 'Not specified'}</li>
+        </ul>
+        
+        <h3 style="color: #374151;">Project Description</h3>
+        <p>${data.projectDescription}</p>
+        
+        ${data.additionalNotes ? `
+        <h3 style="color: #374151;">Additional Notes</h3>
+        <p>${data.additionalNotes}</p>
+        ` : ''}
+        
+        <hr style="margin: 20px 0;">
+        <p style="color: #6B7280; font-size: 12px;">
+          This request was submitted on ${new Date().toLocaleString()}
+        </p>
+      </div>
+    `
+  }),
+  
+  quoteRequest: (data) => ({
+    subject: 'New Quote Request - Johnbabs Environmental Services',
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #059669;">New Quote Request</h2>
+        <p>A new quote request has been submitted through the website.</p>
+        
+        <h3 style="color: #374151;">Client Information</h3>
+        <ul>
+          <li><strong>Name:</strong> ${data.name}</li>
+          <li><strong>Email:</strong> ${data.email}</li>
+          <li><strong>Phone:</strong> ${data.phone}</li>
+          <li><strong>Company:</strong> ${data.company || 'Not provided'}</li>
+        </ul>
+        
+        <h3 style="color: #374151;">Project Details</h3>
+        <ul>
+          <li><strong>Service:</strong> ${data.service}</li>
+          <li><strong>Project Type:</strong> ${data.projectType}</li>
+          <li><strong>Project Size:</strong> ${data.projectSize || 'Not specified'}</li>
+          <li><strong>Timeline:</strong> ${data.timeline || 'Not specified'}</li>
+          <li><strong>Budget Range:</strong> ${data.budget || 'Not specified'}</li>
+        </ul>
+        
+        <h3 style="color: #374151;">Project Description</h3>
+        <p>${data.projectDescription}</p>
+        
+        ${data.additionalRequirements ? `
+        <h3 style="color: #374151;">Additional Requirements</h3>
+        <p>${data.additionalRequirements}</p>
+        ` : ''}
+        
+        <hr style="margin: 20px 0;">
+        <p style="color: #6B7280; font-size: 12px;">
+          This request was submitted on ${new Date().toLocaleString()}
+        </p>
+      </div>
+    `
+  }),
+  
+  clientConfirmation: (type, data) => ({
+    subject: `Thank you for your ${type} request - Johnbabs Environmental Services`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #059669;">Thank you for your ${type} request!</h2>
+        <p>Dear ${data.name},</p>
+        
+        <p>We have received your ${type} request and our team will review it carefully.</p>
+        
+        <h3 style="color: #374151;">What happens next?</h3>
+        <ul>
+          <li>Our team will review your request within 24 hours</li>
+          <li>We will contact you to discuss your requirements in detail</li>
+          <li>You will receive a comprehensive response tailored to your needs</li>
+        </ul>
+        
+        <h3 style="color: #374151;">Your Request Summary</h3>
+        <ul>
+          <li><strong>Service:</strong> ${data.service}</li>
+          <li><strong>Submitted:</strong> ${new Date().toLocaleString()}</li>
+        </ul>
+        
+        <p>If you have any urgent questions, please don't hesitate to contact us at:</p>
+        <ul>
+          <li>Phone: +234 (0) 802 219 2956</li>
+          <li>Email: johnbabsenvironmental@gmail.com</li>
+        </ul>
+        
+        <p>Best regards,<br>
+        The Johnbabs Environmental Services Team</p>
+        
+        <hr style="margin: 20px 0;">
+        <p style="color: #6B7280; font-size: 12px;">
+          Johnbabs Environmental and Engineering Services Ltd<br>
+          Suite 35b Silla Zeka Plaza, By 29 Adebayo Adedeji Crescent, Utako, F.C.T Abuja, Nigeria
+        </p>
+      </div>
+    `
+  }),
+  
+  contactMessage: (data) => ({
+    subject: 'New Contact Message - Johnbabs Environmental Services',
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #059669;">New Contact Message</h2>
+        <p>A new contact message has been submitted through the website.</p>
+        <h3 style="color: #374151;">Sender Information</h3>
+        <ul>
+          <li><strong>Name:</strong> ${data.name}</li>
+          <li><strong>Email:</strong> ${data.email}</li>
+          <li><strong>Phone:</strong> ${data.phone || 'Not provided'}</li>
+          <li><strong>Company:</strong> ${data.company || 'Not provided'}</li>
+          <li><strong>Service Interest:</strong> ${data.service || 'Not specified'}</li>
+        </ul>
+        <h3 style="color: #374151;">Message</h3>
+        <p>${data.message}</p>
+        <hr style="margin: 20px 0;">
+        <p style="color: #6B7280; font-size: 12px;">
+          This message was submitted on ${new Date().toLocaleString()}
+        </p>
+      </div>
+    `
+  }),
+  
+  contactConfirmation: (type, data) => ({
+    subject: `Thank you for contacting us - Johnbabs Environmental Services`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #059669;">Thank you for contacting us!</h2>
+        <p>Dear ${data.name},</p>
+        <p>We have received your message and our team will get back to you as soon as possible.</p>
+        <h3 style="color: #374151;">Your Message</h3>
+        <p>${data.message}</p>
+        <hr style="margin: 20px 0;">
+        <p style="color: #6B7280; font-size: 12px;">
+          Johnbabs Environmental and Engineering Services Ltd<br>
+          Suite 35b Silla Zeka Plaza, By 29 Adebayo Adedeji Crescent, Utako, F.C.T Abuja, Nigeria
+        </p>
+      </div>
+    `
+  })
+};
+
+// Send email function
+const sendEmail = async (to, template, data) => {
+  try {
+    const transporter = createTransporter();
+    const emailContent = emailTemplates[template](data);
+    
+    const mailOptions = {
+      from: process.env.EMAIL_USER || 'test@example.com',
+      to: to,
+      subject: emailContent.subject,
+      html: emailContent.html
+    };
+    
+    const result = await transporter.sendMail(mailOptions);
+    console.log('Email sent successfully:', result.messageId);
+    return { success: true, messageId: result.messageId };
+  } catch (error) {
+    console.error('Email sending failed:', error);
+    return { success: false, error: error.message };
+  }
+};
 
 // File upload configuration
 const storage = multer.diskStorage({
@@ -315,6 +517,259 @@ app.delete('/api/projects/:id', auth, (req, res) => {
 
   projects.splice(index, 1);
   res.json({ message: 'Project deleted successfully' });
+});
+
+// Consultation routes
+app.post('/api/consultations/submit', async (req, res) => {
+  try {
+    const consultationData = req.body;
+    
+    // Create new consultation
+    const consultation = {
+      id: consultations.length + 1,
+      ...consultationData,
+      status: 'pending',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    };
+    consultations.push(consultation);
+    
+    // Send email notifications
+    try {
+      const adminEmail = process.env.ADMIN_EMAIL || 'johnbabsenvironmental@gmail.com';
+      await sendEmail(adminEmail, 'consultationRequest', consultationData);
+      await sendEmail(consultationData.email, 'clientConfirmation', {
+        name: consultationData.name,
+        service: consultationData.service,
+        type: 'consultation'
+      });
+    } catch (emailError) {
+      console.error('Email notification failed:', emailError);
+      // Don't fail the request if email fails
+    }
+    
+    res.status(201).json({
+      success: true,
+      message: 'Consultation request submitted successfully',
+      consultationId: consultation.id
+    });
+  } catch (error) {
+    console.error('Consultation submission error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to submit consultation request',
+      error: error.message
+    });
+  }
+});
+
+app.get('/api/consultations', auth, (req, res) => {
+  res.json({
+    success: true,
+    consultations
+  });
+});
+
+app.get('/api/consultations/:id', auth, (req, res) => {
+  const id = parseInt(req.params.id);
+  const consultation = consultations.find(c => c.id === id);
+  
+  if (!consultation) {
+    return res.status(404).json({
+      success: false,
+      message: 'Consultation not found'
+    });
+  }
+  
+  res.json({
+    success: true,
+    consultation
+  });
+});
+
+app.patch('/api/consultations/:id/status', auth, (req, res) => {
+  const id = parseInt(req.params.id);
+  const { status, assignedTo, notes } = req.body;
+  
+  const consultation = consultations.find(c => c.id === id);
+  if (!consultation) {
+    return res.status(404).json({
+      success: false,
+      message: 'Consultation not found'
+    });
+  }
+  
+  consultation.status = status;
+  consultation.assignedTo = assignedTo;
+  consultation.notes = notes;
+  consultation.updatedAt = new Date();
+  
+  res.json({
+    success: true,
+    message: 'Consultation updated successfully',
+    consultation
+  });
+});
+
+app.delete('/api/consultations/:id', auth, (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = consultations.findIndex(c => c.id === id);
+  
+  if (index === -1) {
+    return res.status(404).json({
+      success: false,
+      message: 'Consultation not found'
+    });
+  }
+  
+  consultations.splice(index, 1);
+  
+  res.json({
+    success: true,
+    message: 'Consultation deleted successfully'
+  });
+});
+
+// Quote routes
+app.post('/api/quotes/submit', async (req, res) => {
+  try {
+    const quoteData = req.body;
+    
+    // Create new quote request
+    const quote = {
+      id: quotes.length + 1,
+      ...quoteData,
+      status: 'pending',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    };
+    quotes.push(quote);
+    
+    // Send email notifications
+    try {
+      const adminEmail = process.env.ADMIN_EMAIL || 'johnbabsenvironmental@gmail.com';
+      await sendEmail(adminEmail, 'quoteRequest', quoteData);
+      await sendEmail(quoteData.email, 'clientConfirmation', {
+        name: quoteData.name,
+        service: quoteData.service,
+        type: 'quote'
+      });
+    } catch (emailError) {
+      console.error('Email notification failed:', emailError);
+      // Don't fail the request if email fails
+    }
+    
+    res.status(201).json({
+      success: true,
+      message: 'Quote request submitted successfully',
+      quoteId: quote.id
+    });
+  } catch (error) {
+    console.error('Quote submission error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to submit quote request',
+      error: error.message
+    });
+  }
+});
+
+app.get('/api/quotes', auth, (req, res) => {
+  res.json({
+    success: true,
+    quotes
+  });
+});
+
+app.get('/api/quotes/:id', auth, (req, res) => {
+  const id = parseInt(req.params.id);
+  const quote = quotes.find(q => q.id === id);
+  
+  if (!quote) {
+    return res.status(404).json({
+      success: false,
+      message: 'Quote not found'
+    });
+  }
+  
+  res.json({
+    success: true,
+    quote
+  });
+});
+
+app.patch('/api/quotes/:id', auth, (req, res) => {
+  const id = parseInt(req.params.id);
+  const updateData = req.body;
+  
+  const quote = quotes.find(q => q.id === id);
+  if (!quote) {
+    return res.status(404).json({
+      success: false,
+      message: 'Quote not found'
+    });
+  }
+  
+  Object.assign(quote, updateData);
+  quote.updatedAt = new Date();
+  
+  res.json({
+    success: true,
+    message: 'Quote updated successfully',
+    quote
+  });
+});
+
+app.delete('/api/quotes/:id', auth, (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = quotes.findIndex(q => q.id === id);
+  
+  if (index === -1) {
+    return res.status(404).json({
+      success: false,
+      message: 'Quote not found'
+    });
+  }
+  
+  quotes.splice(index, 1);
+  
+  res.json({
+    success: true,
+    message: 'Quote deleted successfully'
+  });
+});
+
+// Contact form endpoint
+app.post('/api/contact', async (req, res) => {
+  try {
+    const contactData = req.body;
+    // Send email to admin
+    try {
+      const adminEmail = process.env.ADMIN_EMAIL || 'johnbabsenvironmental@gmail.com';
+      await sendEmail(adminEmail, 'contactMessage', contactData);
+      // Send confirmation to user
+      await sendEmail(contactData.email, 'contactConfirmation', {
+        name: contactData.name,
+        service: contactData.service,
+        type: 'contact',
+        message: contactData.message
+      });
+    } catch (emailError) {
+      console.error('Email notification failed:', emailError);
+      // Don't fail the request if email fails
+    }
+    res.status(201).json({
+      success: true,
+      message: 'Contact message sent successfully'
+    });
+  } catch (error) {
+    console.error('Contact form submission error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to send contact message',
+      error: error.message
+    });
+  }
 });
 
 // Error handling middleware

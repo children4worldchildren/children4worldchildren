@@ -1,5 +1,5 @@
 {
-  "name": "johnbabs-environmental-services",
+  "name": "charity-organization-website",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,13 +7,17 @@
     "dev": "vite",
     "build": "node scripts/update-manifest.js && vite build",
     "build:dev": "vite build",
-    "lint": "eslint .",
+    "build:prod": "vite build --mode production",
+    "build:analyze": "vite build --mode production && npx vite-bundle-analyzer dist",
     "preview": "vite preview",
-    "deploy": "npm run build && docker build -t johnbabs-website . && docker-compose up -d",
+    "deploy": "npm run build && docker build -t charity-website . && docker-compose up -d",
     "deploy:docker": "docker-compose up -d",
-    "deploy:build": "docker build -t johnbabs-website .",
+    "deploy:build": "docker build -t charity-website .",
     "stop": "docker-compose down",
-    "logs": "docker-compose logs -f"
+    "logs": "docker-compose logs -f",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "lucide-react": "^0.344.0",
@@ -33,6 +37,7 @@
     "globals": "^15.9.0",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
+    "terser": "^5.43.1",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.3.0",
     "vite": "^5.4.2"

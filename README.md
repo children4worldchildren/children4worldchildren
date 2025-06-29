@@ -1,59 +1,52 @@
-# 🌱 Johnbabs Environmental Services
+# 💜 Children 4 World Children
 
-A modern, responsive website for Johnbabs Environmental Services, showcasing environmental consultancy, restoration, and impact assessment services.
+A modern, responsive website for Children 4 World Children, showcasing charitable programs, community outreach, and volunteer initiatives.
 
-## 🚀 Live Demo
+## 🌐 Live Demo
 
-**Website:** [https://ikenna-brendan.github.io/johnbabs-environmental-services/](https://ikenna-brendan.github.io/johnbabs-environmental-services/)
+**Website:** [https://yourusername.github.io/children4worldchildren/](https://yourusername.github.io/children4worldchildren/)
 
-*Last updated: January 2024*
+## 📋 Table of Contents
+
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## ✨ Features
 
-- **Modern Design**: Clean, professional interface built with React and Tailwind CSS
-- **Responsive Layout**: Optimized for all devices (desktop, tablet, mobile)
-- **Interactive Components**: Dynamic content management and image galleries
-- **Admin Panel**: Content management system for easy updates
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Modern UI/UX**: Clean, professional design with smooth animations
+- **Interactive Components**: Dynamic forms, modals, and user interactions
 - **SEO Optimized**: Meta tags, structured data, and performance optimized
-- **Fast Loading**: Optimized assets and lazy loading
+- **Accessibility**: WCAG compliant with proper ARIA labels
+- **Fast Loading**: Optimized images and code splitting
+- **Cross-browser Compatible**: Works on all modern browsers
 
-## 🛠️ Tech Stack
+## 🛠️ Technologies Used
 
 - **Frontend**: React 18, TypeScript, Vite
-- **Styling**: Tailwind CSS, PostCSS
+- **Styling**: Tailwind CSS, Lucide React Icons
 - **Routing**: React Router DOM
-- **Icons**: Lucide React
-- **Deployment**: GitHub Pages, Docker
-- **Backend**: Node.js, Express (optional)
+- **Build Tool**: Vite
+- **Deployment**: GitHub Pages
 
-## 📁 Project Structure
-
-```
-jbs-project-v1/
-├── src/
-│   ├── components/     # Reusable UI components
-│   ├── pages/         # Page components
-│   ├── contexts/      # React contexts
-│   ├── services/      # API services
-│   └── main.tsx       # App entry point
-├── public/            # Static assets
-├── backend/           # Backend API (optional)
-├── .github/           # GitHub Actions workflows
-└── docs/              # Documentation
-```
-
-## 🚀 Quick Start
+## 🚀 Installation
 
 ### Prerequisites
-- Node.js 18+
+
+- Node.js (v16 or higher)
 - npm or yarn
 
-### Installation
+### Setup
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/johnbabs-environmental-services.git
-   cd johnbabs-environmental-services
+   git clone https://github.com/yourusername/children4worldchildren.git
+   cd children4worldchildren
    ```
 
 2. **Install dependencies**
@@ -69,54 +62,109 @@ jbs-project-v1/
 4. **Open your browser**
    Navigate to `http://localhost:5173`
 
-## 📦 Available Scripts
+## 📖 Usage
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-- `npm run deploy` - Deploy to GitHub Pages
-
-## 🌐 Deployment
-
-### GitHub Pages (Recommended)
-
-1. **Fork or create a new repository** named `johnbabs-environmental-services`
-2. **Push your code** to the repository
-3. **Enable GitHub Pages** in repository settings
-4. **Set source** to "GitHub Actions"
-5. **Your site will be live** at: `https://yourusername.github.io/johnbabs-environmental-services/`
-
-### Docker Deployment
+### Development
 
 ```bash
-# Build and deploy
-npm run deploy
+# Start development server
+npm run dev
 
-# Or manually
-docker build -t johnbabs-website .
-docker-compose up -d
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+
+# Run linting
+npm run lint
 ```
 
-### Traditional Web Server
+### Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+VITE_SITE_NAME=Children 4 World Children
+VITE_SITE_DESCRIPTION=A modern charity website for Children 4 World Children
+VITE_SITE_URL=https://yourusername.github.io/children4worldchildren/
+```
+
+## 🚀 Deployment
+
+### GitHub Pages Deployment
+
+1. **Fork or create a new repository** named `children4worldchildren`
+
+2. **Push your code** to the repository
+
+3. **Enable GitHub Pages** in repository settings
+
+4. **Set source** to GitHub Actions
+
+5. **Your site will be live** at: `https://yourusername.github.io/children4worldchildren/`
+
+### Manual Deployment
 
 ```bash
+# Build the project
 npm run build
-# Upload dist/ folder to your web server
+
+# Deploy to your preferred hosting service
+# (Netlify, Vercel, AWS S3, etc.)
+```
+
+## 📁 Project Structure
+
+```
+children4worldchildren/
+├── public/
+│   ├── images/
+│   ├── favicon.ico
+│   └── index.html
+├── src/
+│   ├── components/
+│   │   ├── Navbar.tsx
+│   │   ├── Footer.tsx
+│   │   ├── HeroBackground.tsx
+│   │   └── ...
+│   ├── pages/
+│   │   ├── Home.tsx
+│   │   ├── About.tsx
+│   │   ├── Programs.tsx
+│   │   ├── Events.tsx
+│   │   ├── Donate.tsx
+│   │   ├── Volunteer.tsx
+│   │   ├── Impact.tsx
+│   │   └── Contact.tsx
+│   ├── contexts/
+│   ├── services/
+│   ├── App.tsx
+│   └── main.tsx
+├── package.json
+├── tailwind.config.js
+├── vite.config.ts
+└── README.md
 ```
 
 ## 🎨 Customization
 
 ### Colors and Branding
-Update the Tailwind configuration in `tailwind.config.js`:
+
+Update the color scheme in `tailwind.config.js`:
 
 ```javascript
 module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#your-brand-color',
-        secondary: '#your-secondary-color',
+        primary: {
+          50: '#faf5ff',
+          500: '#8b5cf6',
+          600: '#7c3aed',
+          700: '#6d28d9',
+          900: '#4c1d95',
+        }
       }
     }
   }
@@ -124,68 +172,17 @@ module.exports = {
 ```
 
 ### Content Updates
-- **Home Page**: Edit `src/pages/Home.tsx`
-- **About Page**: Edit `src/pages/About.tsx`
-- **Services**: Edit `src/pages/Services.tsx`
-- **Team**: Edit `src/pages/Management.tsx`
-- **Contact**: Edit `src/pages/Contact.tsx`
 
-### Images
-Replace images in the `public/` folder:
-- `logo.png` - Company logo
-- `ceo.jpg` - CEO photo
-- `doo.jpg` - Director of Operations photo
-- Service images: `bpit.jpeg`, `com-sens.jpeg`, `env2.jpeg`
-
-## 🔧 Configuration
-
-### Environment Variables
-Create a `.env` file for local development:
-
-```env
-VITE_API_URL=http://localhost:5000
-VITE_SITE_NAME=Johnbabs Environmental Services
-```
-
-### Vite Configuration
-The `vite.config.ts` is configured for GitHub Pages deployment with the base path `/johnbabs-environmental-services/`.
-
-## 📱 Pages
-
-- **Home** - Company overview and hero section
-- **About** - Company history and mission
-- **Services** - Environmental consultancy, restoration, impact assessment
-- **Projects** - Portfolio of completed projects
-- **Management** - Team member profiles
-- **Contact** - Contact information and form
-- **Admin** - Content management panel (password protected)
-
-## 🔒 Admin Panel
-
-Access the admin panel at `/admin` with these credentials:
-- **Username**: admin
-- **Password**: admin123
-
-**Features:**
-- Upload and manage company logo
-- Add/edit team members
-- Manage projects portfolio
-- Upload and organize images
-- Update company information
-
-## 🚀 Performance
-
-- **Lighthouse Score**: 95+ across all metrics
-- **Bundle Size**: Optimized with Vite
-- **Images**: Compressed and optimized
-- **Caching**: Static assets cached for 1 year
-- **CDN**: GitHub Pages CDN for global delivery
+- **Company Information**: Update in `src/pages/About.tsx`
+- **Contact Details**: Update in `src/pages/Contact.tsx`
+- **Programs**: Update in `src/pages/Programs.tsx`
+- **Events**: Update in `src/pages/Events.tsx`
 
 ## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
@@ -193,20 +190,12 @@ Access the admin panel at `/admin` with these credentials:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📞 Support
+## 📞 Contact
 
-For support and questions:
-- **Email**: [your-email@example.com]
-- **Phone**: [your-phone-number]
-- **Website**: [your-website-url]
-
-## 🙏 Acknowledgments
-
-- Built with [React](https://reactjs.org/)
-- Styled with [Tailwind CSS](https://tailwindcss.com/)
-- Deployed on [GitHub Pages](https://pages.github.com/)
-- Icons from [Lucide React](https://lucide.dev/)
+- **Website**: [https://yourusername.github.io/children4worldchildren/](https://yourusername.github.io/children4worldchildren/)
+- **Email**: info@children4worldchildren.org
+- **Phone**: +353 1 234 5678
 
 ---
 
-**Johnbabs Environmental Services** - Protecting our environment, one project at a time. 🌍
+**Children 4 World Children** - Empowering Kids And Changing Lives. 🌍

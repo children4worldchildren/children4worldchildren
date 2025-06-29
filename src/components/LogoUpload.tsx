@@ -111,7 +111,7 @@ const LogoUpload: React.FC<LogoUploadProps> = ({ showUpload = false, textColor =
                   handleLogoUpload(e.target.files[0]);
                 }
               }}
-              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100"
+              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
             />
             {error && (
               <div className="mt-2 text-sm text-red-600 bg-red-50 border border-red-200 rounded px-2 py-1">
@@ -150,8 +150,7 @@ const LogoUpload: React.FC<LogoUploadProps> = ({ showUpload = false, textColor =
         )}
       </div>
       <div className="min-w-32 sm:min-w-48">
-        <span className={`text-lg sm:text-2xl font-bold ${textColor === 'light' ? 'text-white' : 'text-gray-900'}`}>Johnbabs</span>
-        <div className={`text-xs sm:text-sm font-medium ${textColor === 'light' ? 'text-emerald-300' : 'text-emerald-600'}`}>Environmental & Engineering</div>
+        <span className={`text-lg sm:text-2xl font-bold ${textColor === 'light' ? 'text-white' : 'text-gray-900'}`}>Children 4 World Children</span>
       </div>
     </div>
   );

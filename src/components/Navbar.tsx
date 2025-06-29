@@ -14,13 +14,11 @@ const Navbar = () => {
   const navigation = [
     { name: 'Home', href: '/' },
     { name: 'About Us', href: '/about' },
-    { name: 'Services', href: '/services' },
-    { name: 'Management', href: '/management' },
-    // { name: 'Compliance', href: '/compliance' },
-    { name: 'Projects', href: '/projects' },
+    { name: 'Programs', href: '/programs' },
+    { name: 'Events', href: '/events' },
+    { name: 'Impact', href: '/impact' },
+    { name: 'Volunteer', href: '/volunteer' },
     { name: 'Contact', href: '/contact' },
-    // { name: 'Policies', href: '/policies' },
-    // { name: 'Careers', href: '/careers' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -37,40 +35,28 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-8">
-              {navigation.map((item) => (
+            <div className="hidden md:flex items-center space-x-3">
+              {navigation.slice(0, -1).map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                  className={`px-2 py-2 text-sm font-medium transition-colors duration-200 ${
                     isActive(item.href)
-                      ? 'text-emerald-600 border-b-2 border-emerald-600'
-                      : 'text-gray-700 hover:text-emerald-600 hover:border-b-2 hover:border-emerald-300'
+                      ? 'text-purple-600 border-b-2 border-purple-600'
+                      : 'text-gray-700 hover:text-purple-600 hover:border-b-2 hover:border-purple-300'
                   }`}
                 >
                   {item.name}
                 </Link>
               ))}
               
-              {/* Admin/Login Section */}
-              <div className="flex items-center space-x-4 ml-4">
-                {/* {isAuthenticated ? (
-                  <Link
-                    to="/admin"
-                    className="inline-flex items-center px-3 py-2 text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors"
-                  >
-                    <Settings className="h-4 w-4 mr-2" />
-                    Admin
-                  </Link>
-                ) : (
-                  <button
-                    onClick={() => setShowLoginModal(true)}
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors"
-                  >
-                    Login
-                  </button>
-                )} */}
-              </div>
+              {/* Donate Button */}
+              <Link
+                to="/donate"
+                className="px-3 py-2 text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors duration-200"
+              >
+                Donate
+              </Link>
             </div>
 
             {/* Mobile menu button */}
@@ -92,7 +78,7 @@ const Navbar = () => {
               )} */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-gray-700 hover:text-emerald-600 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
+                className="text-gray-700 hover:text-purple-600 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
                 aria-label="Toggle menu"
               >
                 {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -105,20 +91,29 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden bg-white border-t border-gray-200">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {navigation.map((item) => (
+              {navigation.slice(0, -1).map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
                   className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
                     isActive(item.href)
-                      ? 'text-emerald-600 bg-emerald-50'
-                      : 'text-gray-700 hover:text-emerald-600 hover:bg-emerald-50'
+                      ? 'text-purple-600 bg-purple-50'
+                      : 'text-gray-700 hover:text-purple-600 hover:bg-purple-50'
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
+              
+              {/* Donate Button for Mobile */}
+              <Link
+                to="/donate"
+                className="block mx-3 mt-4 px-4 py-2 text-base font-medium text-white bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors duration-200 text-center"
+                onClick={() => setIsOpen(false)}
+              >
+                Donate
+              </Link>
             </div>
           </div>
         )}

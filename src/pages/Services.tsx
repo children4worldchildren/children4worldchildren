@@ -22,24 +22,28 @@ const Services = () => {
 
   useEffect(() => {
     // Load saved images from localStorage
-    const savedImages = localStorage.getItem('johnbabs_images');
+    const savedImages = localStorage.getItem('charity_images');
     if (savedImages) {
       const images = JSON.parse(savedImages);
-      setServiceImages(prev => ({
-        ...prev,
-        ...images
-      }));
+      if (images.services) {
+        setServiceImages(prev => ({
+          ...prev,
+          ...images.services
+        }));
+      }
     }
     
     // Listen for admin panel saves
     const handleAdminSave = () => {
-      const savedImages = localStorage.getItem('johnbabs_images');
+      const savedImages = localStorage.getItem('charity_images');
       if (savedImages) {
         const images = JSON.parse(savedImages);
-        setServiceImages(prev => ({
-          ...prev,
-          ...images
-        }));
+        if (images.services) {
+          setServiceImages(prev => ({
+            ...prev,
+            ...images.services
+          }));
+        }
       }
     };
     

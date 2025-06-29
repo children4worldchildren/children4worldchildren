@@ -32,28 +32,28 @@ interface WebsiteData {
 }
 
 const defaultCompanyInfo: CompanyInfo = {
-  name: 'Johnbabs Environmental and Engineering Services Ltd',
-  tagline: 'Environmental Excellence, Engineering Solutions',
-  mission: 'To provide innovative, sustainable, and cost-effective environmental and engineering solutions that protect natural resources, ensure regulatory compliance, and support sustainable development across Nigeria and West Africa.',
-  vision: 'To be the leading environmental and engineering consultancy firm in Nigeria, recognized for our technical excellence, innovative solutions, and unwavering commitment to environmental stewardship and sustainable development.',
-  description: 'Leading environmental consultancy and engineering services provider in Nigeria, committed to sustainable development and environmental protection.',
-  foundedYear: '2008',
+  name: 'Children 4 World Children',
+  tagline: 'Empowering Kids And Changing Lives',
+  mission: 'To create positive change in children\'s lives through education, healthcare, and community support programs that empower them to build a brighter future.',
+  vision: 'A world where every child has access to education, healthcare, and the opportunity to reach their full potential.',
+  description: 'Children 4 World Children is a leading charitable organization dedicated to creating positive change in children\'s lives worldwide. We focus on comprehensive programs that address the root causes of child poverty and create lasting positive change.',
+  foundedYear: '2021',
   employees: '50+'
 };
 
 const defaultContactInfo: ContactInfo = {
   headOffice: {
-    address: '123 Environmental Way, Victoria Island, Lagos, Nigeria',
-    phone: '+234 (0) 123 456 7890',
-    email: 'lagos@johnbabs.com'
+    address: '123 Charity Lane, Dublin 1, Ireland',
+    phone: '+353 1 234 5678',
+    email: 'info@children4worldchildren.org'
   },
   annexOffice: {
-    address: '456 Federal Way, Central Business District, Abuja, Nigeria',
-    phone: '+234 (0) 987 654 3210',
-    email: 'abuja@johnbabs.com'
+    address: '456 Hope Street, Cork, Ireland',
+    phone: '+353 21 987 6543',
+    email: 'cork@children4worldchildren.org'
   },
-  generalEmail: 'info@johnbabs.com',
-  generalPhone: '+234 (0) 123 456 7890'
+  generalEmail: 'info@children4worldchildren.org',
+  generalPhone: '+353 1 234 5678'
 };
 
 const WebsiteDataContext = createContext<{
@@ -75,38 +75,71 @@ interface WebsiteDataProviderProps {
 }
 
 export const WebsiteDataProvider: React.FC<WebsiteDataProviderProps> = ({ children }) => {
-  const [data, setData] = useState<WebsiteData>(() => {
-    // Load data from localStorage on initialization
-    const savedCompanyInfo = localStorage.getItem('johnbabs_company_info');
-    const savedContactInfo = localStorage.getItem('johnbabs_contact_info');
-    const savedImages = localStorage.getItem('johnbabs_images');
-    
-    return {
-      companyInfo: savedCompanyInfo ? JSON.parse(savedCompanyInfo) : defaultCompanyInfo,
-      contactInfo: savedContactInfo ? JSON.parse(savedContactInfo) : defaultContactInfo,
-      images: savedImages ? JSON.parse(savedImages) : {}
-    };
+  const [companyInfo, setCompanyInfo] = useState<CompanyInfo>({
+    name: 'Children 4 World Children',
+    tagline: 'Empowering Kids And Changing Lives',
+    mission: 'To create positive change in children\'s lives through education, healthcare, and community support programs that empower them to build a brighter future.',
+    vision: 'A world where every child has access to education, healthcare, and the opportunity to reach their full potential.',
+    description: 'Children 4 World Children is a leading charitable organization dedicated to creating positive change in children\'s lives worldwide. We focus on comprehensive programs that address the root causes of child poverty and create lasting positive change.',
+    foundedYear: '2021',
+    employees: '50+',
   });
 
-  const updateData = (newData: Partial<WebsiteData>) => {
-    setData(prev => ({ ...prev, ...newData }));
+  const [contactInfo, setContactInfo] = useState<ContactInfo>({
+    headOffice: {
+      address: '123 Charity Lane, Dublin 1, Ireland',
+      phone: '+353 1 234 5678',
+      email: 'info@children4worldchildren.org'
+    },
+    annexOffice: {
+      address: '456 Hope Street, Cork, Ireland',
+      phone: '+353 21 987 6543',
+      email: 'cork@children4worldchildren.org'
+    },
+    generalEmail: 'info@children4worldchildren.org',
+    generalPhone: '+353 1 234 5678',
+  });
+
+  const [images, setImages] = useState<Images>({
+    hero: `${import.meta.env.BASE_URL}children-4-world-children.png`,
+    about: `${import.meta.env.BASE_URL}children-4-world-children.png`,
+    logo: `${import.meta.env.BASE_URL}logo.png`,
+  });
+
+  useEffect(() => {
+    // Load saved data from localStorage
+    const savedCompanyInfo = localStorage.getItem('charity_company_info');
+    const savedContactInfo = localStorage.getItem('charity_contact_info');
+    const savedImages = localStorage.getItem('charity_images');
+
+    if (savedCompanyInfo) {
+      setCompanyInfo(JSON.parse(savedCompanyInfo));
+    }
+    if (savedContactInfo) {
+      setContactInfo(JSON.parse(savedContactInfo));
+    }
+    if (savedImages) {
+      setImages(JSON.parse(savedImages));
+    }
+  }, []);
+
+  const updateData = (data: { companyInfo?: CompanyInfo; contactInfo?: ContactInfo; images?: Images }) => {
+    if (data.companyInfo) {
+      setCompanyInfo(data.companyInfo);
+      localStorage.setItem('charity_company_info', JSON.stringify(data.companyInfo));
+    }
+    if (data.contactInfo) {
+      setContactInfo(data.contactInfo);
+      localStorage.setItem('charity_contact_info', JSON.stringify(data.contactInfo));
+    }
+    if (data.images) {
+      setImages(data.images);
+      localStorage.setItem('charity_images', JSON.stringify(data.images));
+    }
   };
 
-  // Save to localStorage whenever data changes
-  useEffect(() => {
-    localStorage.setItem('johnbabs_company_info', JSON.stringify(data.companyInfo));
-  }, [data.companyInfo]);
-
-  useEffect(() => {
-    localStorage.setItem('johnbabs_contact_info', JSON.stringify(data.contactInfo));
-  }, [data.contactInfo]);
-
-  useEffect(() => {
-    localStorage.setItem('johnbabs_images', JSON.stringify(data.images));
-  }, [data.images]);
-
   return (
-    <WebsiteDataContext.Provider value={{ data, updateData }}>
+    <WebsiteDataContext.Provider value={{ data: { companyInfo, contactInfo, images }, updateData }}>
       {children}
     </WebsiteDataContext.Provider>
   );

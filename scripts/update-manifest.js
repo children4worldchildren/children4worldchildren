@@ -11,7 +11,7 @@ const manifestPath = path.join(__dirname, '../public/site.webmanifest');
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 
 // Update paths for production (GitHub Pages)
-const repoName = 'johnbabs-environmental-services';
+const repoName = 'children4worldchildren';
 const basePath = `/${repoName}`;
 
 // Update icon paths

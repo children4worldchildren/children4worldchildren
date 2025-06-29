@@ -8,11 +8,11 @@ const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 // Revert paths for development
 manifest.icons.forEach(icon => {
   // Remove the repository name prefix if it exists
-  icon.src = icon.src.replace('/johnbabs-environmental-services/', '');
+  icon.src = icon.src.replace('/children4worldchildren/', '');
 });
 
 // Revert start URL
-manifest.start_url = manifest.start_url.replace('/johnbabs-environmental-services/', '/');
+manifest.start_url = manifest.start_url.replace('/children4worldchildren/', '/');
 
 // Write back to file
 fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));

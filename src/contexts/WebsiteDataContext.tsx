@@ -39,7 +39,7 @@ interface WebsiteData {
 
 const defaultCompanyInfo: CompanyInfo = {
   name: 'Children 4 World Children',
-  tagline: 'Empowering Kids And Changing Lives',
+  tagline: 'Empowering Young People And Changing Lives',
   mission: 'To create positive change in children\'s lives through education, healthcare, and community support programs that empower them to build a brighter future.',
   vision: 'A world where every child has access to education, healthcare, and the opportunity to reach their full potential.',
   description: 'Children 4 World Children is a leading charitable organization dedicated to creating positive change in children\'s lives worldwide. We focus on comprehensive programs that address the root causes of child poverty and create lasting positive change.',
@@ -87,7 +87,7 @@ interface WebsiteDataProviderProps {
 export const WebsiteDataProvider: React.FC<WebsiteDataProviderProps> = ({ children }) => {
   const [companyInfo, setCompanyInfo] = useState<CompanyInfo>({
     name: 'Children 4 World Children',
-    tagline: 'Empowering Kids And Changing Lives',
+    tagline: 'Empowering Young People And Changing Lives',
     mission: 'To create positive change in children\'s lives through education, healthcare, and community support programs that empower them to build a brighter future.',
     vision: 'A world where every child has access to education, healthcare, and the opportunity to reach their full potential.',
     description: 'Children 4 World Children is a leading charitable organization dedicated to creating positive change in children\'s lives worldwide. We focus on comprehensive programs that address the root causes of child poverty and create lasting positive change.',

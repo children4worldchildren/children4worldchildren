@@ -30,7 +30,7 @@ interface ContactInfo {
 const About = () => {
   const [companyInfo, setCompanyInfo] = useState<CompanyInfo>({
     name: 'Children 4 World Children International',
-    tagline: 'Empowering Kids And Changing Lives',
+    tagline: 'Empowering Young People And Changing Lives',
     mission: 'To empower marginalized and underrepresented youth aged 12–24 years through peer-to-peer support networks, fostering leadership, empathy, and a shared sense of responsibility.',
     vision: 'A world where every young person and their families can thrive through peer support and Empathy in Action.',
     description: 'Children 4 World Children (C4WC) International is a global initiative founded in Ireland in 2012 by Christabel Flourish Ategie, a 12-year-old visionary determined to make a difference.',

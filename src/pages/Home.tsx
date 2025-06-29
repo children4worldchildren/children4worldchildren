@@ -73,7 +73,7 @@ const Home = () => {
       <HeroBackground>
         <div className="text-center">
           <h1 className="heading-hero">
-            <span className="block">Empowering Kids And</span>
+            <span className="block">Empowering Young People And</span>
             <span className="block">Changing Lives</span>
           </h1>
           <p className="text-hero">
@@ -151,7 +151,7 @@ const Home = () => {
               Events
             </h2>
             <p className="text-section">
-              At C4WC, we're about making a difference. Our mission is simple: to help kids thrive.
+              At C4WC, we're about making a difference. Our mission is simple: to help young people thrive.
             </p>
           </div>
 

@@ -318,7 +318,7 @@ const Home = () => {
                 </div>
               </div>
               <h3 className="text-xl font-semibold text-gray-800">
-                Masego Kwenamore
+                Christabel Flourish Ategie
               </h3>
             </div>
 

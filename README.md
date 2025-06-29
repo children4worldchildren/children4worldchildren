@@ -4,7 +4,7 @@ A modern, responsive website for Children 4 World Children, showcasing charitabl
 
 ## 🌐 Live Demo
 
-**Website:** [https://yourusername.github.io/children4worldchildren/](https://yourusername.github.io/children4worldchildren/)
+**Website:** [https://ikenna-brendan.github.io/children4worldchildren/](https://ikenna-brendan.github.io/children4worldchildren/)
 
 ## 📋 Table of Contents
 
@@ -45,7 +45,7 @@ A modern, responsive website for Children 4 World Children, showcasing charitabl
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/children4worldchildren.git
+   git clone https://github.com/Ikenna-Brendan/children4worldchildren.git
    cd children4worldchildren
    ```
 
@@ -87,7 +87,7 @@ Create a `.env` file in the root directory:
 ```env
 VITE_SITE_NAME=Children 4 World Children
 VITE_SITE_DESCRIPTION=A modern charity website for Children 4 World Children
-VITE_SITE_URL=https://yourusername.github.io/children4worldchildren/
+VITE_SITE_URL=https://ikenna-brendan.github.io/children4worldchildren/
 ```
 
 ## 🚀 Deployment
@@ -102,7 +102,7 @@ VITE_SITE_URL=https://yourusername.github.io/children4worldchildren/
 
 4. **Set source** to GitHub Actions
 
-5. **Your site will be live** at: `https://yourusername.github.io/children4worldchildren/`
+5. **Your site will be live** at: `https://ikenna-brendan.github.io/children4worldchildren/`
 
 ### Manual Deployment
 
@@ -120,31 +120,38 @@ npm run build
 children4worldchildren/
 ├── public/
 │   ├── images/
-│   ├── favicon.ico
-│   └── index.html
-├── src/
-│   ├── components/
-│   │   ├── Navbar.tsx
-│   │   ├── Footer.tsx
-│   │   ├── HeroBackground.tsx
-│   │   └── ...
-│   ├── pages/
-│   │   ├── Home.tsx
-│   │   ├── About.tsx
-│   │   ├── Programs.tsx
-│   │   ├── Events.tsx
-│   │   ├── Donate.tsx
-│   │   ├── Volunteer.tsx
-│   │   ├── Impact.tsx
-│   │   └── Contact.tsx
-│   ├── contexts/
-│   ├── services/
-│   ├── App.tsx
-│   └── main.tsx
-├── package.json
-├── tailwind.config.js
-├── vite.config.ts
-└── README.md
+│   │   ├── favicon.ico
+│   │   └── index.html
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Navbar.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   ├── HeroBackground.tsx
+│   │   │   └── ...
+│   │   │   
+│   │   ├── pages/
+│   │   │   ├── Home.tsx
+│   │   │   ├── About.tsx
+│   │   │   ├── Programs.tsx
+│   │   │   ├── Events.tsx
+│   │   │   ├── Donate.tsx
+│   │   │   ├── Volunteer.tsx
+│   │   │   ├── Impact.tsx
+│   │   │   └── Contact.tsx
+│   │   │   
+│   │   ├── contexts/
+│   │   │   
+│   │   ├── services/
+│   │   │   
+│   │   ├── App.tsx
+│   │   │   
+│   │   └── main.tsx
+│   │   
+│   ├── package.json
+│   │   
+│   ├── tailwind.config.js
+│   │   
+│   └── README.md
 ```
 
 ## 🎨 Customization
@@ -188,11 +195,11 @@ module.exports = {
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is proprietary and confidential.
 
 ## 📞 Contact
 
-- **Website**: [https://yourusername.github.io/children4worldchildren/](https://yourusername.github.io/children4worldchildren/)
+- **Website**: [https://ikenna-brendan.github.io/children4worldchildren/](https://ikenna-brendan.github.io/children4worldchildren/)
 - **Email**: info@children4worldchildren.org
 - **Phone**: +353 1 234 5678
 

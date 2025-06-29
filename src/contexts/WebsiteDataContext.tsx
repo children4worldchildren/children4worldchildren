@@ -25,10 +25,16 @@ interface ContactInfo {
   generalPhone: string;
 }
 
+interface Images {
+  hero: string;
+  about: string;
+  logo: string;
+}
+
 interface WebsiteData {
   companyInfo: CompanyInfo;
   contactInfo: ContactInfo;
-  images: {[key: string]: string};
+  images: Images;
 }
 
 const defaultCompanyInfo: CompanyInfo = {
@@ -63,7 +69,11 @@ const WebsiteDataContext = createContext<{
   data: {
     companyInfo: defaultCompanyInfo,
     contactInfo: defaultContactInfo,
-    images: {}
+    images: {
+      hero: `${import.meta.env.BASE_URL}children-4-world-children.png`,
+      about: `${import.meta.env.BASE_URL}children-4-world-children.png`,
+      logo: `${import.meta.env.BASE_URL}children-4-world-children.png`,
+    }
   },
   updateData: () => {}
 });
@@ -103,7 +113,7 @@ export const WebsiteDataProvider: React.FC<WebsiteDataProviderProps> = ({ childr
   const [images, setImages] = useState<Images>({
     hero: `${import.meta.env.BASE_URL}children-4-world-children.png`,
     about: `${import.meta.env.BASE_URL}children-4-world-children.png`,
-    logo: `${import.meta.env.BASE_URL}logo.png`,
+    logo: `${import.meta.env.BASE_URL}children-4-world-children.png`,
   });
 
   useEffect(() => {

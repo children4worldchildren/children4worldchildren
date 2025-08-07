@@ -22,16 +22,16 @@ const Footer = () => {
   const [contactInfo, setContactInfo] = useState<ContactInfo>({
     headOffice: {
       address: 'Carmichael Centre\n4 North Brunswick Street\nDublin 7, Co.Dublin\nD07 RHA8',
-      phone: '+353 89 611 7303',
-      email: 'c4wcorg@gmail.com'
+      phone: '+353 89 967 8931',
+      email: 'hello@children4worldchildren.com'
     },
     annexOffice: {
-      address: '456 Hope Street, Cork, Ireland',
-      phone: '+353 21 987 6543',
-      email: 'cork@children4worldchildren.org'
+      address: 'Nigeria',
+      phone: '+353 89 967 8931',
+      email: 'hello@children4worldchildren.com'
     },
-    generalEmail: 'c4wcorg@gmail.com',
-    generalPhone: '+353 89 611 7303'
+    generalEmail: 'hello@children4worldchildren.com',
+    generalPhone: '+353 89 967 8931'
   });
 
   useEffect(() => {

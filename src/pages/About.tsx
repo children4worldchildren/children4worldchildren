@@ -41,16 +41,16 @@ const About = () => {
   const [contactInfo, setContactInfo] = useState<ContactInfo>({
     headOffice: {
       address: 'Carmichael Centre\n4 North Brunswick Street\nDublin 7, Co.Dublin\nD07 RHA8',
-      phone: '+353 89 611 7303',
-      email: 'c4wcorg@gmail.com'
+      phone: '+353 89 967 8931',
+      email: 'hello@children4worldchildren.com'
     },
     annexOffice: {
-      address: '456 Hope Street, Cork, Ireland',
-      phone: '+353 21 987 6543',
-      email: 'cork@children4worldchildren.org'
+      address: 'Nigeria',
+      phone: '+353 89 967 8931',
+      email: 'hello@children4worldchildren.com'
     },
-    generalEmail: 'info@children4worldchildren.org',
-    generalPhone: '+353 1 234 5678',
+    generalEmail: 'hello@children4worldchildren.com',
+    generalPhone: '+353 89 967 8931',
   });
 
   const [aboutImage, setAboutImage] = useState(`${import.meta.env.BASE_URL}children-4-world-children.png`);

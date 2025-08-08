@@ -31,8 +31,8 @@ const About = () => {
   const [companyInfo, setCompanyInfo] = useState<CompanyInfo>({
     name: 'Children 4 World Children International',
     tagline: 'Empowering Young People And Changing Lives',
-    mission: 'To empower marginalized and underrepresented youth aged 12–24 years through peer-to-peer support networks, fostering leadership, empathy, and a shared sense of responsibility.',
-    vision: 'A world where every young person and their families can thrive through peer support and Empathy in Action.',
+    mission: 'To empower marginalized and underrepresented youth and parents through peer-to-peer support networks, fostering leadership, empathy, and a strong sense of community responsibility.',
+    vision: 'A world where every young person and family is empowered, valued, and equipped to build a brighter future.',
     description: 'Children 4 World Children (C4WC) International is a global initiative founded in Ireland in 2012 by Christabel Flourish Ategie, a 12-year-old visionary determined to make a difference.',
     foundedYear: '2012',
     employees: 'Volunteer-based',
@@ -134,8 +134,8 @@ const About = () => {
       id: 2,
       title: "Our Legacy",
       icon: Building2,
-      objective: "To empower parents from diverse ethnic backgrounds to support their children through peer learning and active participation in social and educational activities.",
-      strategy: "Provide language skills and community engagement tools for newly arrived migrants and displaced families.",
+      objective: "To empower young people and parents from diverse ethnic backgrounds through peer-to-peer learning, training, and active participation in skills acquisition, social events, and educational activities.",
+      strategy: "To provide language skills and community engagement tools for newly arrived migrants and displaced families, enabling them to integrate, thrive, and contribute meaningfully to society.",
       initiatives: [
         {
           name: "C4WC Excel English Class",
@@ -213,18 +213,15 @@ const About = () => {
               <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Story</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  Children 4 World Children (C4WC) International is a global initiative founded in Ireland in 2012 by 
-                  <strong className="text-purple-600"> Christabel Flourish Ategie</strong>, a 12-year-old visionary determined to make a difference. 
-                  Our organization empowers marginalized and underrepresented youth aged 12–24 years through peer-to-peer support networks.
+                  <strong>Children 4 World Children (C4WC) International</strong> was founded in Ireland in 2012 by 
+                  <strong className="text-purple-600"> Christabel Flourish Ategie</strong>, a 12-year-old visionary with a passion for change.
                 </p>
                 <p>
-                  We foster leadership, empathy, and a shared sense of responsibility to help young people reach their full potential. 
-                  Guided by the belief that <em>"It takes a whole village to raise a child,"</em> we design programs tailored to the unique needs 
-                  and talents of young people, uplifting individuals and strengthening communities.
+                We empower marginalized youth and families through peer-to-peer support, leadership development, and community programs.
                 </p>
                 <p>
-                  Currently operating in Ireland and Nigeria, C4WC aligns its work with the United Nations Sustainable Development Goals, 
-                  striving to create a brighter, more equitable future for all.
+                Operating in Ireland and Nigeria, <strong>C4WC aligns its work with the United Nations Sustainable
+Development Goals</strong>, striving to build stronger communities and create a brighter, more equitable future for all.
                 </p>
               </div>
             </div>

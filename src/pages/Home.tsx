@@ -38,10 +38,10 @@ const Home = () => {
   }, [componentStartTime]);
 
   const stats = [
-    { number: '50,000+', label: 'Children Helped' },
-    { number: '25', label: 'Countries Reached' },
-    { number: '500+', label: 'Volunteers' },
-    { number: '€2.5M+', label: 'Funds Raised' },
+    { number: '15,000+', label: 'Young People Helped' },
+    { number: '10', label: 'Countries Reached' },
+    { number: '90+', label: 'Volunteers' },
+    { number: '€100k+', label: 'Funds Raised' },
   ];
 
   const features = [
@@ -73,11 +73,12 @@ const Home = () => {
       <HeroBackground>
         <div className="text-center">
           <h1 className="heading-hero">
-            <span className="block">Empowering Young People And</span>
-            <span className="block">Changing Lives</span>
+            <span className="block">Empowering Young Lives,</span>
+            <span className="block">Strengthening Families</span>
           </h1>
           <p className="text-hero">
-            Dedicated to creating positive change in children's lives through education, healthcare, and community support programs that empower them to build a brighter future.
+          Dedicated to creating a platform for integrating, reintegrating, and empowering people from diverse
+          ethnic groups through peer-to-peer learning.
           </p>
         </div>
       </HeroBackground>
@@ -122,11 +123,11 @@ const Home = () => {
                 <h2 className="heading-about">
                   About Us
                 </h2>
-                <p className="text-subtitle">
-                  Empowering children worldwide through education, healthcare, and hope
+                <p className="text-subtitle text-justify">
+                Empowering young people and parents worldwide through holistic skills acquisition, education, healthcare, and hope.
                 </p>
-                <p className="text-body">
-                  Children 4 World Children is dedicated to creating positive change in the lives of children across the globe. Through our comprehensive programs, we provide education, healthcare, and essential resources to children in need, ensuring they have the opportunity to thrive and reach their full potential.
+                <p className="text-body text-justify">
+                <strong>Children 4 World Children (C4WC) International</strong> is dedicated to creating lasting change in the lives of young people across the globe. Through our holistic programs, we deliver practical skills, quality education, healthcare, and vital resources to marginalized youth and parents—empowering them to thrive and reach their full potential.
                 </p>
                 <div className="pt-2">
                   <Link to="/about" className="btn-secondary">
@@ -148,10 +149,11 @@ const Home = () => {
           {/* Section Header */}
           <div className="text-center mb-12">
             <h2 className="heading-section">
-              Events
+            Events – Building Stronger Futures Together
             </h2>
             <p className="text-section">
-              At C4WC, we're about making a difference. Our mission is simple: to help young people thrive.
+            At <strong>C4WC</strong>, we empower young people through programs and community events, connecting
+            youth and parents with vital service providers to help them thrive.
             </p>
           </div>
 
@@ -163,13 +165,17 @@ const Home = () => {
               <div className="lg:w-1/2 lg:pr-8">
                 <div className="space-content">
                   <h3 className="heading-event-date">
-                    20 APRIL, 2024
+                    
                   </h3>
                   <h4 className="heading-event-title">
-                    Excel English Class
+                    Excel English Class (EEC)
                   </h4>
-                  <p className="text-body">
-                    Teaching and supporting community life integration
+                  <p className="text-body text-justify">
+                  The Excel English Class is a free program that helps non-English-speaking migrants gain
+essential language skills for daily life. Focused on empowering parents, the class promotes
+better parenting, community integration, and access to opportunities. Since 2009, it has
+grown into a vibrant conversational club serving diverse families and is part of C4WC’s
+wider mission to foster inclusion and empowerment.
                   </p>
                   <div className="pt-2">
                     <Link to="/events" className="btn-secondary">
@@ -207,13 +213,13 @@ const Home = () => {
               <div className="lg:w-1/2 lg:pl-8">
                 <div className="space-content">
                   <h3 className="heading-event-date">
-                    5 SEPTEMBER, 2024
+                    
                   </h3>
                   <h4 className="heading-event-title">
-                    Sporting Activities
+                  Sports Across the World
                   </h4>
-                  <p className="text-body">
-                    Games and exercises to keep fit.
+                  <p className="text-body text-justify">
+                  Our <strong>Sports across the World</strong> initiative connects people of diverse nationalities and cultural backgrounds through traditional childhood games and modern sports. By reviving these games, we engage young people, celebrate cultural heritage, and promote unity within the community.
                   </p>
                   <div className="pt-2">
                     <Link to="/events" className="btn-secondary">
@@ -256,7 +262,7 @@ const Home = () => {
               Our Impact in Numbers
             </h2>
             <p className="text-lg text-white opacity-90 max-w-2xl mx-auto leading-relaxed">
-              See the real difference we're making in children's lives through our programs and initiatives.
+              See the real difference we're making in young people's lives through our programs and initiatives.
             </p>
           </div>
           

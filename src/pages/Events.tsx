@@ -269,7 +269,7 @@ const Events = () => {
                   )}
                   
                   <button className="w-full px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors duration-200">
-                    {event.target > 0 ? 'Donate & Register' : 'Register Now'}
+                    Register Now
                   </button>
                 </div>
               </div>
@@ -288,9 +288,6 @@ const Events = () => {
             You can still make a difference! Consider making a donation or volunteering your time in other ways.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200">
-              Make a Donation
-            </button>
             <button className="px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-purple-600 transition-colors duration-200">
               Volunteer Opportunities
             </button>

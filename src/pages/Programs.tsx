@@ -209,9 +209,6 @@ const Programs = () => {
             Your support helps us continue our vital work. Whether through donations, volunteering, or spreading awareness, every contribution matters.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200">
-              Donate Now
-            </button>
             <button className="px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-purple-600 transition-colors duration-200">
               Volunteer With Us
             </button>

@@ -1,63 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { MapPin, Phone, Mail, Clock, Send, Building, Users } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
-import apiService from '../services/api';
+import { useState, useEffect } from 'react';
+import { MapPin, Phone, Mail, Building, Clock } from 'lucide-react';
+import Map from '../components/Map';
 import HeroBackground from '../components/HeroBackground';
+import { offices } from '../data/offices';
+import { defaultContactInfo } from '../data/contactInfo';
 
-interface ContactInfo {
-  headOffice: {
-    address: string;
-    phone: string;
-    email: string;
-  };
-  annexOffice: {
-    address: string;
-    phone: string;
-    email: string;
-  };
-  generalEmail: string;
-  generalPhone: string;
-}
+type FormData = {
+  name: string;
+  email: string;
+  phone: string;
+  organization: string;
+  program: string;
+  message: string;
+};
 
 const Contact = () => {
-  const navigate = useNavigate();
-  const [contactInfo, setContactInfo] = useState<ContactInfo>({
-    headOffice: {
-      address: '123 Charity Lane, Dublin 1, Ireland',
-      phone: '+353 1 234 5678',
-      email: 'info@children4worldchildren.org'
-    },
-    annexOffice: {
-      address: '456 Hope Street, Cork, Ireland',
-      phone: '+353 21 987 6543',
-      email: 'cork@children4worldchildren.org'
-    },
-    generalEmail: 'info@children4worldchildren.org',
-    generalPhone: '+353 1 234 5678'
-  });
-
-  useEffect(() => {
-    // Load saved contact info from localStorage
-    const savedContactInfo = localStorage.getItem('charity_contact_info');
-    if (savedContactInfo) {
-      setContactInfo(JSON.parse(savedContactInfo));
-    }
-  }, []);
-
-  useEffect(() => {
-    // Listen for admin panel saves
-    const handleAdminSave = () => {
-      const savedContactInfo = localStorage.getItem('charity_contact_info');
-      if (savedContactInfo) {
-        setContactInfo(JSON.parse(savedContactInfo));
-      }
-    };
-    
-    window.addEventListener('adminPanelSaved', handleAdminSave);
-    return () => window.removeEventListener('adminPanelSaved', handleAdminSave);
-  }, []);
-
-  const [formData, setFormData] = useState({
+  const [contactInfo, setContactInfo] = useState(defaultContactInfo);
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     phone: '',
@@ -67,73 +26,68 @@ const Contact = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target as { name: keyof FormData; value: string };
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitError(null);
-    setSubmitSuccess(false);
-    
+    setSubmitError('');
+
     try {
-      // Try to submit to backend first
-      await apiService.submitContact(formData);
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // In a real app, you would send the form data to your backend here
+      console.log('Form submitted:', formData);
+      
+      // Show success message
       setSubmitSuccess(true);
+      // Reset form
       setFormData({
-        name: '', email: '', phone: '', organization: '', program: '', message: ''
+        name: '',
+        email: '',
+        phone: '',
+        organization: '',
+        program: '',
+        message: ''
       });
-    } catch (error: any) {
-      // If backend is not available, show temporary success message
-      if (error.message.includes('fetch') || error.message.includes('Failed to fetch')) {
-        console.log('Backend not available, showing temporary success message');
-        setSubmitSuccess(true);
-        setFormData({
-          name: '', email: '', phone: '', organization: '', program: '', message: ''
-        });
-        // Store form data locally for later processing
-        const submissions = JSON.parse(localStorage.getItem('contact_submissions') || '[]');
-        submissions.push({
-          ...formData,
-          timestamp: new Date().toISOString(),
-          status: 'pending'
-        });
-        localStorage.setItem('contact_submissions', JSON.stringify(submissions));
-      } else {
-        setSubmitError(error.message || 'There was an error submitting your message. Please try again later.');
-      }
+    } catch (error) {
+      setSubmitError('An error occurred while submitting the form. Please try again.');
+      console.error('Form submission error:', error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const offices = [
-    {
-      name: 'Main Office',
-      city: 'Community Center',
-      address: contactInfo.headOffice.address,
-      phone: contactInfo.headOffice.phone,
-      email: contactInfo.headOffice.email,
-      hours: 'Mon-Fri: 9:00 AM - 5:00 PM',
-      image: 'https://images.pexels.com/photos/3621104/pexels-photo-3621104.jpeg?auto=compress&cs=tinysrgb&w=800'
-    },
-    {
-      name: 'Branch Office',
-      city: 'Downtown',
-      address: contactInfo.annexOffice.address,
-      phone: contactInfo.annexOffice.phone,
-      email: contactInfo.annexOffice.email,
-      hours: 'Mon-Fri: 9:00 AM - 5:00 PM',
-      image: 'https://images.pexels.com/photos/3862132/pexels-photo-3862132.jpeg?auto=compress&cs=tinysrgb&w=800'
+  useEffect(() => {
+    // Load saved contact info from localStorage
+    const savedContactInfo = localStorage.getItem('charity_contact_info');
+    if (savedContactInfo) {
+      setContactInfo(JSON.parse(savedContactInfo));
     }
-  ];
+
+    // Listen for admin panel saves
+    const handleAdminSave = () => {
+      const updatedInfo = localStorage.getItem('charity_contact_info');
+      if (updatedInfo) {
+        setContactInfo(JSON.parse(updatedInfo));
+      }
+    };
+    
+    window.addEventListener('adminPanelSaved', handleAdminSave);
+    return () => {
+      window.removeEventListener('adminPanelSaved', handleAdminSave);
+    };
+  }, []);
 
   return (
     <div className="pt-16">
@@ -191,8 +145,8 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Locations</h3>
-                      <p className="text-purple-100">Main Community Center</p>
-                      <p className="text-purple-100">Downtown Branch</p>
+                      <p className="text-purple-100">Main Office: Dublin</p>
+                      <p className="text-purple-100">Branch: Nigeria</p>
                     </div>
                   </div>
                   
@@ -227,7 +181,7 @@ const Contact = () => {
                         required
                         value={formData.name}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
                         placeholder="Your full name"
                       />
                     </div>
@@ -242,13 +196,10 @@ const Contact = () => {
                         required
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
                         placeholder="your.email@example.com"
                       />
                     </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
                         Phone Number
@@ -259,13 +210,16 @@ const Contact = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
-                        placeholder="+234 xxx xxx xxxx"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                        placeholder="+353 85 123-4567"
                       />
                     </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="organization" className="block text-sm font-medium text-gray-700 mb-2">
-                        Organization
+                        Organization (Optional)
                       </label>
                       <input
                         type="text"
@@ -274,80 +228,76 @@ const Contact = () => {
                         value={formData.organization}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
-                        placeholder="Your organization name"
+                        placeholder="Your organization"
                       />
+                    </div>
+                    <div>
+                      <label htmlFor="program" className="block text-sm font-medium text-gray-700 mb-2">
+                        Program of Interest
+                      </label>
+                      <select
+                        id="program"
+                        name="program"
+                        value={formData.program}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                      >
+                        <option value="">Select a program</option>
+                        <option value="education">Education Programs</option>
+                        <option value="healthcare">Healthcare Initiatives</option>
+                        <option value="community">Community Development</option>
+                        <option value="other">Other</option>
+                      </select>
                     </div>
                   </div>
 
-                  <div>
-                    <label htmlFor="program" className="block text-sm font-medium text-gray-700 mb-2">
-                      Program Interest
-                    </label>
-                    <select
-                      id="program"
-                      name="program"
-                      value={formData.program}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
-                    >
-                      <option value="">Select a program</option>
-                      <option value="community-outreach">Community Outreach</option>
-                      <option value="education-support">Education Support</option>
-                      <option value="healthcare-initiatives">Healthcare Initiatives</option>
-                      <option value="environmental-projects">Environmental Projects</option>
-                      <option value="emergency-relief">Emergency Relief</option>
-                      <option value="volunteer-programs">Volunteer Programs</option>
-                      <option value="donation">Donation</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-
-                  <div>
+                  <div className="mt-6">
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                      Message *
+                      Your Message *
                     </label>
                     <textarea
                       id="message"
                       name="message"
+                      rows={4}
                       required
-                      rows={6}
                       value={formData.message}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors resize-none"
-                      placeholder="Tell us about your charitable interests, how you'd like to get involved, or any questions you have..."
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                      placeholder="How can we help you?"
                     ></textarea>
                   </div>
 
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        Send Message
-                        <Send className="ml-2 h-5 w-5" />
-                      </>
+                  <div className="mt-8">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Sending...
+                        </>
+                      ) : (
+                        'Send Message'
+                      )}
+                    </button>
+                    
+                    {submitSuccess && (
+                      <div className="mt-4 p-4 bg-green-50 text-green-700 rounded-lg">
+                        Thank you for your message! We'll get back to you soon.
+                      </div>
                     )}
-                  </button>
-                  {submitSuccess && (
-                    <div className="mt-4 p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
-                      <p className="text-emerald-700 text-sm font-medium mb-2">Thank you! Your message has been received.</p>
-                      <p className="text-emerald-600 text-sm">
-                        We will get back to you soon. For immediate assistance, please call us at {contactInfo.generalPhone} or email us at {contactInfo.generalEmail}.
-                      </p>
-                    </div>
-                  )}
-                  {submitError && (
-                    <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-                      <p className="text-red-600 text-sm">{submitError}</p>
-                    </div>
-                  )}
+                    
+                    {submitError && (
+                      <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-lg">
+                        {submitError}
+                      </div>
+                    )}
+                  </div>
                 </form>
               </div>
             </div>
@@ -367,17 +317,31 @@ const Contact = () => {
               and discuss how you can get involved in our charitable programs.
             </p>
           </div>
+          
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {offices.map((office, index) => (
               <div
                 key={index}
                 className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
               >
-                <img
-                  className="w-full h-48 object-cover"
-                  src={office.image}
-                  alt={`${office.name} - ${office.city}`}
-                />
+                <div className="h-48 bg-gray-100 relative">
+                  <img 
+                    src={office.image} 
+                    alt={`${office.name} in ${office.city}`}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = '/images/placeholder-office.jpg';
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  <div className="absolute bottom-4 left-4">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-600 text-white">
+                      <MapPin className="h-4 w-4 mr-1" />
+                      {office.city}
+                    </span>
+                  </div>
+                </div>
                 <div className="p-8">
                   <div className="flex items-center mb-4">
                     <Building className="h-6 w-6 text-purple-600 mr-3" />
@@ -386,7 +350,9 @@ const Contact = () => {
                   <div className="space-y-4">
                     <div className="flex items-start">
                       <MapPin className="h-5 w-5 text-purple-600 mr-3 mt-0.5 flex-shrink-0" />
-                      <p className="text-gray-600">{office.address}</p>
+                      <p className="text-gray-600 whitespace-pre-line">
+                        {office.address}
+                      </p>
                     </div>
                     <div className="flex items-center">
                       <Phone className="h-5 w-5 text-purple-600 mr-3 flex-shrink-0" />
@@ -406,10 +372,15 @@ const Contact = () => {
                     </div>
                   </div>
                   <div className="mt-6 pt-6 border-t border-gray-200">
-                    <button className="inline-flex items-center text-purple-600 hover:text-purple-700 font-medium transition-colors duration-200">
+                    <a 
+                      href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(office.address)}`}
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-purple-600 hover:text-purple-700 font-medium transition-colors duration-200"
+                    >
                       Get Directions
                       <MapPin className="ml-2 h-4 w-4" />
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -421,7 +392,7 @@ const Contact = () => {
       {/* Map Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               Find Us on the Map
             </h2>
@@ -429,14 +400,15 @@ const Contact = () => {
               Our strategic locations allow us to serve communities effectively across the region.
             </p>
           </div>
-          <div className="bg-gray-200 rounded-xl h-96 flex items-center justify-center">
-            <div className="text-center">
-              <MapPin className="h-16 w-16 text-purple-600 mx-auto mb-4" />
-              <p className="text-gray-600 text-lg">Interactive map will be embedded here</p>
-              <p className="text-gray-500 text-sm mt-2">
-                Google Maps integration showing both community center locations
-              </p>
-            </div>
+          <div className="rounded-xl overflow-hidden shadow-lg h-[500px] [&_.gm-style-iw-d]:!overflow-visible [&_.gm-style-iw-c]:!p-0 [&_.gm-style-iw-tc]:!hidden">
+            <Map 
+              center={{ lat: 20.0, lng: 10.0 }} // Centered between Dublin and Nigeria
+              zoom={3}
+              markers={offices.map(office => ({
+                position: office.coordinates,
+                title: `${office.name} - ${office.city}`
+              }))}
+            />
           </div>
         </div>
       </section>

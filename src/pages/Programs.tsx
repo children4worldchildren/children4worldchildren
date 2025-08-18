@@ -1,6 +1,6 @@
-import React from 'react';
 import HeroBackground from '../components/HeroBackground';
 import { Heart, Users, BookOpen, Globe, Shield, Star } from 'lucide-react';
+import { getStatsByLabels } from '../data/stats';
 
 const Programs = () => {
   const programs = [
@@ -72,12 +72,12 @@ const Programs = () => {
     }
   ];
 
-  const impactStats = [
-    { number: "50,000+", label: "Children Helped" },
-    { number: "25", label: "Countries Reached" },
-    { number: "100+", label: "Community Projects" },
-    { number: "95%", label: "Success Rate" }
-  ];
+  const impactStats = getStatsByLabels([
+    'Young People & Families Empowered',
+    'Countries Reached',
+    'Community Projects',
+    'Success Rate'
+  ]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -97,7 +97,7 @@ const Programs = () => {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {impactStats.map((stat, index) => (
+            {impactStats.map((stat, index: number) => (
               <div key={index} className="text-center">
                 <div className="text-3xl md:text-4xl font-bold text-purple-600 mb-2">
                   {stat.number}

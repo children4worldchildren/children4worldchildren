@@ -2,37 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import LogoUpload from './LogoUpload';
-
-interface ContactInfo {
-  headOffice: {
-    address: string;
-    phone: string;
-    email: string;
-  };
-  annexOffice: {
-    address: string;
-    phone: string;
-    email: string;
-  };
-  generalEmail: string;
-  generalPhone: string;
-}
+import { defaultContactInfo } from '../data/contactInfo';
+import type { ContactInfo } from '../data/contactInfo';
 
 const Footer = () => {
-  const [contactInfo, setContactInfo] = useState<ContactInfo>({
-    headOffice: {
-      address: 'Carmichael Centre\n4 North Brunswick Street\nDublin 7, Co.Dublin\nD07 RHA8',
-      phone: '+353 89 967 8931',
-      email: 'hello@children4worldchildren.com'
-    },
-    annexOffice: {
-      address: 'Nigeria',
-      phone: '+353 89 967 8931',
-      email: 'hello@children4worldchildren.com'
-    },
-    generalEmail: 'hello@children4worldchildren.com',
-    generalPhone: '+353 89 967 8931'
-  });
+  const [contactInfo, setContactInfo] = useState<ContactInfo>(defaultContactInfo);
 
   useEffect(() => {
     // Load contact info from localStorage
@@ -40,6 +14,19 @@ const Footer = () => {
     if (savedContactInfo) {
       setContactInfo(JSON.parse(savedContactInfo));
     }
+    
+    // Listen for admin panel saves
+    const handleAdminSave = () => {
+      const updatedInfo = localStorage.getItem('charity_contact_info');
+      if (updatedInfo) {
+        setContactInfo(JSON.parse(updatedInfo));
+      }
+    };
+    
+    window.addEventListener('adminPanelSaved', handleAdminSave);
+    return () => {
+      window.removeEventListener('adminPanelSaved', handleAdminSave);
+    };
   }, []);
 
   return (

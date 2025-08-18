@@ -83,18 +83,6 @@ const Home = () => {
         </div>
       </HeroBackground>
 
-      {/* Donate Button Section */}
-      <section className="section-standard">
-        <div className="container-standard">
-          <div className="text-center">
-            <Link to="/donate" className="btn-primary">
-              Donate Now
-              <ArrowRight className="icon-arrow" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* About Us Preview Section */}
       <section className="section-gray">
         <div className="container-compact">

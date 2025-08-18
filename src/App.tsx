@@ -11,7 +11,7 @@ const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Programs = lazy(() => import('./pages/Programs'));
 const Events = lazy(() => import('./pages/Events'));
-const Donate = lazy(() => import('./pages/Donate'));
+// const Donate = lazy(() => import('./pages/Donate'));
 const Volunteer = lazy(() => import('./pages/Volunteer'));
 const Impact = lazy(() => import('./pages/Impact'));
 const Management = lazy(() => import('./pages/Management'));
@@ -47,11 +47,13 @@ function App() {
               <Events />
             </LazyRoute>
           } />
+          {/* Temporarily disabled Donate page
           <Route path="/donate" element={
             <LazyRoute>
               <Donate />
             </LazyRoute>
           } />
+          */}
           <Route path="/volunteer" element={
             <LazyRoute>
               <Volunteer />

@@ -1,0 +1,78 @@
+export interface StatItem {
+  number: string;
+  label: string;
+  description?: string; // Optional description for more detailed views
+}
+
+export const stats: StatItem[] = [
+  // Core Stats - Used across multiple pages
+  { 
+    number: '15,000+', 
+    label: 'Young People & Families Empowered',
+    description: 'Individuals and families who have directly benefited from our programs and initiatives.'
+  },
+  { 
+    number: '10', 
+    label: 'Countries Reached',
+    description: 'Nations where we have active programs and partnerships.'
+  },
+  { 
+    number: '250', 
+    label: 'Dedicated Volunteers',
+    description: 'Committed individuals contributing their time and skills to our cause.'
+  },
+  { 
+    number: '€25,000+', 
+    label: 'Funds Raised',
+    description: 'Financial resources mobilized to support our initiatives and programs.'
+  },
+  { 
+    number: '100+', 
+    label: 'Community Projects',
+    description: 'Successful initiatives completed in communities around the world.'
+  },
+  { 
+    number: '95%', 
+    label: 'Success Rate',
+    description: 'Of our programs meet or exceed their intended impact goals.'
+  },
+  
+  // Volunteer-specific Stats
+  {
+    number: '25,000+',
+    label: 'Hours Contributed',
+    description: 'Total volunteer hours contributed to our cause'
+  },
+  {
+    number: '95%',
+    label: 'Satisfaction Rate',
+    description: 'Volunteer satisfaction rate with their experience'
+  },
+
+  // Donation Allocation Stats
+  {
+    number: '85%',
+    label: 'Program Allocation',
+    description: 'Goes directly to programs and services'
+  },
+  {
+    number: '10%',
+    label: 'Administrative Costs',
+    description: 'Covers essential administrative and operational expenses'
+  },
+  {
+    number: '5%',
+    label: 'Fundraising Costs',
+    description: 'Supports our fundraising efforts to reach more donors'
+  }
+];
+
+// Helper function to get a specific stat by label
+export function getStatByLabel(label: string): StatItem | undefined {
+  return stats.find(stat => stat.label === label);
+}
+
+// Helper function to get multiple stats by labels
+export function getStatsByLabels(labels: string[]): StatItem[] {
+  return stats.filter(stat => labels.includes(stat.label));
+}

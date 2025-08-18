@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import HeroBackground from '../components/HeroBackground';
 import ContactForm from '../components/ContactForm';
-import { Users, Heart, MapPin, Clock, Star, Mail, Phone, Calendar } from 'lucide-react';
+import { MapPin, Clock, Mail, Users, Heart, Star } from 'lucide-react';
+import { getStatsByLabels } from '../data/stats';
 
 const Volunteer = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -148,12 +149,12 @@ const Volunteer = () => {
     ? opportunities 
     : opportunities.filter(opp => opp.category === selectedCategory);
 
-  const volunteerStats = [
-    { number: "500+", label: "Active Volunteers" },
-    { number: "25,000+", label: "Hours Contributed" },
-    { number: "15", label: "Countries Served" },
-    { number: "95%", label: "Satisfaction Rate" }
-  ];
+  const volunteerStats = getStatsByLabels([
+    'Dedicated Volunteers',
+    'Hours Contributed',
+    'Countries Reached',
+    'Satisfaction Rate'
+  ]);
 
   return (
     <div className="min-h-screen bg-gray-50">

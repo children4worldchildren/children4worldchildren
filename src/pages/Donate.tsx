@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import HeroBackground from '../components/HeroBackground';
-import { Heart, Shield, Users, BookOpen, Globe, Star, CreditCard, Banknote, Smartphone } from 'lucide-react';
+import { CreditCard, Banknote, Smartphone, BookOpen, Heart, Globe, Users, Star, Shield } from 'lucide-react';
+import { getStatsByLabels, StatItem } from '../data/stats';
 
 const Donate = () => {
   const [donationAmount, setDonationAmount] = useState('');
@@ -54,11 +55,11 @@ const Donate = () => {
     { id: 'mobile', name: 'Mobile Payment', icon: Smartphone }
   ];
 
-  const transparencyStats = [
-    { number: "85%", label: "Goes Directly to Programs", description: "85% of every donation directly funds our programs and services" },
-    { number: "10%", label: "Administrative Costs", description: "10% covers essential administrative and operational expenses" },
-    { number: "5%", label: "Fundraising Costs", description: "5% supports our fundraising efforts to reach more donors" }
-  ];
+  const transparencyStats = getStatsByLabels([
+    'Program Allocation',
+    'Administrative Costs',
+    'Fundraising Costs'
+  ]);
 
   const handleDonation = (e: React.FormEvent) => {
     e.preventDefault();
@@ -232,7 +233,7 @@ const Donate = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {transparencyStats.map((stat, index) => (
+            {transparencyStats.map((stat: StatItem, index: number) => (
               <div key={index} className="text-center">
                 <div className="text-4xl font-bold text-purple-600 mb-2">{stat.number}</div>
                 <div className="text-xl font-semibold text-gray-900 mb-2">{stat.label}</div>

@@ -4,6 +4,7 @@ import { ArrowRight, Shield, Users, Award, Target, CheckCircle } from 'lucide-re
 import HeroBackground from '../components/HeroBackground';
 import OptimizedImage from '../components/OptimizedImage';
 import { trackComponentRender, trackImageLoad } from '../utils/performance';
+import { stats, type StatItem } from '../data/stats';
 
 const Home = () => {
   const [heroImage, setHeroImage] = useState(`${import.meta.env.BASE_URL}env1.jpeg`);
@@ -36,13 +37,6 @@ const Home = () => {
     window.addEventListener('adminPanelSaved', handleAdminSave);
     return () => window.removeEventListener('adminPanelSaved', handleAdminSave);
   }, [componentStartTime]);
-
-  const stats = [
-    { number: '15,000+', label: 'Young People & Families Empowered' },
-    { number: '10', label: 'Countries Reached' },
-    { number: '250', label: 'Dedicated Volunteers' },
-    { number: '€25,000+', label: 'Funds Raised' },
-  ];
 
   const features = [
     {
@@ -249,19 +243,18 @@ wider mission to foster inclusion and empowerment.
       <section className="section-purple">
         <div className="container-standard">
           <div className="text-center mb-12">
-            <h2 className="heading-section text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
               Our Impact in Numbers
             </h2>
-            <p className="text-lg text-white opacity-90 max-w-2xl mx-auto leading-relaxed">
-              See the real difference we're making in young people's lives through our programs and initiatives.
+            <p className="text-white max-w-3xl mx-auto">
+              See the real difference we're making in young people's lives and families through our programs and initiatives.
             </p>
           </div>
-          
-          <div className="grid-stats">
-            {stats.map((stat, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {stats.slice(0, 4).map((stat: StatItem, index: number) => (
               <div key={index} className="text-center">
-                <div className="text-stats-number">{stat.number}</div>
-                <div className="text-stats-label">{stat.label}</div>
+                <p className="text-4xl font-bold mb-2 text-white">{stat.number}</p>
+                <p className="text-purple-100">{stat.label}</p>
               </div>
             ))}
           </div>

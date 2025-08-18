@@ -1,16 +1,16 @@
-import React from 'react';
 import HeroBackground from '../components/HeroBackground';
-import { Heart, Users, BookOpen, Globe, Shield, Star, TrendingUp, Award } from 'lucide-react';
+import { Heart, Users, BookOpen, Globe, Award } from 'lucide-react';
+import { getStatsByLabels } from '../data/stats';
 
 const Impact = () => {
-  const impactStats = [
-    { number: "50,000+", label: "Children Helped", description: "Direct beneficiaries of our programs worldwide" },
-    { number: "25", label: "Countries Reached", description: "Active programs across multiple continents" },
-    { number: "100+", label: "Community Projects", description: "Sustainable development initiatives completed" },
-    { number: "95%", label: "Success Rate", description: "Programs achieving their intended outcomes" },
-    { number: "€2.5M", label: "Funds Raised", description: "Total funds raised and distributed to programs" },
-    { number: "500+", label: "Active Volunteers", description: "Dedicated volunteers supporting our mission" }
-  ];
+  const impactStats = getStatsByLabels([
+    'Young People & Families Empowered',
+    'Countries Reached',
+    'Community Projects',
+    'Success Rate',
+    'Funds Raised',
+    'Dedicated Volunteers'
+  ]);
 
   const successStories = [
     {

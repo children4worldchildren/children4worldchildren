@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Target, Eye, Award, Heart, Users, Globe, Star, BookOpen, Shield, Users2, Leaf, Building2 } from 'lucide-react';
 import HeroBackground from '../components/HeroBackground';
+import { defaultContactInfo } from '../data/contactInfo';
+import type { ContactInfo } from '../data/contactInfo';
 
 interface CompanyInfo {
   name: string;
@@ -10,21 +12,6 @@ interface CompanyInfo {
   description: string;
   foundedYear: string;
   employees: string;
-}
-
-interface ContactInfo {
-  headOffice: {
-    address: string;
-    phone: string;
-    email: string;
-  };
-  annexOffice: {
-    address: string;
-    phone: string;
-    email: string;
-  };
-  generalEmail: string;
-  generalPhone: string;
 }
 
 const About = () => {
@@ -38,20 +25,7 @@ const About = () => {
     employees: 'Volunteer-based',
   });
 
-  const [contactInfo, setContactInfo] = useState<ContactInfo>({
-    headOffice: {
-      address: 'Carmichael Centre\n4 North Brunswick Street\nDublin 7, Co.Dublin\nD07 RHA8',
-      phone: '+353 89 967 8931',
-      email: 'hello@children4worldchildren.com'
-    },
-    annexOffice: {
-      address: 'Nigeria',
-      phone: '+353 89 967 8931',
-      email: 'hello@children4worldchildren.com'
-    },
-    generalEmail: 'hello@children4worldchildren.com',
-    generalPhone: '+353 89 967 8931',
-  });
+  const [contactInfo, setContactInfo] = useState<ContactInfo>(defaultContactInfo);
 
   const [aboutImage, setAboutImage] = useState(`${import.meta.env.BASE_URL}children-4-world-children.png`);
 

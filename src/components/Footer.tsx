@@ -26,7 +26,7 @@ const Footer = () => {
       email: 'hello@children4worldchildren.com'
     },
     annexOffice: {
-      address: 'Nigeria',
+      address: 'Children 4 World Childrens Place,\n Nigeria',
       phone: '+353 89 967 8931',
       email: 'hello@children4worldchildren.com'
     },

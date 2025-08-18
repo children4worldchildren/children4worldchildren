@@ -38,10 +38,10 @@ const Home = () => {
   }, [componentStartTime]);
 
   const stats = [
-    { number: '15,000+', label: 'Young People Helped' },
+    { number: '15,000+', label: 'Young People & Families Empowered' },
     { number: '10', label: 'Countries Reached' },
-    { number: '90+', label: 'Volunteers' },
-    { number: '€100k+', label: 'Funds Raised' },
+    { number: '250', label: 'Dedicated Volunteers' },
+    { number: '€25,000+', label: 'Funds Raised' },
   ];
 
   const features = [
@@ -86,6 +86,15 @@ const Home = () => {
       {/* About Us Preview Section */}
       <section className="section-gray">
         <div className="container-compact">
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <h2 className="heading-section">
+            About Us
+            </h2>
+            <p className="text-subtitle">
+                Empowering young people and parents worldwide through holistic skills acquisition, education, healthcare, and hope.
+                </p>
+          </div>
           <div className="flex-responsive">
             {/* Image */}
             <div className="lg:w-1/2">
@@ -108,12 +117,6 @@ const Home = () => {
             {/* Text Content */}
             <div className="lg:w-1/2 lg:pl-8">
               <div className="space-content">
-                <h2 className="heading-about">
-                  About Us
-                </h2>
-                <p className="text-subtitle text-justify">
-                Empowering young people and parents worldwide through holistic skills acquisition, education, healthcare, and hope.
-                </p>
                 <p className="text-body text-justify">
                 <strong>Children 4 World Children (C4WC) International</strong> is dedicated to creating lasting change in the lives of young people across the globe. Through our holistic programs, we deliver practical skills, quality education, healthcare, and vital resources to marginalized youth and parents—empowering them to thrive and reach their full potential.
                 </p>
@@ -307,25 +310,33 @@ wider mission to foster inclusion and empowerment.
             {/* Volunteer 1 */}
             <div className="text-center">
               <div className="mb-4">
-                <div className="w-32 h-32 rounded-full bg-gray-200 mx-auto shadow-lg flex items-center justify-center">
-                  <span className="text-gray-500 text-sm">Image</span>
-                </div>
+                <img
+                  src={`${import.meta.env.BASE_URL}cfa.jpg`}
+                  alt="Christabel Flourish Ategie"
+                  className="w-32 h-32 rounded-full object-cover mx-auto shadow-lg"
+                  onLoad={() => trackImageLoad('volunteer-christabel')}
+                />
               </div>
               <h3 className="text-xl font-semibold text-gray-800">
                 Christabel Flourish Ategie
               </h3>
+              <p className="text-gray-600">Program Director</p>
             </div>
 
             {/* Volunteer 2 */}
             <div className="text-center">
               <div className="mb-4">
-                <div className="w-32 h-32 rounded-full bg-gray-200 mx-auto shadow-lg flex items-center justify-center">
-                  <span className="text-gray-500 text-sm">Image</span>
-                </div>
+                <img
+                  src={`${import.meta.env.BASE_URL}wea.jpg`}
+                  alt="Wunmi Excel Ategie"
+                  className="w-32 h-32 rounded-full object-cover mx-auto shadow-lg"
+                  onLoad={() => trackImageLoad('volunteer-wunmi')}
+                />
               </div>
               <h3 className="text-xl font-semibold text-gray-800">
                 Wunmi Excel Ategie
               </h3>
+              <p className="text-gray-600">Community Engagement</p>
             </div>
 
             {/* Volunteer 3 */}
@@ -335,11 +346,13 @@ wider mission to foster inclusion and empowerment.
                   src={`${import.meta.env.BASE_URL}cto.jpg`}
                   alt="Ikenna Brendan Iwuoha"
                   className="w-32 h-32 rounded-full object-cover mx-auto shadow-lg"
+                  onLoad={() => trackImageLoad('volunteer-ikenna')}
                 />
               </div>
               <h3 className="text-xl font-semibold text-gray-800">
                 Ikenna Brendan Iwuoha
               </h3>
+              <p className="text-gray-600">Technical Lead</p>
             </div>
           </div>
         </div>

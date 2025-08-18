@@ -10,7 +10,34 @@ The donate functionality has been temporarily disabled across the application. A
 
 1. **Navigation Bar**
    - File: `src/components/Navbar.tsx`
-   - Changes: Removed the Donate button from the navigation menu
+   - Changes: 
+     - Removed the Donate button from the desktop navigation menu
+     - Removed the Donate button from the mobile menu
+     - Ensured all navigation items (including Contact) are properly displayed in the mobile menu
+     - Code changes for mobile menu:
+       ```tsx
+       {/* Mobile Menu */}
+       {isOpen && (
+         <div className="md:hidden bg-white border-t border-gray-200">
+           <div className="px-2 pt-2 pb-3 space-y-1">
+             {navigation.map((item) => (
+               <Link
+                 key={item.name}
+                 to={item.href}
+                 className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
+                   isActive(item.href)
+                     ? 'text-purple-600 bg-purple-50'
+                     : 'text-gray-700 hover:text-purple-600 hover:bg-purple-50'
+                 }`}
+                 onClick={() => setIsOpen(false)}
+               >
+                 {item.name}
+               </Link>
+             ))}
+           </div>
+         </div>
+       )}
+       ```
 
 2. **Routing**
    - File: `src/App.tsx`

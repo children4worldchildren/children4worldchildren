@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import LogoUpload from './LogoUpload';
@@ -83,7 +83,7 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden bg-white border-t border-gray-200">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {navigation.slice(0, -1).map((item) => (
+              {navigation.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
@@ -97,15 +97,6 @@ const Navbar = () => {
                   {item.name}
                 </Link>
               ))}
-              
-              {/* Donate Button for Mobile */}
-              <Link
-                to="/donate"
-                className="block mx-3 mt-4 px-4 py-2 text-base font-medium text-white bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors duration-200 text-center"
-                onClick={() => setIsOpen(false)}
-              >
-                Donate
-              </Link>
             </div>
           </div>
         )}

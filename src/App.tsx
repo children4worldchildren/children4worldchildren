@@ -1,8 +1,9 @@
-import React, { Suspense, lazy } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import EventNotice from './components/EventNotice';
 import './index.css';
 
 // Lazy load all pages for better performance
@@ -24,14 +25,23 @@ const LoadingFallback = () => (
   </div>
 );
 
-function App() {
+// Component to handle showing event notice only on the home page
+const AppContent = () => {
+  const location = useLocation();
+  const [showEventNotice, setShowEventNotice] = useState(false);
+
+  useEffect(() => {
+    // Only show on home page
+    setShowEventNotice(location.pathname === '/');
+  }, [location]);
+
   return (
-    <Router>
-      <div className="App">
-        <ScrollToTop />
-        <Navbar />
-        <Suspense fallback={<LoadingFallback />}>
-          <Routes>
+    <>
+      <ScrollToTop />
+      <Navbar />
+      {showEventNotice && <EventNotice />}
+      <Suspense fallback={<LoadingFallback />}>
+        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/programs" element={<Programs />} />
@@ -43,8 +53,17 @@ function App() {
           <Route path="/consultation" element={<Consultation />} />
           <Route path="/quote" element={<Quote />} />
         </Routes>
-        </Suspense>
-        <Footer />
+      </Suspense>
+      <Footer />
+    </>
+  );
+};
+
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <AppContent />
       </div>
     </Router>
   );

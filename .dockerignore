@@ -1,21 +1,143 @@
-node_modules
+# Dependencies
+node_modules/
 npm-debug.log
-.git
-.gitignore
-README.md
+yarn-debug.log
+yarn-error.log
+.pnp*
+.pnp.*
+
+# Environment files
 .env
+.env.*.local
+!.env.example
+
+# Build output
+dist/
+build/
+.next/
+.nuxt/
+.output/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Debug logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*~
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Local development
+.cache/
+.temp/
+.tmp/
+
+# Misc
+.vercel
+.netlify
+*.pem
+*.p12
+*.key
+*.crt
+*.cer
+*.p7b
+*.p7c
+*.p7s
+*.pfx
+*.spc
+*.sst
+*.stl
+*.stl.old
+*.tsbuildinfo
+*.tsbuildinfo.local
+*.tsbuildinfo.test
+
+# Lock files (handled by package managers)
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+
+# Local development tools
+.bolt/
+.bolt/state.json
+.bolt/install-state.json
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variable files
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-.nyc_output
-coverage
-.DS_Store
-*.log
-dist
-build
-.vscode
-.idea
-*.swp
-*.swo
-*~ 
+
+# parcel-bundler cache (https://parceljs.org/)
+.parcel-cache/
+
+# Next.js build output
+.next/
+out/
+
+# Nuxt.js build / generate output
+.nuxt/
+dist/
+
+# Gatsby files
+.cache/
+public
+
+# vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test/
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# Vercel
+.vercel

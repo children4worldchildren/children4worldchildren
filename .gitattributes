@@ -1,0 +1,61 @@
+# Auto detect text files and perform LF normalization
+* text=auto eol=lf
+
+# Force LF line endings for specific file types
+*.{cmd,[cC][mM][dD]} text eol=crlf
+*.{bat,[bB][aA][tT]} text eol=crlf
+
+# Binary files that should not be modified
+*.{png,jpg,jpeg,gif,ico,webp,avif,woff,woff2,eot,ttf,otf,svg} binary
+*.{pdf,zip,rar,7z,tar,gz,bz2,xz} binary
+*.{exe,dll,so,dylib} binary
+
+# Source code files
+*.{js,jsx,ts,tsx,json,md,html,css,scss,less,yml,yaml,xml} text eol=lf
+
+# Shell scripts
+*.sh text eol=lf
+
+# Editor specific files (should be ignored in .gitignore)
+.vscode/* text eol=lf
+.idea/* text eol=lf
+
+# Lock files (should not be modified by different OSes)
+package-lock.json text eol=lf
+yarn.lock text eol=lf
+pnpm-lock.yaml text eol=lf
+
+# Docker files
+Dockerfile* text eol=lf
+docker-compose*.{yml,yaml} text eol=lf
+
+# Git files (should not be modified)
+.gitattributes text eol=lf
+.gitignore text eol=lf
+.gitmodules text eol=lf
+
+# Documentation files
+*.md text eol=lf
+*.markdown text eol=lf
+*.txt text eol=lf
+
+# Configuration files
+*.{json,yaml,yml,toml,ini} text eol=lf
+*.{eslint,prettier,stylelint}rc* text eol=lf
+*.babelrc* text eol=lf
+*.{browserslist,editorconfig} text eol=lf
+
+# Force Unix line endings for these files even on Windows
+*.sh text eol=lf
+*.bash text eol=lf
+*.zsh text eol=lf
+
+# Force Windows line endings for these files
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Prevent line ending changes in these files (treat as binary)
+*.{png,jpg,jpeg,gif,ico,webp,avif,woff,woff2,eot,ttf,otf,svg} -text
+*.{pdf,zip,rar,7z,tar,gz,bz2,xz} -text
+*.{exe,dll,so,dylib} -text

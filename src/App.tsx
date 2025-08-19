@@ -1,9 +1,8 @@
-import React, { lazy, Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import LazyRoute from './components/LazyRoute';
 import './index.css';
 
 // Lazy load all pages for better performance
@@ -11,14 +10,19 @@ const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Programs = lazy(() => import('./pages/Programs'));
 const Events = lazy(() => import('./pages/Events'));
-// const Donate = lazy(() => import('./pages/Donate'));
 const Volunteer = lazy(() => import('./pages/Volunteer'));
 const Impact = lazy(() => import('./pages/Impact'));
 const Management = lazy(() => import('./pages/Management'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Consultation = lazy(() => import('./pages/Consultation'));
 const Quote = lazy(() => import('./pages/Quote'));
-// const Admin = lazy(() => import('./pages/Admin'));
+
+// Loading component
+const LoadingFallback = () => (
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+  </div>
+);
 
 function App() {
   return (
@@ -26,70 +30,20 @@ function App() {
       <div className="App">
         <ScrollToTop />
         <Navbar />
-        <Routes>
-          <Route path="/" element={
-            <LazyRoute>
-              <Home />
-            </LazyRoute>
-          } />
-          <Route path="/about" element={
-            <LazyRoute>
-              <About />
-            </LazyRoute>
-          } />
-          <Route path="/programs" element={
-            <LazyRoute>
-              <Programs />
-            </LazyRoute>
-          } />
-          <Route path="/events" element={
-            <LazyRoute>
-              <Events />
-            </LazyRoute>
-          } />
-          {/* Temporarily disabled Donate page
-          <Route path="/donate" element={
-            <LazyRoute>
-              <Donate />
-            </LazyRoute>
-          } />
-          */}
-          <Route path="/volunteer" element={
-            <LazyRoute>
-              <Volunteer />
-            </LazyRoute>
-          } />
-          <Route path="/impact" element={
-            <LazyRoute>
-              <Impact />
-            </LazyRoute>
-          } />
-          <Route path="/management" element={
-            <LazyRoute>
-              <Management />
-            </LazyRoute>
-          } />
-          <Route path="/contact" element={
-            <LazyRoute>
-              <Contact />
-            </LazyRoute>
-          } />
-          <Route path="/consultation" element={
-            <LazyRoute>
-              <Consultation />
-            </LazyRoute>
-          } />
-          <Route path="/quote" element={
-            <LazyRoute>
-              <Quote />
-            </LazyRoute>
-          } />
-          {/* <Route path="/admin" element={
-            <LazyRoute>
-              <Admin />
-            </LazyRoute>
-          } /> */}
+        <Suspense fallback={<LoadingFallback />}>
+          <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/programs" element={<Programs />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/volunteer" element={<Volunteer />} />
+          <Route path="/impact" element={<Impact />} />
+          <Route path="/management" element={<Management />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/consultation" element={<Consultation />} />
+          <Route path="/quote" element={<Quote />} />
         </Routes>
+        </Suspense>
         <Footer />
       </div>
     </Router>

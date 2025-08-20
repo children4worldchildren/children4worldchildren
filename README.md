@@ -1,28 +1,47 @@
-# Children 4 World Children
+# 💜 Children 4 World Children
 
-> **Note**: This is a streamlined version of the documentation. For the complete documentation, please visit the [documentation directory](./docs/).
+A modern, responsive website for Children 4 World Children, showcasing charitable programs, community outreach, and volunteer initiatives.
 
 ## 🌐 Live Demo
 
 **Website:** [https://ikenna-brendan.github.io/children4worldchildren/](https://ikenna-brendan.github.io/children4worldchildren/)
 
-## 📚 Documentation
+## 📋 Table of Contents
 
-For comprehensive documentation, please refer to the following resources:
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
 
-- [Architecture Documentation](./docs/ARCHITECTURE_DOCUMENTATION.md) - Overview of the system architecture
-- [Development Documentation](./docs/DEVELOPMENT_DOCUMENTATION.md) - Setup and development guide
-- [Deployment Guide](./docs/DEPLOYMENT.md) - Instructions for deploying the application
-- [Performance Optimization](./docs/PERFORMANCE_OPTIMIZATION.md) - Performance tuning and optimization
-- [Project Documentation](./docs/PROJECT_DOCUMENTATION.md) - Detailed project information
-- [Website Requirements](./docs/WEBSITE_REQUIREMENTS.md) - Functional and non-functional requirements
-- [Donation Feature Guide](./docs/DONATE_FEATURE_GUIDE.md) - How the donation system works
-- [Performance Monitoring](./docs/PERFORMANCE_MONITORING_GUIDE.md) - Setting up and using performance monitoring
-- [GitHub Pages Setup](./docs/GITHUB_PAGES_SETUP.md) - Deploying to GitHub Pages
-- [Railway Deployment Guide](./docs/RAILWAY_DEPLOYMENT_GUIDE.md) - Deploying to Railway
-- [VSCode Setup](./docs/VSCODE-SETUP.md) - Configuring VSCode for development
+## ✨ Features
 
-## 🚀 Quick Start
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Modern UI/UX**: Clean, professional design with smooth animations
+- **Interactive Components**: Dynamic forms, modals, and user interactions
+- **SEO Optimized**: Meta tags, structured data, and performance optimized
+- **Accessibility**: WCAG compliant with proper ARIA labels
+- **Fast Loading**: Optimized images and code splitting
+- **Cross-browser Compatible**: Works on all modern browsers
+
+## 🛠️ Technologies Used
+
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: Tailwind CSS, Lucide React Icons
+- **Routing**: React Router DOM
+- **Build Tool**: Vite
+- **Deployment**: GitHub Pages
+
+## 🚀 Installation
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+
+### Setup
 
 1. **Clone the repository**
    ```bash
@@ -33,28 +52,9 @@ For comprehensive documentation, please refer to the following resources:
 2. **Install dependencies**
    ```bash
    npm install
-   # or
-   yarn install
    ```
 
-3. **Start the development server**
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
-
-## 🤝 Contributing
-
-We welcome contributions! Please read our [Contributing Guidelines](./docs/CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-**Children 4 World Children** - Empowering Kids And Changing Lives. 🌍
+3. **Start development server**
    ```bash
    npm run dev
    ```

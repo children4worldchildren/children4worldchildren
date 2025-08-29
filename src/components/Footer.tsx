@@ -32,32 +32,32 @@ const Footer = () => {
   return (
     <footer className="bg-purple-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           {/* Company Info */}
-          <div className="space-y-4">
+          <div className="md:col-span-3 space-y-4">
             <div className="text-white bg-purple-600 p-4 rounded-lg">
               <LogoUpload textColor="light" />
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
-              Dedicated to empowering children worldwide through education, healthcare, and community support programs 
-              that create lasting positive change in their lives.
+            We are youth-focused organization dedicated to unlocking the incredible potential of underrepresented 
+            and under-supported young people and their families across the globe. We are committed to motivating, inspiring, empowering, and building young lives! 
             </p>
           </div>
 
           {/* Services */}
-          <div className="space-y-4">
+          <div className="md:col-span-3 space-y-4">
             <h3 className="text-lg font-semibold text-purple-400 border-b border-purple-600 pb-2">Our Programs</h3>
-            <ul className="space-y-2 text-sm text-gray-300">
-              <li>Child Welfare Programs</li>
-              <li>Education Initiatives</li>
-              <li>Healthcare & Nutrition</li>
-              <li>Community Development</li>
-              <li>Emergency Relief</li>
+            <ul className="space-y-2">
+              {['Child Welfare Programs', 'Education Initiatives', 'Healthcare & Nutrition', 'Community Development', 'Emergency Relief'].map((program) => (
+                <li key={program} className="text-gray-500 text-sm">
+                  {program}
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Quick Links */}
-          <div className="space-y-4">
+          <div className="md:col-span-2 space-y-4">
             <h3 className="text-lg font-semibold text-purple-400 border-b border-purple-600 pb-2">Quick Links</h3>
             <ul className="space-y-2">
               {['About Us', 'Events'].map((link) => (
@@ -80,7 +80,7 @@ const Footer = () => {
           </div>
 
           {/* Contact Info */}
-          <div className="space-y-4">
+          <div className="md:col-span-4 space-y-4">
             <h3 className="text-lg font-semibold text-purple-400 border-b border-purple-600 pb-2">Contact Info</h3>
             <div className="space-y-3">
               <div className="flex items-start space-x-3">

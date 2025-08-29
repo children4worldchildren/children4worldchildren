@@ -1,5 +1,5 @@
-import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -139,9 +139,11 @@ const AppContent = () => {
 
 function App() {
   return (
-    <Router>
+    <Router basename={import.meta.env.PROD ? '/children4worldchildren' : '/'}>
       <div className="App">
-        <AppContent />
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+          <AppContent />
+        </Suspense>
       </div>
     </Router>
   );

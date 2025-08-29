@@ -1,41 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Shield, Users, Award, Target, CheckCircle } from 'lucide-react';
+import { Button } from '../components/ui/Button';
 import HeroBackground from '../components/HeroBackground';
-import OptimizedImage from '../components/OptimizedImage';
-import { trackComponentRender, trackImageLoad } from '../utils/performance';
-import { stats, type StatItem } from '../data/stats';
+import { trackComponentRender } from '../utils/performance';
+import { getStatsByLabels } from '../data/stats';
 
 const Home = () => {
-  const [heroImage, setHeroImage] = useState(`${import.meta.env.BASE_URL}env1.jpeg`);
   const componentStartTime = performance.now();
 
   useEffect(() => {
     // Track component render time
     trackComponentRender('Home', componentStartTime);
     
-    // Load saved images from localStorage
-    const savedImages = localStorage.getItem('charity_images');
-    if (savedImages) {
-      const images = JSON.parse(savedImages);
-      if (images.hero) {
-        setHeroImage(images.hero);
-      }
-    }
-    
     // Listen for admin panel saves
     const handleAdminSave = () => {
-      const savedImages = localStorage.getItem('charity_images');
-      if (savedImages) {
-        const images = JSON.parse(savedImages);
-        if (images.hero) {
-          setHeroImage(images.hero);
-        }
-      }
+      // Handle admin save event if needed
     };
     
-    window.addEventListener('adminPanelSaved', handleAdminSave);
-    return () => window.removeEventListener('adminPanelSaved', handleAdminSave);
+    window.addEventListener('adminSave', handleAdminSave);
+    
+    return () => {
+      window.removeEventListener('adminSave', handleAdminSave);
+    };
   }, [componentStartTime]);
 
   const features = [
@@ -251,7 +238,12 @@ wider mission to foster inclusion and empowerment.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.slice(0, 4).map((stat: StatItem, index: number) => (
+            {getStatsByLabels([
+              'Young People & Families Empowered',
+              'Countries Reached',
+              'Dedicated Volunteers',
+              'Funds Raised'
+            ]).map((stat, index) => (
               <div key={index} className="text-center">
                 <p className="text-4xl font-bold mb-2 text-white">{stat.number}</p>
                 <p className="text-purple-100">{stat.label}</p>
@@ -307,7 +299,7 @@ wider mission to foster inclusion and empowerment.
                   src={`${import.meta.env.BASE_URL}cfa.jpg`}
                   alt="Christabel Flourish Ategie"
                   className="w-32 h-32 rounded-full object-cover mx-auto shadow-lg"
-                  onLoad={() => trackImageLoad('volunteer-christabel')}
+                  onLoad={() => {}}
                 />
               </div>
               <h3 className="text-xl font-semibold text-gray-800">
@@ -323,7 +315,7 @@ wider mission to foster inclusion and empowerment.
                   src={`${import.meta.env.BASE_URL}wea.jpg`}
                   alt="Wunmi Excel Ategie"
                   className="w-32 h-32 rounded-full object-cover mx-auto shadow-lg"
-                  onLoad={() => trackImageLoad('volunteer-wunmi')}
+                  onLoad={() => {}}
                 />
               </div>
               <h3 className="text-xl font-semibold text-gray-800">
@@ -339,7 +331,7 @@ wider mission to foster inclusion and empowerment.
                   src={`${import.meta.env.BASE_URL}cto.jpg`}
                   alt="Ikenna Brendan Iwuoha"
                   className="w-32 h-32 rounded-full object-cover mx-auto shadow-lg"
-                  onLoad={() => trackImageLoad('volunteer-ikenna')}
+                  onLoad={() => {}}
                 />
               </div>
               <h3 className="text-xl font-semibold text-gray-800">
@@ -547,25 +539,31 @@ wider mission to foster inclusion and empowerment.
       <section className="py-20 bg-gradient-to-r from-purple-600 to-indigo-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-            Ready to Help Children?
+            Ready to Help Young People?
           </h2>
           <p className="text-xl text-purple-100 mb-8 max-w-3xl mx-auto">
             Join us in creating positive change in children's lives through your support, contributions, and involvement.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <div 
-              className="inline-flex items-center px-8 py-3 border-2 border-white text-base font-medium rounded-lg text-white bg-transparent opacity-50 cursor-not-allowed"
+          <div className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto px-4 sm:px-0">
+            <Button
+              variant="outline"
+              size="lg"
+              icon={<ArrowRight className="h-5 w-5" />}
+              disabled
               title="Coming Soon"
+              className="border-2 w-full sm:w-auto px-4 sm:px-8"
             >
               Volunteer With Us
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </div>
-            <Link
+            </Button>
+            <Button
+              as="link"
               to="/donate"
-              className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-purple-600 bg-white hover:bg-purple-50 transition-all duration-200 shadow-lg hover:shadow-xl"
+              variant="secondary"
+              size="lg"
+              className="shadow-lg hover:shadow-xl w-full sm:w-auto px-4 sm:px-8"
             >
               Make a Donation
-            </Link>
+            </Button>
           </div>
         </div>
       </section>

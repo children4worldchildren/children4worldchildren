@@ -3,6 +3,8 @@ import { Target, Eye, Award, Globe, Star, Shield, Building2 } from 'lucide-react
 import HeroBackground from '../components/HeroBackground';
 import { defaultContactInfo } from '../data/contactInfo';
 import type { ContactInfo } from '../data/contactInfo';
+import { getStatsByLabels } from '../data/stats';
+import Stats from '../components/Stats';
 
 interface CompanyInfo {
   name: string;
@@ -20,7 +22,7 @@ const About = () => {
     tagline: 'Empowering Young People And Changing Lives',
     mission: 'To empower marginalized and underrepresented youth and parents through peer-to-peer support networks, fostering leadership, empathy, and a strong sense of community responsibility.',
     vision: 'A world where every young person and family is empowered, valued, and equipped to build a brighter future.',
-    description: 'Children 4 World Children (C4WC) International is a global initiative founded in Ireland in 2012 by Christabel Flourish Ategie, a 12-year-old visionary determined to make a difference.',
+    description: 'We empower young people and parents worldwide with holistic programs, skills training, and health care that build stronger families and brighter futures.',
     foundedYear: '2012',
     employees: 'Volunteer-based',
   });
@@ -80,27 +82,23 @@ const About = () => {
       title: "Our World",
       icon: Globe,
       objective: "To alleviate poverty and prevent young people from falling into poverty traps.",
-      strategy: "Implement peer-to-peer support programs where young people mentor their peers. Apply the 'train-the-trainer' methodology for sustainable impact.",
+      strategy: "Caring from City & Church bridges communities by providing education, skills, and inclusion programs—helping families and young people break barriers and fully participate in society.",
       initiatives: [
         {
           name: "Promote Our Potentials (POP)",
-          description: "Skills acquisition masterclasses in areas like bag and accessory making, photography, beauty and makeup, arts and crafts, hair braiding, and First Aid Training."
+          description: "Skill Acquisition Programs to equip young people aged 18+ with practical skills for personal development and future employment."
         },
         {
           name: "Sports and Events",
           description: "Annual Sports Across the World promoting physical and mental well-being. Intercultural events such as Africa Day, Mediterranean Day, Fingal Inclusion Week, and Street Feast."
         },
         {
-          name: "X-Hale Project",
-          description: "In partnership with the Irish Cancer Society, educates young people about the dangers of smoking through drama, workshops, and conferences."
+          name: "Cultural Exchange Activities",
+          description: "Introducing young people to global perspectives through stories, discussions, and interactive experiences."
         },
         {
-          name: "Gaisce President's Award Collaboration",
-          description: "Encourages young people to engage in positive peer-led projects while working toward the President's Award."
-        },
-        {
-          name: "I-Care Project",
-          description: "Supports children's hospitals through fundraising, provides toys and educational materials to children in hospitals, IPA centers, and schools worldwide."
+          name: "Community Fitness & Inclusion",
+          description: "Supporting families and children to engage in local fitness clubs and inclusive activities, breaking barriers to participation and fostering social cohesion."
         }
       ]
     },
@@ -112,8 +110,12 @@ const About = () => {
       strategy: "To provide language skills and community engagement tools for newly arrived migrants and displaced families, enabling them to integrate, thrive, and contribute meaningfully to society.",
       initiatives: [
         {
-          name: "C4WC Excel English Class",
-          description: "Teaches language skills to newly arrived migrants and displaced children. Equips non-English-speaking parents with tools to actively engage in their children's education and community life."
+          name: "Excel English Class",
+          description: "Free language lessons empowering migrants, refugees, and hard-to-reach families to overcome language barriers and fully participate in community life."
+        },
+        {
+          name: "Master Class",
+          description: "Online one-to-one and small group tutoring in reading, writing, and basic mathematics for children aged 7–12, featuring interactive activities and progress tracking in collaboration with educators."
         }
       ]
     },
@@ -138,18 +140,6 @@ const About = () => {
         }
       ]
     }
-  ];
-
-  interface ImpactStat {
-    value: string;
-    label: string;
-  }
-
-  const impactStats: ImpactStat[] = [
-    { value: "500+", label: "Youth Empowered" },
-    { value: "100+", label: "Community Events" },
-    { value: "10+", label: "Partner Organizations" },
-    { value: "5+", label: "Countries Reached" }
   ];
 
   const partnerships = [
@@ -314,13 +304,16 @@ const About = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {impactStats.map((stat, index) => (
-              <div key={index} className="bg-white p-8 rounded-xl text-center shadow-sm hover:shadow-lg transition-all duration-300">
-                <div className="text-4xl font-bold text-purple-600 mb-3">{stat.value}</div>
-                <h4 className="text-lg font-semibold text-gray-800">{stat.label}</h4>
-              </div>
-            ))}
+          <div className="px-4">
+            <Stats 
+              stats={getStatsByLabels([
+                'Young People & Families Empowered',
+                'Community Projects',
+                'Partner Organizations',
+                'Countries Reached'
+              ])}
+              columns={4}
+            />
           </div>
         </div>
       </section>
@@ -356,10 +349,10 @@ const About = () => {
       {/* Our Commitment */}
       <section className="py-20 bg-purple-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="heading-section text-white">
+          <h2 className="heading-section !text-white">
             Our Commitment
           </h2>
-          <div className="max-w-4xl mx-auto space-y-6 text-purple-100">
+          <div className="max-w-4xl mx-auto space-y-6 !text-purple-50">
             <p className="text-xl leading-relaxed">
               C4WC International is dedicated to linking communities, empowering individuals, and fostering a global culture of peer support and Empathy in Action.
             </p>
@@ -407,14 +400,9 @@ const About = () => {
                   <p className="text-purple-600">christabel.ategie@children4worldchildren.com</p>
                 </div>
                 <div className="border-l-4 border-purple-600 pl-4">
-                  <h4 className="font-semibold text-gray-900">Clea Tabo</h4>
-                  <p className="text-gray-600">+353 85 170 7264</p>
-                  <p className="text-purple-600">cleatabo@hotmail.com</p>
-                </div>
-                <div className="border-l-4 border-purple-600 pl-4">
-                  <h4 className="font-semibold text-gray-900">Bisola Atoro</h4>
-                  <p className="text-gray-600">+353 85 152 7385</p>
-                  <p className="text-purple-600">bisolalateef@yahoo.com</p>
+                  <h4 className="font-semibold text-gray-900">Wunmi Excel Ategie</h4>
+                  <p className="text-gray-600">+353 89 611 7303</p>
+                  <p className="text-purple-600">Wunmi.excel@children4worldchildren.com</p>
                 </div>
               </div>
             </div>

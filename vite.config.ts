@@ -6,10 +6,14 @@ export default defineConfig(({ mode }) => {
   // Load env variables based on the current mode
   const env = loadEnv(mode, process.cwd(), '');
   
+  const base = mode === 'development' ? '/' : '/children4worldchildren/';
+  
   return {
   plugins: [react()],
-  base: '/children4worldchildren/',
+  base,
   server: {
+    // Ensure the development server serves from the correct base
+    base: base !== '/' ? base : undefined,
     port: 5173,
     host: true
   },

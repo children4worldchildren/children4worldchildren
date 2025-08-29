@@ -48,6 +48,11 @@ export const stats: StatItem[] = [
     label: 'Satisfaction Rate',
     description: 'Volunteer satisfaction rate with their experience'
   },
+  {
+    number: '10+',
+    label: 'Partner Organizations',
+    description: 'Trusted organizations we collaborate with to maximize our impact'
+  },
 
   // Donation Allocation Stats
   {

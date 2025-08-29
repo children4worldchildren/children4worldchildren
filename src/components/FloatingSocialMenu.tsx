@@ -34,7 +34,7 @@ const FloatingSocialMenu = () => {
     { 
       name: 'Facebook', 
       icon: <Facebook className="w-6 h-6" />, 
-      url: 'https://facebook.com/children4worldchildren',
+      url: 'https://facebook.com/Caring4worldchildren',
       color: 'bg-blue-600 hover:bg-blue-700'
     },
     { 

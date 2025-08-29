@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Target, Eye, Award, Heart, Users, Globe, Star, BookOpen, Shield, Users2, Leaf, Building2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Target, Eye, Award, Globe, Star, Shield, Building2 } from 'lucide-react';
 import HeroBackground from '../components/HeroBackground';
 import { defaultContactInfo } from '../data/contactInfo';
 import type { ContactInfo } from '../data/contactInfo';
@@ -140,6 +140,18 @@ const About = () => {
     }
   ];
 
+  interface ImpactStat {
+    value: string;
+    label: string;
+  }
+
+  const impactStats: ImpactStat[] = [
+    { value: "500+", label: "Youth Empowered" },
+    { value: "100+", label: "Community Events" },
+    { value: "10+", label: "Partner Organizations" },
+    { value: "5+", label: "Countries Reached" }
+  ];
+
   const partnerships = [
     {
       category: "Partners and Collaborators",
@@ -169,11 +181,11 @@ const About = () => {
     <div className="pt-16">
       {/* Header Section */}
       <HeroBackground>
-        <div className="text-center">
-          <h1 className="text-4xl lg:text-5xl font-normal text-gray-900 mb-6">
+        <div className="text-center max-w-4xl mx-auto">
+          <h1 className="hero-heading">
             About <span className="text-purple-600">{companyInfo.name}</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-700 mt-6 max-w-3xl mx-auto">
             {companyInfo.description}
           </p>
         </div>
@@ -184,18 +196,18 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Story</h2>
-              <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>
-                  <strong>Children 4 World Children (C4WC) International</strong> was founded in Ireland in 2012 by 
-                  <strong className="text-purple-600"> Christabel Flourish Ategie</strong>, a 12-year-old visionary with a passion for change.
+              <h2 className="heading-section">Our Story</h2>
+              <div className="space-y-6">
+                <p className="text-gray-700 leading-relaxed">
+                  <strong className="font-semibold">Children 4 World Children (C4WC) International</strong> was founded in Ireland in 2012 by 
+                  <span className="text-purple-600 font-semibold"> Christabel Flourish Ategie</span>, a 12-year-old visionary with a passion for change.
                 </p>
-                <p>
-                We empower marginalized youth and families through peer-to-peer support, leadership development, and community programs.
+                <p className="text-gray-700 leading-relaxed">
+                  We empower marginalized youth and families through peer-to-peer support, leadership development, and community programs.
                 </p>
-                <p>
-                Operating in Ireland and Nigeria, <strong>C4WC aligns its work with the United Nations Sustainable
-Development Goals</strong>, striving to build stronger communities and create a brighter, more equitable future for all.
+                <p className="text-gray-700 leading-relaxed">
+                  Operating in Ireland and Nigeria, <strong className="font-semibold">C4WC aligns its work with the United Nations Sustainable
+                  Development Goals</strong>, striving to build stronger communities and create a brighter, more equitable future for all.
                 </p>
               </div>
             </div>
@@ -213,27 +225,27 @@ Development Goals</strong>, striving to build stronger communities and create a 
       {/* Mission & Vision */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="bg-white p-8 rounded-xl shadow-lg">
               <div className="flex items-center mb-6">
                 <div className="flex items-center justify-center w-12 h-12 bg-purple-100 rounded-lg mr-4">
                   <Target className="h-6 w-6 text-purple-600" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900">Our Mission</h3>
+                <h3 className="heading-subsection">Our Mission</h3>
               </div>
-              <p className="text-gray-600 leading-relaxed">
-                {companyInfo.mission}
+              <p className="text-gray-700 leading-relaxed">
+                To empower young people and parents through peer-to-peer support, leadership development, and community programs that create lasting positive change.
               </p>
             </div>
             <div className="bg-white p-8 rounded-xl shadow-lg">
               <div className="flex items-center mb-6">
-                <div className="flex items-center justify-center w-12 h-12 bg-indigo-100 rounded-lg mr-4">
-                  <Eye className="h-6 w-6 text-indigo-600" />
+                <div className="flex items-center justify-center w-12 h-12 bg-purple-100 rounded-lg mr-4">
+                  <Eye className="h-6 w-6 text-purple-600" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900">Our Vision</h3>
+                <h3 className="heading-subsection">Our Vision</h3>
               </div>
-              <p className="text-gray-600 leading-relaxed">
-                {companyInfo.vision}
+              <p className="text-gray-700 leading-relaxed">
+                A world where every young person has the opportunity to reach their full potential, regardless of their background or circumstances.
               </p>
             </div>
           </div>
@@ -244,39 +256,37 @@ Development Goals</strong>, striving to build stronger communities and create a 
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Our Goals
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <h2 className="heading-section">Our Goals</h2>
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto mt-4">
               Three comprehensive goals that guide our work and create lasting impact in communities worldwide.
             </p>
           </div>
           
-          <div className="space-y-16">
+          <div className="space-y-12">
             {goals.map((goal) => {
               const Icon = goal.icon;
               return (
-                <div key={goal.id} className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl p-8">
-                  <div className="flex items-center mb-6">
+                <div key={goal.id} className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl p-8 hover:shadow-lg transition-shadow">
+                  <div className="flex items-center mb-8">
                     <div className="p-3 bg-purple-600 rounded-lg">
                       <Icon className="h-8 w-8 text-white" />
                     </div>
-                    <h3 className="text-3xl font-bold text-gray-900 ml-4">
+                    <h3 className="heading-subsection ml-4">
                       {goal.title}
                     </h3>
                   </div>
                   
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div>
-                      <h4 className="text-xl font-semibold text-gray-900 mb-3">Objective:</h4>
-                      <p className="text-gray-600 mb-4">{goal.objective}</p>
+                      <h4 className="text-xl font-semibold text-gray-800 mb-3">Objective:</h4>
+                      <p className="text-gray-700 leading-relaxed mb-6">{goal.objective}</p>
                       
-                      <h4 className="text-xl font-semibold text-gray-900 mb-3">Strategy:</h4>
-                      <p className="text-gray-600">{goal.strategy}</p>
+                      <h4 className="text-xl font-semibold text-gray-800 mb-3">Strategy:</h4>
+                      <p className="text-gray-700 leading-relaxed">{goal.strategy}</p>
                     </div>
                     
                     <div>
-                      <h4 className="text-xl font-semibold text-gray-900 mb-4">Key Initiatives:</h4>
+                      <h4 className="text-xl font-semibold text-gray-800 mb-4">Key Initiatives:</h4>
                       <div className="space-y-4">
                         {goal.initiatives.map((initiative, index) => (
                           <div key={index} className="bg-white rounded-lg p-4 shadow-sm">
@@ -294,14 +304,33 @@ Development Goals</strong>, striving to build stronger communities and create a 
         </div>
       </section>
 
-      {/* Partnerships and Support */}
+      {/* Our Impact */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Partnerships and Support
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <h2 className="heading-section">Our Impact</h2>
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto mt-4">
+              Making a difference in the lives of children and families around the world.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {impactStats.map((stat, index) => (
+              <div key={index} className="bg-white p-8 rounded-xl text-center shadow-sm hover:shadow-lg transition-all duration-300">
+                <div className="text-4xl font-bold text-purple-600 mb-3">{stat.value}</div>
+                <h4 className="text-lg font-semibold text-gray-800">{stat.label}</h4>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Partnerships and Support */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="heading-section">Partnerships and Support</h2>
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto mt-4">
               We work with a network of partners and supporters to maximize our impact and reach more communities.
             </p>
           </div>
@@ -309,7 +338,7 @@ Development Goals</strong>, striving to build stronger communities and create a 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {partnerships.map((partnership, index) => (
               <div key={index} className="bg-white rounded-xl shadow-lg p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">{partnership.category}</h3>
+                <h3 className="heading-subsection mb-6">{partnership.category}</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {partnership.organizations.map((org, orgIndex) => (
                     <div key={orgIndex} className="flex items-center p-3 bg-gray-50 rounded-lg">
@@ -327,7 +356,7 @@ Development Goals</strong>, striving to build stronger communities and create a 
       {/* Our Commitment */}
       <section className="py-20 bg-purple-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+          <h2 className="heading-section text-white">
             Our Commitment
           </h2>
           <div className="max-w-4xl mx-auto space-y-6 text-purple-100">
@@ -346,18 +375,18 @@ Development Goals</strong>, striving to build stronger communities and create a 
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="heading-section">
               Child Protection
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto mt-4">
               At Children4WorldChildren CLG (C4WC), we take the safety of all the children involved in the group very seriously.
             </p>
           </div>
 
           <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl p-8 mb-12">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Commitment to Child Safety</h3>
-              <p className="text-gray-600 max-w-4xl mx-auto">
+              <h3 className="heading-subsection">Our Commitment to Child Safety</h3>
+              <p className="text-gray-700 max-w-4xl mx-auto text-lg">
                 We are Children First and Child's safeguarding Compliant in accordance with Tusla standard. 
                 In line with the C4WC code of practice, we have quite a number of children's officers in the organisation.
               </p>
@@ -367,7 +396,7 @@ Development Goals</strong>, striving to build stronger communities and create a 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
             {/* Children Officers */}
             <div className="bg-white rounded-xl shadow-lg p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+              <h3 className="heading-subsection flex items-center">
                 <Shield className="h-6 w-6 text-purple-600 mr-3" />
                 Children Officers
               </h3>
@@ -392,7 +421,7 @@ Development Goals</strong>, striving to build stronger communities and create a 
 
             {/* Compliance and Designated Officers */}
             <div className="bg-white rounded-xl shadow-lg p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+              <h3 className="heading-subsection flex items-center">
                 <Award className="h-6 w-6 text-purple-600 mr-3" />
                 Compliance & Designated Officers
               </h3>

@@ -93,12 +93,11 @@ const Contact = () => {
     <div className="pt-16">
       {/* Header Section */}
       <HeroBackground>
-        <div className="text-center">
-          <h1 className="text-4xl lg:text-5xl font-normal text-gray-900 mb-6">
+        <div className="text-center max-w-4xl mx-auto">
+          <h1 className="hero-heading">
             Contact <span className="text-purple-600">Us</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Get in touch with our team of community development experts. 
+          <p className="text-xl text-gray-700 mt-6 max-w-3xl mx-auto">
             We're here to help you with your charitable initiatives and answer any questions you may have.
           </p>
         </div>

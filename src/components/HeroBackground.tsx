@@ -7,7 +7,7 @@ interface HeroBackgroundProps {
 
 const HeroBackground: React.FC<HeroBackgroundProps> = ({ children, className = '' }) => {
   return (
-    <section className={`relative bg-white pt-16 pb-20 overflow-hidden ${className}`}>
+    <section className={`relative bg-white py-24 overflow-hidden font-poppins ${className}`}>
       {/* Light Purple Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-purple-100 to-indigo-100"></div>
       
@@ -22,8 +22,10 @@ const HeroBackground: React.FC<HeroBackgroundProps> = ({ children, className = '
         </div>
       </div>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {children}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full">
+        <div className="flex flex-col justify-center h-full py-8">
+          {children}
+        </div>
       </div>
     </section>
   );

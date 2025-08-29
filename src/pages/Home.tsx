@@ -62,17 +62,17 @@ const Home = () => {
   ];
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden pt-16">
       {/* Hero Section */}
       <HeroBackground>
-        <div className="text-center">
-          <h1 className="heading-hero">
+        <div className="text-center max-w-4xl mx-auto">
+          <h1 className="hero-heading">
             <span className="block">Empowering Young Lives,</span>
             <span className="block">Strengthening Families</span>
           </h1>
-          <p className="text-hero">
-          Dedicated to creating a platform for integrating, reintegrating, and empowering people from diverse
-          ethnic groups through peer-to-peer learning.
+          <p className="text-xl text-gray-700 mt-6 max-w-3xl mx-auto">
+            Dedicated to creating a platform for integrating, reintegrating, and empowering people from diverse
+            ethnic groups through peer-to-peer learning.
           </p>
         </div>
       </HeroBackground>
@@ -292,10 +292,10 @@ wider mission to foster inclusion and empowerment.
             <h2 className="heading-section mb-0">
               Our Volunteers
             </h2>
-            <Link to="/volunteer" className="btn-secondary">
+            <div className="btn-secondary opacity-50 cursor-not-allowed" title="Coming Soon">
               Become a Volunteer
               <ArrowRight className="icon-arrow" />
-            </Link>
+            </div>
           </div>
 
           {/* Volunteers Container */}
@@ -532,13 +532,13 @@ wider mission to foster inclusion and empowerment.
             ))}
           </div>
           <div className="text-center mt-12">
-            <Link
-              to="/programs"
-              className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-purple-600 hover:bg-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            <div 
+              className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-purple-400 cursor-not-allowed"
+              title="Coming Soon"
             >
               View All Programs
               <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -553,13 +553,13 @@ wider mission to foster inclusion and empowerment.
             Join us in creating positive change in children's lives through your support, contributions, and involvement.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/volunteer"
-              className="inline-flex items-center px-8 py-3 border-2 border-white text-base font-medium rounded-lg text-white bg-transparent hover:bg-white hover:text-purple-600 transition-all duration-200 shadow-lg hover:shadow-xl"
+            <div 
+              className="inline-flex items-center px-8 py-3 border-2 border-white text-base font-medium rounded-lg text-white bg-transparent opacity-50 cursor-not-allowed"
+              title="Coming Soon"
             >
               Volunteer With Us
               <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
+            </div>
             <Link
               to="/donate"
               className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-purple-600 bg-white hover:bg-purple-50 transition-all duration-200 shadow-lg hover:shadow-xl"

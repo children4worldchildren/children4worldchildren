@@ -112,14 +112,14 @@ const Events = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 pt-16">
       {/* Hero Section */}
       <HeroBackground>
-        <div className="text-center">
-          <h1 className="text-4xl md:text-6xl font-normal text-gray-900 mb-6">
+        <div className="text-center max-w-4xl mx-auto">
+          <h1 className="hero-heading">
             Upcoming Events
           </h1>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-700 mt-6 max-w-3xl mx-auto">
             Join us in our mission to help children worldwide. From fundraising galas to community awareness events, there's something for everyone.
           </p>
         </div>

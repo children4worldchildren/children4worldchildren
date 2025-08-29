@@ -14,10 +14,10 @@ const Navbar = () => {
   const navigation = [
     { name: 'Home', href: '/' },
     { name: 'About Us', href: '/about' },
-    { name: 'Programs', href: '/programs' },
+    // { name: 'Programs', href: '/programs' },
     { name: 'Events', href: '/events' },
-    { name: 'Impact', href: '/impact' },
-    { name: 'Volunteer', href: '/volunteer' },
+    // { name: 'Impact', href: '/impact' },
+    // { name: 'Volunteer', href: '/volunteer' },
     { name: 'Contact', href: '/contact' },
   ];
 
@@ -27,15 +27,15 @@ const Navbar = () => {
     <>
       <nav className="bg-white shadow-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
+          <div className="flex justify-between items-center h-16 relative">
+            <div className="flex-shrink-0">
               <Link to="/" className="flex items-center space-x-2 cursor-pointer">
                 <LogoUpload />
               </Link>
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-3">
+            <div className="hidden md:flex items-center space-x-6 mr-8">
               {navigation.map((item) => (
                 <Link
                   key={item.name}

@@ -110,15 +110,15 @@ const EventNotice: React.FC = () => {
           
           <div className="bg-white border-t border-gray-100 px-6 py-4 mt-auto rounded-b-lg z-10">
             <div className="flex flex-col sm:flex-row justify-center gap-3">
-              <a
-                href="/rsvp"
-                className="inline-flex items-center justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors"
-              >
-                I'll be there!
-              </a>
               <button
-                onClick={handleClose}
-                className="inline-flex items-center justify-center px-6 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors"
+                disabled
+                className="inline-flex items-center justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-400 cursor-not-allowed opacity-70"
+              >
+                Registration Closed
+              </button>
+              <button
+                disabled
+                className="inline-flex items-center justify-center px-6 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-500 bg-gray-100 cursor-not-allowed"
               >
                 Remind me later
               </button>

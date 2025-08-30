@@ -11,17 +11,15 @@ const EventNotice: React.FC = () => {
 
   useEffect(() => {
     if (new Date() > EVENT_DATE) return;
-
-    const isDismissed = localStorage.getItem(STORAGE_KEY) === 'true';
-    if (!isDismissed) {
-      const timer = setTimeout(() => setIsVisible(true), 2000);
-      return () => clearTimeout(timer);
-    }
+    
+    // Always show the notice on page load
+    const timer = setTimeout(() => setIsVisible(true), 2000);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleClose = () => {
     setIsClosing(true);
-    localStorage.setItem(STORAGE_KEY, 'true');
+    // Don't store dismissal in localStorage
     setTimeout(() => {
       setIsVisible(false);
       setIsClosing(false);

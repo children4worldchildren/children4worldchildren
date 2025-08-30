@@ -96,11 +96,15 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-4 w-4 text-purple-400 flex-shrink-0" />
-                <span className="text-sm text-gray-300">{contactInfo.generalPhone}</span>
+                <a href={`tel:${contactInfo.generalPhone.replace(/\D/g, '')}`} className="text-sm text-gray-300 hover:text-purple-400 transition-colors">
+                  {contactInfo.generalPhone}
+                </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-4 w-4 text-purple-400 flex-shrink-0" />
-                <span className="text-sm text-gray-300">{contactInfo.generalEmail}</span>
+                <a href={`mailto:${contactInfo.generalEmail}`} className="text-sm text-gray-300 hover:text-purple-400 transition-colors">
+                  {contactInfo.generalEmail}
+                </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Clock className="h-4 w-4 text-purple-400 flex-shrink-0" />

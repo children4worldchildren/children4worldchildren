@@ -280,11 +280,11 @@ wider mission to foster inclusion and empowerment.
       <section className="section-standard">
         <div className="container-compact">
           {/* Section Header */}
-          <div className="flex justify-between items-center mb-12">
-            <h2 className="heading-section mb-0">
+          <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-4 mb-12">
+            <h2 className="heading-section !mb-0 text-center sm:text-left">
               Our Volunteers
             </h2>
-            <div className="btn-secondary opacity-50 cursor-not-allowed" title="Coming Soon">
+            <div className="btn-secondary opacity-50 cursor-not-allowed whitespace-nowrap" title="Coming Soon">
               Become a Volunteer
               <ArrowRight className="icon-arrow" />
             </div>
@@ -305,7 +305,7 @@ wider mission to foster inclusion and empowerment.
               <h3 className="text-xl font-semibold text-gray-800">
                 Christabel Flourish Ategie
               </h3>
-              <p className="text-gray-600">Program Director</p>
+              <p className="text-gray-600">Founder; Children 4 World Children International</p>
             </div>
 
             {/* Volunteer 2 */}
@@ -321,7 +321,7 @@ wider mission to foster inclusion and empowerment.
               <h3 className="text-xl font-semibold text-gray-800">
                 Wunmi Excel Ategie
               </h3>
-              <p className="text-gray-600">Community Engagement</p>
+              <p className="text-gray-600">Program Director</p>
             </div>
 
             {/* Volunteer 3 */}
@@ -337,7 +337,7 @@ wider mission to foster inclusion and empowerment.
               <h3 className="text-xl font-semibold text-gray-800">
                 Ikenna Brendan Iwuoha
               </h3>
-              <p className="text-gray-600">Technical Lead</p>
+              <p className="text-gray-600">IT Team Lead</p>
             </div>
           </div>
         </div>

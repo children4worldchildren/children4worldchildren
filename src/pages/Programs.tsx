@@ -1,4 +1,4 @@
-import HeroBackground from '../components/HeroBackground';
+import HeroSection from '../components/HeroSection';
 import { Heart, Users, BookOpen, Globe, Shield, Star } from 'lucide-react';
 import { getStatsByLabels } from '../data/stats';
 
@@ -80,18 +80,13 @@ const Programs = () => {
   ]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <HeroBackground>
-        <div className="text-center">
-          <h1 className="text-4xl md:text-6xl font-normal text-gray-900 mb-6">
-            Our Programs
-          </h1>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Transforming lives through comprehensive programs that address the root causes of child poverty and create lasting positive change.
-          </p>
-        </div>
-      </HeroBackground>
+      <HeroSection
+        title="Our Programs"
+        subtitle="Transforming lives through comprehensive programs that address the root causes of child poverty and create lasting positive change."
+        titleClassName="text-4xl md:text-6xl"
+      />
 
       {/* Impact Stats */}
       <section className="py-16 bg-white">

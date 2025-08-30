@@ -11,6 +11,9 @@ export interface ContactInfo {
   };
   generalEmail: string;
   generalPhone: string;
+  registration: {
+    croNumber: string;
+  };
 }
 
 export const defaultContactInfo: ContactInfo = {
@@ -25,5 +28,8 @@ export const defaultContactInfo: ContactInfo = {
     email: 'hello@children4worldchildren.com'
   },
   generalEmail: 'hello@children4worldchildren.com',
-  generalPhone: '+353 89 967 8931'
+  generalPhone: '+353 89 967 8931',
+  registration: {
+    croNumber: '553917'
+  }
 };

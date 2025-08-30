@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import HeroBackground from '../components/HeroBackground';
+import HeroSection from '../components/HeroSection';
 import { Calendar, MapPin, Users, DollarSign, Heart, Star } from 'lucide-react';
 
 const Events = () => {
@@ -112,18 +112,12 @@ const Events = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-16">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <HeroBackground>
-        <div className="text-center max-w-4xl mx-auto">
-          <h1 className="hero-heading">
-            Upcoming Events
-          </h1>
-          <p className="text-xl text-gray-700 mt-6 max-w-3xl mx-auto">
-            Join us in our mission to help children worldwide. From fundraising galas to community awareness events, there's something for everyone.
-          </p>
-        </div>
-      </HeroBackground>
+      <HeroSection
+        title="Upcoming Events"
+        subtitle="Join us in our mission to help children worldwide. From fundraising galas to community awareness events, there's something for everyone."
+      />
 
       {/* Featured Event */}
       <section className="py-16 bg-white">

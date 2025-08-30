@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Shield, Users, Award, Target, CheckCircle } from 'lucide-react';
 import { Button } from '../components/ui/Button';
-import HeroBackground from '../components/HeroBackground';
+import HeroSection from '../components/HeroSection';
 import { trackComponentRender } from '../utils/performance';
 import { getStatsByLabels } from '../data/stats';
 
@@ -49,20 +49,17 @@ const Home = () => {
   ];
 
   return (
-    <div className="overflow-hidden pt-16">
+    <div className="overflow-hidden">
       {/* Hero Section */}
-      <HeroBackground>
-        <div className="text-center max-w-4xl mx-auto">
-          <h1 className="hero-heading">
+      <HeroSection 
+        title={
+          <>
             <span className="block">Empowering Young Lives,</span>
             <span className="block">Strengthening Families</span>
-          </h1>
-          <p className="text-xl text-gray-700 mt-6 max-w-3xl mx-auto">
-            Dedicated to creating a platform for integrating, reintegrating, and empowering people from diverse
-            ethnic groups through peer-to-peer learning.
-          </p>
-        </div>
-      </HeroBackground>
+          </>
+        }
+        subtitle="Dedicated to creating a platform for integrating, reintegrating, and empowering people from diverse ethnic groups through peer-to-peer learning."
+      />
 
       {/* About Us Preview Section */}
       <section className="section-gray">

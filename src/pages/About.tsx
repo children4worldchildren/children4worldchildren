@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Target, Eye, Award, Globe, Star, Shield, Building2 } from 'lucide-react';
-import HeroBackground from '../components/HeroBackground';
+import HeroSection from '../components/HeroSection';
 import { defaultContactInfo } from '../data/contactInfo';
 import type { ContactInfo } from '../data/contactInfo';
 import { getStatsByLabels } from '../data/stats';
@@ -168,18 +168,16 @@ const About = () => {
   ];
 
   return (
-    <div className="pt-16">
+    <div>
       {/* Header Section */}
-      <HeroBackground>
-        <div className="text-center max-w-4xl mx-auto">
-          <h1 className="hero-heading">
+      <HeroSection
+        title={
+          <>
             About <span className="text-purple-600">{companyInfo.name}</span>
-          </h1>
-          <p className="text-xl text-gray-700 mt-6 max-w-3xl mx-auto">
-            {companyInfo.description}
-          </p>
-        </div>
-      </HeroBackground>
+          </>
+        }
+        subtitle={companyInfo.description}
+      />
 
       {/* Our Story */}
       <section className="py-20 bg-white">

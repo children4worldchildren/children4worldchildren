@@ -290,16 +290,6 @@ const Donate = () => {
                   <p className="text-gray-600">We focus on addressing root causes, not just symptoms, for lasting change.</p>
                 </div>
               </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-white font-bold text-sm">6</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Tax Deductible</h3>
-                  <p className="text-gray-600">Your donations are tax-deductible, maximizing the impact of your contribution.</p>
-                </div>
-              </div>
             </div>
           </div>
         </div>

@@ -112,9 +112,9 @@ const EventNotice: React.FC = () => {
             <div className="flex flex-col sm:flex-row justify-center gap-3">
               <button
                 disabled
-                className="inline-flex items-center justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-400 cursor-not-allowed opacity-70"
+                className="inline-flex items-center justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-400 cursor-not-allowed opacity-70"
               >
-                Registration Closed
+                Registration Ongoing
               </button>
               <button
                 disabled

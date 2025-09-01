@@ -81,20 +81,22 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div className="md:col-span-4 space-y-4">
-            <h3 className="text-lg font-semibold text-purple-400 border-b border-purple-600 pb-2">Contact Info</h3>
+            <h3 className="text-lg font-semibold text-purple-400 border-b border-purple-600 pb-2">Contact Info (Ireland)</h3>
             <div className="space-y-3">
               <div className="space-y-4">
-                {contactInfo.irelandOffices.map((office, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <MapPin className="h-4 w-4 text-purple-400 mt-1 flex-shrink-0" />
-                    <div className="text-sm">
-                      <p className="font-medium text-white">{office.name}:</p>
-                      {office.address.split('\n').map((line, i) => (
-                        <p key={i} className="text-gray-300">{line}</p>
-                      ))}
+                {contactInfo.irelandOffices
+                  .filter(office => office.name === 'Dublin City')
+                  .map((office, index) => (
+                    <div key={index} className="flex items-start space-x-3">
+                      <MapPin className="h-4 w-4 text-purple-400 mt-1 flex-shrink-0" />
+                      <div className="text-sm">
+                        <p className="font-medium text-white">{office.name}:</p>
+                        {office.address.split('\n').map((line, i) => (
+                          <p key={i} className="text-gray-300">{line}</p>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-4 w-4 text-purple-400 flex-shrink-0" />
@@ -119,7 +121,7 @@ const Footer = () => {
         <div className="border-t border-gray-700 mt-8 pt-8">
           <div className="text-center">
             <p className="text-sm text-gray-300">
-              © 2024 Children 4 World Children. All rights reserved.
+              © 2025 Children 4 World Children. All rights reserved.
             </p>
           </div>
         </div>

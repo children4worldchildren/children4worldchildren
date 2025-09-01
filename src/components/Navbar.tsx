@@ -26,7 +26,7 @@ const Navbar = () => {
     // { name: 'Volunteer', href: '/volunteer' },
     { name: 'Contact', href: '/contact' },
     { 
-      name: 'Donate', 
+      name: 'Support', 
       href: '/donate', 
       isButton: true 
     },

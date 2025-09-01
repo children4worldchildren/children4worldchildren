@@ -559,7 +559,7 @@ wider mission to foster inclusion and empowerment.
               size="lg"
               className="shadow-lg hover:shadow-xl w-full sm:w-auto px-4 sm:px-8"
             >
-              Make a Donation
+              Support Us
             </Button>
           </div>
         </div>

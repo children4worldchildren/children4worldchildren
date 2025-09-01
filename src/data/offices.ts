@@ -43,7 +43,7 @@ export const offices: Office[] = [
     address: 'Coming Soon\nSwords\nCo. Fingal, K67 XXXX',
     phone: '+353 89 967 8931',
     email: 'fingal@children4worldchildren.com',
-    image: `${import.meta.env.BASE_URL}bofc.jpg`,
+    image: `${import.meta.env.BASE_URL}mofc.JPG`,
     hours: 'Mon-Fri: 9:00 AM - 5:00 PM',
     coordinates: { lat: 53.4607, lng: -6.2184 },
     country: 'Ireland',

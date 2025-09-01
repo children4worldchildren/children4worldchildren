@@ -4,7 +4,7 @@ import { CreditCard, BookOpen, Heart, Globe, Users, Star, Shield } from 'lucide-
 import { getStatsByLabels, StatItem } from '../data/stats';
 import { defaultContactInfo } from '../data/contactInfo';
 
-const Donate = () => {
+const Support = () => {
   const [donationAmount, setDonationAmount] = useState('');
   const [selectedProgram, setSelectedProgram] = useState('general');
   const [donationType] = useState('one-time'); // Monthly donation commented out for future enhancement
@@ -121,17 +121,17 @@ const Donate = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-2xl shadow-xl p-8">
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Donate Securely</h2>
-              <p className="text-gray-600">Choose your donation amount and program preference.</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Pay Securely</h2>
+              <p className="text-gray-600">Choose your support amount and program preference.</p>
             </div>
 
             <form onSubmit={handleDonation} className="space-y-8">
               {/* Donation Type */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3 text-center">Donation Type</label>
+                <label className="block text-sm font-medium text-gray-700 mb-3 text-center">Support Type</label>
                 <div className="flex justify-center">
                   <div className="p-3 md:p-2 rounded-lg border-2 border-purple-600 bg-purple-50 text-purple-600 text-center max-w-xs w-full">
-                    <div className="font-semibold text-sm md:text-base">One-time Donation</div>
+                    <div className="font-semibold text-sm md:text-base">One-time Support</div>
                     <div className="text-xs md:text-sm text-gray-500">Single contribution</div>
                   </div>
                 </div>
@@ -155,7 +155,7 @@ const Donate = () => {
 
               {/* Amount Selection */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">Donation Amount</label>
+                <label className="block text-sm font-medium text-gray-700 mb-3">Support Amount</label>
                 <div className="grid grid-cols-3 gap-4 mb-4">
                   {[25, 50, 100, 250, 500, 1000].map(amount => (
                     <button
@@ -206,14 +206,14 @@ const Donate = () => {
                 disabled={!donationAmount}
                 className="w-full py-4 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
               >
-                Donate Now
+                Pay Now
               </button>
             </form>
           </div>
         </div>
       </section>
 
-      {/* Transparency Section */}
+      {/* Transparency Section 
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -231,13 +231,13 @@ const Donate = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section>*/}
 
-      {/* Why Donate */}
+      {/* Why Support */}
       <section className="py-16 bg-purple-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Why Donate to Children 4 World Children?</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Why Support Children 4 World Children?</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -311,7 +311,7 @@ const Donate = () => {
             onClick={scrollToDonationForm}
             className="px-8 py-4 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200 text-lg"
           >
-            Donate Now
+            Support Us
           </button>
         </div>
       </section>
@@ -393,4 +393,4 @@ const Donate = () => {
   );
 };
 
-export default Donate; 
+export default Support; 

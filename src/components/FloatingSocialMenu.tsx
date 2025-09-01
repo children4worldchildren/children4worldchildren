@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Facebook, Instagram, Youtube, MessageCircle } from 'lucide-react';
+import { Facebook, Instagram, Youtube, MessageCircle, Linkedin } from 'lucide-react';
 
 const FloatingSocialMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,6 +26,12 @@ const FloatingSocialMenu = () => {
   };
 
   const socialLinks = [
+    { 
+      name: 'linkedin', 
+      icon: <Linkedin className="w-6 h-6" />, 
+      url: 'https://www.linkedin.com/company/children-for-world-children',
+      color: 'bg-red-600 hover:bg-red-700'
+    },
     { 
       name: 'Facebook', 
       icon: <Facebook className="w-6 h-6" />, 

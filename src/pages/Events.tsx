@@ -115,8 +115,12 @@ const Events = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <HeroSection
-        title="Upcoming Events"
-        subtitle="Join us in our mission to help children worldwide. From fundraising galas to community awareness events, there's something for everyone."
+      title={
+        <>
+          <span className="block">Upcoming Events</span>
+        </>
+      }
+      subtitle="Join us in our mission to help children worldwide. From fundraising galas to community awareness events, there's something for everyone."
       />
 
       {/* Featured Event */}

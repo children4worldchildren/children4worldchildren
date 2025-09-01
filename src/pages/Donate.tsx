@@ -84,9 +84,12 @@ const Donate = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <HeroSection
-        title="Make a Difference Today"
-        subtitle="Your donation helps us deliver *skills acquisition programmes, training, and educational support* for young people and parents, while promoting *potential, inclusion, and integration*."
-        titleClassName="text-4xl md:text-6xl"
+      title={
+        <>
+          <span className="block">Make a Difference Today</span>
+        </>
+      }
+      subtitle="Your support helps us deliver *skills acquisition programmes, training, and educational support* for young people and parents, while promoting *potential, inclusion, and integration*."
       />
 
       {/* Impact Examples */}

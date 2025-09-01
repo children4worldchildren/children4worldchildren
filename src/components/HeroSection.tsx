@@ -21,14 +21,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <HeroBackground className={className}>
       <div className="text-center max-w-4xl mx-auto px-4">
-        <h1 className={`text-4xl md:text-5xl lg:text-6xl font-normal text-gray-900 leading-tight tracking-tight ${titleClassName}`}>
-          {title}
-        </h1>
-        {subtitle && (
-          <p className={`mt-6 text-xl text-gray-700 max-w-3xl mx-auto ${subtitleClassName}`}>
-            {subtitle}
-          </p>
-        )}
+        <div className="space-y-5">
+          <h1 className={`text-3xl md:text-4xl lg:text-5xl font-medium text-gray-900 leading-tight tracking-tight ${titleClassName}`}>
+            {title}
+          </h1>
+          {subtitle && (
+            <p className={`text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed ${subtitleClassName}`}>
+              {subtitle}
+            </p>
+          )}
+        </div>
         {children}
       </div>
     </HeroBackground>

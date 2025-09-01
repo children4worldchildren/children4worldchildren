@@ -89,7 +89,7 @@ const EventNotice: React.FC = () => {
                 </div>
                 <div className="flex items-start">
                   <MapPin className="mr-3 text-purple-600 flex-shrink-0 mt-0.5" size={20} />
-                  <span className="text-gray-800">Blanchardstown Library (Virtual Link to be provided)</span>
+                  <span className="text-gray-800">Blanchardstown Library D15 RY73</span>
                 </div>
                 <div className="flex items-start pt-1">
                   <Info className="mr-3 text-purple-600 flex-shrink-0 mt-0.5" size={18} />

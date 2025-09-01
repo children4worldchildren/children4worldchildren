@@ -85,7 +85,6 @@ const Programs = () => {
       <HeroSection
         title="Our Programs"
         subtitle="Transforming lives through comprehensive programs that address the root causes of child poverty and create lasting positive change."
-        titleClassName="text-4xl md:text-6xl"
       />
 
       {/* Impact Stats */}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { MapPin, Phone, Mail, Building, Clock, Globe } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import type { Office } from '../data/offices';
 import Map from '../components/Map';
 import HeroSection from '../components/HeroSection';
@@ -391,16 +392,12 @@ const Contact: React.FC = () => {
             >
               Volunteer With Us
             </a>
-            <a 
-              href="/donate"
-              onClick={(e) => {
-                e.preventDefault();
-                window.location.href = '/donate';
-              }}
+            <Link 
+              to="/donate"
               className="px-8 py-4 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200 text-lg"
             >
-               Support Us
-            </a>
+              Support Us
+            </Link>
           </div>
         </div>
       </div>

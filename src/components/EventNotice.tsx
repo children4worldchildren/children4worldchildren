@@ -53,7 +53,7 @@ const EventNotice: React.FC = () => {
 
   return (
     <div className={`fixed inset-0 bg-black/50 flex items-center justify-center z-50 transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'}`}>
-      <div className="relative w-full max-w-md mx-4 h-auto max-h-[90vh] overflow-y-auto no-scrollbar">
+      <div className="relative w-full max-w-2xl mx-4 h-auto max-h-[90vh] overflow-y-auto no-scrollbar">
         {/* Animated background */}
         <div className="absolute inset-0 rounded-lg overflow-hidden">
           <div style={waveStyle} />
@@ -61,8 +61,8 @@ const EventNotice: React.FC = () => {
         
         {/* Content */}
         <div className="relative bg-white/95 rounded-lg shadow-lg flex flex-col min-h-[400px] z-10">
-          <div className="p-6 pb-0 flex-1">
-            <div className="flex justify-end mb-4">
+          <div className="p-6 pb-4">
+            <div className="flex justify-end mb-2">
               <button
                 onClick={handleClose}
                 className="text-gray-700 hover:text-gray-900 focus:outline-none z-20"
@@ -72,30 +72,34 @@ const EventNotice: React.FC = () => {
               </button>
             </div>
             
-            <div className="px-2 relative z-10">
-              <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold text-purple-800 mb-2">Annual General Meeting</h2>
-                <p className="text-purple-700 font-medium text-lg">You're Invited!</p>
+            <div className="relative z-10">
+              <div className="text-center mb-4">
+                <h2 className="text-3xl font-bold text-purple-800 mb-1">Annual General Meeting</h2>
+                <p className="text-purple-700 font-medium text-xl">You're Invited!</p>
               </div>
               
-              <div className="space-y-4 text-left mb-6 bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
-                <div className="flex items-center">
-                  <Calendar className="mr-3 text-purple-600 flex-shrink-0" size={20} />
-                  <span className="text-gray-900 font-medium">{formattedDate}</span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div className="space-y-3 bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
+                  <div className="flex items-center">
+                    <Calendar className="mr-3 text-purple-600 flex-shrink-0" size={20} />
+                    <span className="text-gray-900 font-medium">{formattedDate}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Clock className="mr-3 text-purple-600 flex-shrink-0" size={20} />
+                    <span className="text-gray-900 font-medium">11:30 AM - 2:00 PM</span>
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <Clock className="mr-3 text-purple-600 flex-shrink-0" size={20} />
-                  <span className="text-gray-900 font-medium">11:30 AM - 2:00 PM</span>
-                </div>
-                <div className="flex items-start">
-                  <MapPin className="mr-3 text-purple-600 flex-shrink-0 mt-0.5" size={20} />
-                  <span className="text-gray-800">Blanchardstown Library D15 RY73</span>
-                </div>
-                <div className="flex items-start pt-1">
-                  <Info className="mr-3 text-purple-600 flex-shrink-0 mt-0.5" size={18} />
-                  <span className="text-gray-800">
-                    Join us for an important update on our initiatives and future plans
-                  </span>
+                <div className="space-y-3 bg-white p-4 rounded-lg border border-gray-100 shadow-sm">
+                  <div className="flex items-start">
+                    <MapPin className="mr-3 text-purple-600 flex-shrink-0 mt-0.5" size={20} />
+                    <span className="text-gray-800">Blanchardstown Library D15 RY73</span>
+                  </div>
+                  <div className="flex items-start">
+                    <Info className="mr-3 text-purple-600 flex-shrink-0 mt-0.5" size={18} />
+                    <span className="text-gray-800">
+                      Join us for an important update on our initiatives and future plans
+                    </span>
+                  </div>
                 </div>
               </div>
               

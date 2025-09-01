@@ -4,6 +4,7 @@ import HeroSection from '../components/HeroSection';
 import { defaultContactInfo } from '../data/contactInfo';
 import type { ContactInfo } from '../data/contactInfo';
 import { getStatsByLabels } from '../data/stats';
+import { offices } from '../data/offices';
 import Stats from '../components/Stats';
 
 interface CompanyInfo {
@@ -492,23 +493,41 @@ const About = () => {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div className="bg-white p-8 rounded-xl shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Ireland Office</h3>
-              <div className="space-y-2 text-gray-600">
-                <div>
-                  {contactInfo.headOffice.address.split('\n').map((line, index) => (
-                    <p key={index}>{line}</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Ireland Offices</h3>
+              <div className="space-y-6">
+                {offices
+                  .filter(office => office.country === 'Ireland')
+                  .map((office, index) => (
+                    <div key={index} className="space-y-2 text-gray-600">
+                      <h4 className="font-semibold text-gray-900">{office.name}</h4>
+                      <div>
+                        {office.address.split('\n').map((line, i) => (
+                          <p key={i}>{line}</p>
+                        ))}
+                      </div>
+                      <p className="font-medium">Phone: {office.phone}</p>
+                      <p className="font-medium">Email: {office.email}</p>
+                    </div>
                   ))}
-                </div>
-                <p className="mt-4 font-medium">Phone: {contactInfo.headOffice.phone}</p>
-                <p className="font-medium">Email: {contactInfo.headOffice.email}</p>
               </div>
             </div>
             <div className="bg-white p-8 rounded-xl shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Nigeria Office</h3>
-              <div className="space-y-2 text-gray-600">
-                <p>{contactInfo.annexOffice.address}</p>
-                <p className="mt-4 font-medium">Phone: {contactInfo.annexOffice.phone}</p>
-                <p className="font-medium">Email: {contactInfo.annexOffice.email}</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">International Offices</h3>
+              <div className="space-y-6">
+                {offices
+                  .filter(office => office.country !== 'Ireland')
+                  .map((office, index) => (
+                    <div key={index} className="space-y-2 text-gray-600">
+                      <h4 className="font-semibold text-gray-900">{office.name} - {office.city}</h4>
+                      <div>
+                        {office.address.split('\n').map((line, i) => (
+                          <p key={i}>{line}</p>
+                        ))}
+                      </div>
+                      <p className="font-medium">Phone: {office.phone}</p>
+                      <p className="font-medium">Email: {office.email}</p>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>

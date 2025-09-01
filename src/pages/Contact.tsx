@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { MapPin, Phone, Mail, Building, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, Building, Clock, Globe } from 'lucide-react';
+import type { Office } from '../data/offices';
 import Map from '../components/Map';
 import HeroSection from '../components/HeroSection';
 import { offices } from '../data/offices';
@@ -14,7 +15,7 @@ type FormData = {
   message: string;
 };
 
-const Contact = () => {
+const Contact: React.FC = () => {
   const [contactInfo, setContactInfo] = useState(defaultContactInfo);
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -102,7 +103,7 @@ const Contact = () => {
       />
 
       {/* Contact Form & Info */}
-      <section className="py-20 bg-white">
+      <div className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-12 lg:gap-12">
             {/* Contact Information */}
@@ -300,10 +301,10 @@ const Contact = () => {
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Office Locations */}
-      <section className="py-20 bg-gray-50">
+      <div className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -315,79 +316,40 @@ const Contact = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {offices.map((office, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-              >
-                <div className="h-48 bg-gray-100 relative">
-                  <img 
-                    src={office.image} 
-                    alt={`${office.name} in ${office.city}`}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = '/images/placeholder-office.jpg';
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-600 text-white">
-                      <MapPin className="h-4 w-4 mr-1" />
-                      {office.city}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-8">
-                  <div className="flex items-center mb-4">
-                    <Building className="h-6 w-6 text-purple-600 mr-3" />
-                    <h3 className="text-2xl font-bold text-gray-900">{office.name} - {office.city}</h3>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="flex items-start">
-                      <MapPin className="h-5 w-5 text-purple-600 mr-3 mt-0.5 flex-shrink-0" />
-                      <p className="text-gray-600 whitespace-pre-line">
-                        {office.address}
-                      </p>
-                    </div>
-                    <div className="flex items-center">
-                      <Phone className="h-5 w-5 text-purple-600 mr-3 flex-shrink-0" />
-                      <a href={`tel:${office.phone}`} className="text-gray-600 hover:text-purple-600 transition-colors">
-                        {office.phone}
-                      </a>
-                    </div>
-                    <div className="flex items-center">
-                      <Mail className="h-5 w-5 text-purple-600 mr-3 flex-shrink-0" />
-                      <a href={`mailto:${office.email}`} className="text-gray-600 hover:text-purple-600 transition-colors">
-                        {office.email}
-                      </a>
-                    </div>
-                    <div className="flex items-center">
-                      <Clock className="h-5 w-5 text-purple-600 mr-3 flex-shrink-0" />
-                      <p className="text-gray-600">{office.hours}</p>
-                    </div>
-                  </div>
-                  <div className="mt-6 pt-6 border-t border-gray-200">
-                    <a 
-                      href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(office.address)}`}
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center text-purple-600 hover:text-purple-700 font-medium transition-colors duration-200"
-                    >
-                      Get Directions
-                      <MapPin className="ml-2 h-4 w-4" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
+          {/* Ireland Offices */}
+          <div className="col-span-full">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+              <MapPin className="h-6 w-6 text-purple-600 mr-2" />
+              Ireland Offices
+            </h3>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {offices
+                .filter(office => office.country === 'Ireland')
+                .map((office, index) => (
+                  <OfficeCard key={index} office={office} />
+                ))}
+            </div>
+          </div>
+
+          {/* Other Countries */}
+          <div className="col-span-full mt-12">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+              <Globe className="h-6 w-6 text-purple-600 mr-2" />
+              International Offices
+            </h3>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {offices
+                .filter(office => office.country !== 'Ireland')
+                .map((office, index) => (
+                  <OfficeCard key={index} office={office} />
+                ))}
+            </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Map Section */}
-      <section className="py-20 bg-white">
+      {/* Map Section - Commented out for future enhancement
+      <div className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -408,34 +370,110 @@ const Contact = () => {
             />
           </div>
         </div>
-      </section>
+      </div>
+      */}
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-purple-600 to-indigo-600">
+      <div className="py-20 bg-gradient-to-r from-purple-600 to-indigo-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to Make a Difference?
           </h2>
           <p className="text-xl text-purple-100 mb-8 max-w-3xl mx-auto">
-            Whether you want to volunteer, donate, or learn about our programs, 
-            our team is ready to help you create positive change in your community.
+            Changing lives through skills, education, and inclusion—one donation at a time.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={() => navigate('/consultation')}
-              className="inline-flex items-center px-8 py-3 border-2 border-white text-base font-medium rounded-lg text-white bg-transparent hover:bg-white hover:text-purple-600 transition-all duration-200 shadow-lg hover:shadow-xl"
+            <a 
+              href="/volunteer"
+              className="inline-flex items-center px-8 py-3 border-2 border-white text-base font-medium rounded-lg text-white bg-transparent opacity-50 pointer-events-none transition-all duration-200 shadow-lg"
+              aria-disabled="true"
+              title="Volunteer program coming soon"
             >
               Volunteer With Us
-            </button>
-            <button 
-              onClick={() => navigate('/quote')}
-              className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-purple-600 bg-white hover:bg-purple-50 transition-all duration-200 shadow-lg hover:shadow-xl"
+            </a>
+            <a 
+              href="/donate"
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href = '/donate';
+              }}
+              className="px-8 py-4 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200 text-lg"
             >
-              Make a Donation
-            </button>
+               Support Us
+            </a>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  );
+};
+
+// Office Card Component
+interface OfficeCardProps {
+  office: Office;
+}
+
+const OfficeCard: React.FC<OfficeCardProps> = (props) => {
+  const { office } = props;
+  return (
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+      <div className="h-48 bg-gray-100 relative flex-shrink-0">
+        <img 
+          src={office.image} 
+          alt={`${office.name} in ${office.city}`}
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = '/images/placeholder-office.jpg';
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <div className="absolute bottom-4 left-4">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-600 text-white">
+            <MapPin className="h-4 w-4 mr-1" />
+            {office.city}, {office.country}
+          </span>
+        </div>
+      </div>
+      <div className="p-6 flex-grow flex flex-col">
+        <div className="flex items-center mb-4">
+          <Building className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0" />
+          <h3 className="text-xl font-bold text-gray-900">{office.name}</h3>
+        </div>
+        <div className="space-y-3 text-sm">
+          <div className="flex">
+            <MapPin className="h-5 w-5 text-purple-600 mr-2 mt-0.5 flex-shrink-0" />
+            <p className="text-gray-600">{office.address}</p>
+          </div>
+          <div className="flex items-center">
+            <Phone className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0" />
+            <a href={`tel:${office.phone}`} className="text-gray-600 hover:text-purple-600 transition-colors">
+              {office.phone}
+            </a>
+          </div>
+          <div className="flex items-center">
+            <Mail className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0" />
+            <a href={`mailto:${office.email}`} className="text-gray-600 hover:text-purple-600 transition-colors text-sm">
+              {office.email}
+            </a>
+          </div>
+          <div className="flex items-center">
+            <Clock className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0" />
+            <p className="text-gray-600">{office.hours}</p>
+          </div>
+        </div>
+        <div className="mt-4 pt-4 border-t border-gray-200">
+          <a 
+            href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(office.address)}`}
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center text-sm text-purple-600 hover:text-purple-700 font-medium transition-colors duration-200"
+          >
+            Get Directions
+            <MapPin className="ml-2 h-4 w-4" />
+          </a>
+        </div>
+      </div>
     </div>
   );
 };

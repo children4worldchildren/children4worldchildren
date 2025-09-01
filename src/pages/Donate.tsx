@@ -338,10 +338,10 @@ const Donate = () => {
               <p className="mb-4">
                 <strong>Children 4 World Children Limited</strong> is a not-for-profit *Company Limited by Guarantee (CLG)* registered in Ireland.
                 <br />CRO number: {defaultContactInfo.registration.croNumber}
-                <br />Registered office: {defaultContactInfo.headOffice.address.split('\n').map((line, i) => (
+                <br />Registered office: {defaultContactInfo.irelandOffices[0].address.split('\n').map((line, i, arr) => (
                   <span key={i}>
                     {line}
-                    {i < defaultContactInfo.headOffice.address.split('\n').length - 1 ? <br /> : null}
+                    {i < arr.length - 1 ? <br /> : null}
                   </span>
                 ))}
               </p>
@@ -358,12 +358,12 @@ const Donate = () => {
                 Our annual reports and financial statements are available upon request.
               </p>
               
+              {/* Tax Relief - Temporarily commented out for review
               <p className="mb-4">
                 <strong>Donation Policy:</strong> We are committed to using your donation effectively. A minimum of 80% of all donations 
                 received are allocated to program activities, with the remaining 20% supporting administrative and fundraising costs.
               </p>
               
-              {/* Tax Relief - Temporarily commented out for review
               <p className="mb-4">
                 <strong>Tax Relief:</strong> As an Irish tax-compliant charity, we can claim an additional 31% in tax back from Revenue on 
                 eligible donations at no extra cost to you, provided you are a PAYE taxpayer or pay tax under the self-assessment system.

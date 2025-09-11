@@ -6,6 +6,7 @@ import ScrollToTop from './components/ScrollToTop';
 import LazyRoute from './components/LazyRoute';
 import EventNotice from './components/EventNotice';
 import FloatingSocialMenu from './components/FloatingSocialMenu';
+import EnvTest from './components/EnvTest';
 import './index.css';
 
 // Lazy load all pages for better performance
@@ -130,6 +131,7 @@ const AppContent = () => {
         } /> */}
       </Routes>
       <Footer />
+      {import.meta.env.DEV && <EnvTest />}
       <FloatingSocialMenu />
     </>
   );

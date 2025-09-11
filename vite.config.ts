@@ -6,6 +6,7 @@ export default defineConfig(({ mode }) => {
   // Load env variables based on the current mode
   const env = loadEnv(mode, process.cwd(), '');
   
+  // For GitHub Pages, use the repository name as the base path
   const base = mode === 'development' ? '/' : '/children4worldchildren/';
   
   return {

@@ -524,8 +524,8 @@ const About = () => {
                           <p key={i}>{line}</p>
                         ))}
                       </div>
-                      <p className="font-medium">Phone: {office.phone}</p>
-                      <p className="font-medium">Email: {office.email}</p>
+                      {/*<p className="font-medium">Phone: {office.phone}</p>
+                      <p className="font-medium">Email: {office.email}</p>*/}
                     </div>
                   ))}
               </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Calendar, Clock, MapPin, Users, Info } from 'lucide-react';
 import '../styles/eventNotice.css';
 
-const EVENT_DATE = new Date('2025-09-13T11:30:00');
+const EVENT_DATE = new Date('2025-09-13T14:00:00');
 const STORAGE_KEY = 'event_notice_dismissed';
 
 const EventNotice: React.FC = () => {

@@ -332,7 +332,7 @@ const Contact: React.FC = () => {
             </div>
           </div>
 
-          {/* Other Countries */}
+          {/* Other Countries 
           <div className="col-span-full mt-12">
             <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
               <Globe className="h-6 w-6 text-purple-600 mr-2" />
@@ -345,7 +345,7 @@ const Contact: React.FC = () => {
                   <OfficeCard key={index} office={office} />
                 ))}
             </div>
-          </div>
+          </div>*/}
         </div>
       </div>
 

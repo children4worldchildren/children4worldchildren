@@ -7,14 +7,12 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   
   // For GitHub Pages, use the VITE_BASE_URL from environment or default to '/'
-  const base = env.VITE_BASE_URL || '/';
+  const base = env.VITE_BASE_URL || (mode === 'production' ? '/children4worldchildren/' : '/');
   
   return {
   plugins: [react()],
   base,
   server: {
-    // Ensure the development server serves from the correct base
-    base: base !== '/' ? base : undefined,
     port: 5173,
     host: true
   },

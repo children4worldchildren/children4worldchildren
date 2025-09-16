@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -136,14 +136,15 @@ const AppContent = () => {
 };
 
 function App() {
+  const RouterComponent = import.meta.env.PROD ? HashRouter : BrowserRouter;
   return (
-    <Router basename={import.meta.env.PROD ? '/children4worldchildren' : '/'}>
+    <RouterComponent basename={import.meta.env.PROD ? '/children4worldchildren' : '/'}>
       <div className="App">
         <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
           <AppContent />
         </Suspense>
       </div>
-    </Router>
+    </RouterComponent>
   );
 }
 

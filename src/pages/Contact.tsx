@@ -384,14 +384,14 @@ const Contact: React.FC = () => {
             Changing lives through skills, education, and inclusion—one donation at a time.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="/volunteer"
+            <Link 
+              to="/volunteer"
               className="inline-flex items-center px-8 py-3 border-2 border-white text-base font-medium rounded-lg text-white bg-transparent opacity-50 pointer-events-none transition-all duration-200 shadow-lg"
               aria-disabled="true"
               title="Volunteer program coming soon"
             >
               Volunteer With Us
-            </a>
+            </Link>
             <Link 
               to="/donate"
               className="px-8 py-4 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200 text-lg"

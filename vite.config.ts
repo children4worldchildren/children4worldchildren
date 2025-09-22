@@ -5,10 +5,17 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
   // Load env variables based on the current mode
   const env = loadEnv(mode, process.cwd(), '');
-  
-  // For GitHub Pages, use the VITE_BASE_URL from environment or default to '/'
-  const base = env.VITE_BASE_URL || '/';
-  
+
+  // Determine base URL with priority:
+  // 1) process.env (GitHub Actions and shell environment)
+  // 2) .env files via loadEnv
+  // 3) Fallback: '/' for dev, '/children4worldchildren/' for production
+  const baseFromProcess = process.env.VITE_BASE_URL;
+  const baseFromEnvFiles = env.VITE_BASE_URL;
+  const base = baseFromProcess
+    || baseFromEnvFiles
+    || (mode === 'production' ? '/children4worldchildren/' : '/');
+
   return {
   plugins: [react()],
   base,

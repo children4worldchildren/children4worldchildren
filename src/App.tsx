@@ -137,8 +137,11 @@ const AppContent = () => {
 
 function App() {
   const RouterComponent = import.meta.env.PROD ? HashRouter : BrowserRouter;
+  // In production we use HashRouter and should NOT set a basename, otherwise routes may not match
+  // In development with BrowserRouter, we keep the default root '/'
+  const routerProps = import.meta.env.PROD ? {} : { basename: '/' };
   return (
-    <RouterComponent basename={import.meta.env.PROD ? '/children4worldchildren' : '/'}>
+    <RouterComponent {...routerProps}>
       <div className="App">
         <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
           <AppContent />

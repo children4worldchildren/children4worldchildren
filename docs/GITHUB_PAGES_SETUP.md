@@ -1,6 +1,6 @@
 # 🚀 GitHub Pages Deployment Guide
 
-Follow these steps to deploy your Johnbabs Environmental Services website to GitHub Pages.
+Follow these steps to deploy your Children4worldchildren website to GitHub Pages.
 
 ## 📋 Prerequisites
 
@@ -14,8 +14,8 @@ Follow these steps to deploy your Johnbabs Environmental Services website to Git
 
 1. **Go to GitHub.com** and sign in
 2. **Click "New repository"** (green button)
-3. **Repository name**: `johnbabs-environmental-services`
-4. **Description**: `Professional website for Johnbabs Environmental Services`
+3. **Repository name**: `children4worldchildren`
+4. **Description**: `Professional website for Children4worldchildren`
 5. **Make it Public** (required for free GitHub Pages)
 6. **Don't initialize** with README (we already have one)
 7. **Click "Create repository"**
@@ -26,7 +26,7 @@ Run these commands in your project directory:
 
 ```bash
 # Add the remote repository
-git remote add origin https://github.com/YOUR_USERNAME/johnbabs-environmental-services.git
+git remote add origin https://github.com/YOUR_USERNAME/children4worldchildren.git
 
 # Push your code to GitHub
 git branch -M main
@@ -47,7 +47,7 @@ git push -u origin main
 
 1. **Wait 2-3 minutes** for the first deployment
 2. **Go to Actions tab** to see deployment progress
-3. **Your site will be live** at: `https://YOUR_USERNAME.github.io/johnbabs-environmental-services/`
+3. **Your site will be live** at: `https://YOUR_USERNAME.github.io/children4worldchildren/`
 
 ## 🔄 Automatic Deployment
 
@@ -99,7 +99,7 @@ If you have a custom domain:
 ## 🎉 Success!
 
 Once deployed, your website will be accessible at:
-**https://YOUR_USERNAME.github.io/johnbabs-environmental-services/**
+**https://YOUR_USERNAME.github.io/children4worldchildren/**
 
 ## 📞 Need Help?
 
@@ -109,4 +109,4 @@ Once deployed, your website will be accessible at:
 
 ---
 
-**Your Johnbabs Environmental Services website is now live on the internet! 🌐** 
+**Your Children4worldchildren website is now live on the internet! 🌐** 

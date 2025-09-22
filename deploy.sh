@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🚀 Deploying Johnbabs Environmental Services Website..."
+echo "🚀 Deploying Children4worldchildren Website..."
 
 # Build the application
 echo "📦 Building the application..."
@@ -8,7 +8,7 @@ npm run build
 
 # Build Docker image
 echo "🐳 Building Docker image..."
-docker build -t johnbabs-website .
+docker build -t children4worldchildren-website .
 
 # Stop existing container if running
 echo "🛑 Stopping existing container..."

@@ -1,6 +1,6 @@
-# Johnbabs Backend API
+# Children4worldchildren Backend API
 
-Backend server for Johnbabs Environmental and Engineering Services Ltd website.
+Backend server for Children4worldchildren website.
 
 ## Features
 
@@ -28,7 +28,7 @@ Backend server for Johnbabs Environmental and Engineering Services Ltd website.
    ```env
    PORT=5000
    NODE_ENV=development
-   MONGODB_URI=mongodb://localhost:27017/johnbabs_db
+   MONGODB_URI=mongodb://localhost:27017/children4worldchildren_db
    JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
    UPLOAD_PATH=./uploads
    MAX_FILE_SIZE=5242880
@@ -144,7 +144,7 @@ Images are stored in the `uploads/` directory and served statically. Supported f
 |----------|-------------|---------|
 | `PORT` | Server port | 5000 |
 | `NODE_ENV` | Environment mode | development |
-| `MONGODB_URI` | MongoDB connection string | mongodb://localhost:27017/johnbabs_db |
+| `MONGODB_URI` | MongoDB connection string | mongodb://localhost:27017/children4worldchildren_db |
 | `JWT_SECRET` | JWT signing secret | (required) |
 | `UPLOAD_PATH` | File upload directory | ./uploads |
 | `MAX_FILE_SIZE` | Maximum file size in bytes | 5242880 (5MB) |
@@ -155,7 +155,7 @@ Images are stored in the `uploads/` directory and served statically. Supported f
 After running `npm run init-db`:
 - **Username**: `admin`
 - **Password**: `admin123`
-- **Email**: `admin@johnbabs.com`
+- **Email**: `admin@children4worldchildren.com`
 
 **Important**: Change these credentials in production!
 

@@ -1,6 +1,6 @@
-# Deployment Guide for Johnbabs Environmental Services
+# Deployment Guide for Children4worldchildren
 
-This guide covers multiple deployment options for the Johnbabs Environmental Services website with full-stack functionality.
+This guide covers multiple deployment options for the Children4worldchildren website with full-stack functionality.
 
 ## 🚀 Quick Start
 
@@ -16,7 +16,7 @@ This guide covers multiple deployment options for the Johnbabs Environmental Ser
 ### 1. GitHub Pages (Frontend Only - Static Site)
 
 #### Setup:
-1. Create a GitHub repository named `johnbabs-environmental-services`
+1. Create a GitHub repository named `children4worldchildren`
 2. Push your code to the repository
 3. Go to Settings > Pages
 4. Set source to "GitHub Actions"
@@ -95,13 +95,13 @@ deploy.bat   # Windows
 npm run build
 
 # Build Docker image
-docker build -t johnbabs-website .
+docker build -t children4worldchildren-website .
 
 # Run with Docker Compose
 docker-compose up -d
 
 # Or run directly with Docker
-docker run -d -p 80:80 johnbabs-website
+docker run -d -p 80:80 children4worldchildren-website
 ```
 
 #### Docker Commands:
@@ -139,7 +139,7 @@ npm run deploy:docker
 server {
     listen 80;
     server_name your-domain.com;
-    root /var/www/johnbabs-website;
+    root /var/www/children4worldchildren-website;
     index index.html;
 
     # Frontend routes
@@ -172,7 +172,7 @@ server {
 ### Backend Environment Variables (`backend/config.env`):
 ```env
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/johnbabs
+MONGODB_URI=mongodb://localhost:27017/children4worldchildren
 JWT_SECRET=your_secure_jwt_secret
 EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_email_app_password
@@ -263,7 +263,7 @@ pm2 logs
 docker-compose logs -f
 
 # View logs for specific service
-docker-compose logs johnbabs-website
+docker-compose logs children4worldchildren-website
 ```
 
 ### Application Logs:

@@ -164,7 +164,7 @@ const Admin = () => {
                           <input
                             type="text"
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                            defaultValue="Johnbabs Environmental and Engineering Services Ltd"
+                            defaultValue="Children 4 World Children International"
                           />
                         </div>
                         <div>
@@ -174,7 +174,7 @@ const Admin = () => {
                           <input
                             type="email"
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                            defaultValue="info@johnbabs.com"
+                            defaultValue="info@children4worldchildren.com"
                           />
                         </div>
                         <div>
@@ -293,7 +293,7 @@ const Admin = () => {
                         <textarea
                           rows={5}
                           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                          defaultValue="Johnbabs Environmental and Engineering Services Ltd is a leading environmental consultancy and engineering services provider in Nigeria..."
+                          defaultValue="Children 4 World Children International is a youth-focused organization dedicated to empowering young people and families worldwide..."
                         />
                       </div>
                     </div>

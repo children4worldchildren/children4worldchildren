@@ -191,7 +191,7 @@ const Careers = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Why Choose Johnbabs?
+              Why Choose Children4worldchildren?
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               We believe our people are our greatest asset. Join a team that values innovation, 
@@ -416,7 +416,7 @@ const Careers = () => {
             </button>
           </div>
           <div className="mt-8 text-emerald-100">
-            <p>Email: careers@johnbabs.com | Phone: +234 (0) 123 456 7890</p>
+            <p>Email: careers@children4worldchildren.com | Phone: +353 89 610 0794</p>
           </div>
         </div>
       </section>

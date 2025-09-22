@@ -203,7 +203,7 @@ const Management = () => {
       ];
       
       // Load team data from localStorage
-      const savedTeam = localStorage.getItem('johnbabs_team');
+      const savedTeam = localStorage.getItem('children4worldchildren_team');
       let teamData = defaultTeam; // Start with default team data
       
       if (savedTeam) {
@@ -215,7 +215,7 @@ const Management = () => {
       }
       
       // Load saved images and update team member images
-      const savedImages = localStorage.getItem('johnbabs_images');
+      const savedImages = localStorage.getItem('children4worldchildren_images');
       if (savedImages) {
         const images = JSON.parse(savedImages);
         
@@ -262,7 +262,7 @@ const Management = () => {
               Our <span className="text-emerald-600">Management Team</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              Meet the experienced professionals who lead Johnbabs Environmental and Engineering Services Ltd. 
+              Meet the experienced professionals who lead Children4worldchildren. 
               Our leadership team brings together decades of expertise in environmental consulting, 
               engineering, and business management.
             </p>

@@ -58,7 +58,7 @@ const DataDisplay: React.FC<DataDisplayProps> = ({ dataType }) => {
             id: '1',
             name: 'John Babatunde',
             position: 'CEO',
-            email: 'john@johnbabs.com',
+            email: 'john@children4worldchildren.com',
             phone: '+234 123 456 7890',
             image: `${import.meta.env.BASE_URL}ceo.jpg`,
             experience: 'Experienced environmental consultant',

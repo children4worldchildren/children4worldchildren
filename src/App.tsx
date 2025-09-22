@@ -1,5 +1,7 @@
+import React from 'react';
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { BrowserRouter, HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -136,18 +138,15 @@ const AppContent = () => {
 };
 
 function App() {
-  const RouterComponent = import.meta.env.PROD ? HashRouter : BrowserRouter;
-  // In production we use HashRouter and should NOT set a basename, otherwise routes may not match
-  // In development with BrowserRouter, we keep the default root '/'
-  const routerProps = import.meta.env.PROD ? {} : { basename: '/' };
+  const basename = import.meta.env.PROD ? '/children4worldchildren' : '/';
   return (
-    <RouterComponent {...routerProps}>
+    <BrowserRouter basename={basename}>
       <div className="App">
         <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
           <AppContent />
         </Suspense>
       </div>
-    </RouterComponent>
+    </BrowserRouter>
   );
 }
 

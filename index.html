@@ -26,6 +26,21 @@
     <title>Children 4 World Children</title>
     <meta name="description" content="Dedicated to empowering children worldwide through education, healthcare, and community support programs that create lasting positive change.">
     <meta name="keywords" content="children, education, healthcare, community support, child protection, youth programs, emergency relief, global children's charity">
+    
+    <!-- SPA GitHub Pages redirect handling: normalize redirected URLs from 404.html -->
+    <script type="text/javascript">
+      (function(l) {
+        if (l.search && l.search[1] === '/') {
+          var decoded = l.search
+            .slice(1)
+            .split('&')
+            .map(function(s) { return s.replace(/~and~/g, '&'); })
+            .join('?');
+          var newUrl = l.pathname.replace(/\/$/, '') + decoded + l.hash;
+          window.history.replaceState(null, null, newUrl);
+        }
+      })(window.location);
+    </script>
   </head>
   <body>
     <div id="root"></div>

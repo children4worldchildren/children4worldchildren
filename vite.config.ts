@@ -6,15 +6,17 @@ export default defineConfig(({ mode }) => {
   // Load env variables based on the current mode
   const env = loadEnv(mode, process.cwd(), '');
 
-  // Determine base URL with priority:
-  // 1) process.env (GitHub Actions and shell environment)
-  // 2) .env files via loadEnv
-  // 3) Fallback: '/' for dev, '/children4worldchildren/' for production
-  const baseFromProcess = process.env.VITE_BASE_URL;
-  const baseFromEnvFiles = env.VITE_BASE_URL;
-  const base = baseFromProcess
-    || baseFromEnvFiles
-    || (mode === 'production' ? '/children4worldchildren/' : '/');
+  // Base URL strategy:
+  // - Development: ALWAYS '/'
+  // - Production: prefer env (process or .env), fallback to '/children4worldchildren/'
+  let base: string;
+  if (mode !== 'production') {
+    base = '/';
+  } else {
+    const baseFromProcess = process.env.VITE_BASE_URL;
+    const baseFromEnvFiles = env.VITE_BASE_URL;
+    base = baseFromProcess || baseFromEnvFiles || '/children4worldchildren/';
+  }
 
   return {
   plugins: [react()],

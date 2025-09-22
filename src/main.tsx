@@ -8,8 +8,8 @@ import './index.css';
 // Initialize performance monitoring
 initPerformanceMonitoring();
 
-// Register service worker for caching and offline support
-if ('serviceWorker' in navigator) {
+// Register service worker for caching and offline support (production only)
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     const swUrl = new URL('sw.js', import.meta.env.BASE_URL).toString();
     navigator.serviceWorker.register(swUrl)

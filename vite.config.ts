@@ -8,14 +8,14 @@ export default defineConfig(({ mode }) => {
 
   // Base URL strategy:
   // - Development: ALWAYS '/'
-  // - Production: prefer env (process or .env), fallback to '/children4worldchildren/'
+  // - Production (custom domain): prefer env (process or .env), fallback to '/'
   let base: string;
   if (mode !== 'production') {
     base = '/';
   } else {
     const baseFromProcess = process.env.VITE_BASE_URL;
     const baseFromEnvFiles = env.VITE_BASE_URL;
-    base = baseFromProcess || baseFromEnvFiles || '/children4worldchildren/';
+    base = baseFromProcess || baseFromEnvFiles || '/';
   }
 
   return {

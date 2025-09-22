@@ -28,7 +28,7 @@ jobs:
         
       - name: Build
         env:
-          VITE_BASE_URL: /children4worldchildren/
+          VITE_BASE_URL: /
         run: npm run build
         
       - name: Deploy to GitHub Pages
@@ -36,4 +36,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          cname: children4worldchildren.com
           force_orphan: true

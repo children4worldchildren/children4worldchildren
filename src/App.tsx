@@ -138,7 +138,8 @@ const AppContent = () => {
 };
 
 function App() {
-  const basename = import.meta.env.PROD ? '/children4worldchildren' : '/';
+  // Use the built BASE_URL from Vite, which is '/' for dev and for custom domain in prod
+  const basename = import.meta.env.BASE_URL || '/';
   return (
     <BrowserRouter basename={basename}>
       <div className="App">

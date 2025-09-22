@@ -208,3 +208,5 @@ This project is proprietary and confidential.
 **Children 4 World Children** - Empowering Young People And Changing Lives. 🌍
 
 *Last updated: December 2024 - GitHub Pages deployment fixed*
+
+Deployment note: trigger redeploy for custom domain configuration.

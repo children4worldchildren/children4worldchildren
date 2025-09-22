@@ -6,16 +6,8 @@ export default defineConfig(({ mode }) => {
   // Load env variables based on the current mode
   const env = loadEnv(mode, process.cwd(), '');
   
-  // For GitHub Pages, always use the correct base URL in production
-  let base = '/';
-  if (mode === 'production') {
-    base = '/children4worldchildren/';
-  }
-  if (env.VITE_BASE_URL) {
-    base = env.VITE_BASE_URL;
-  }
-  
-  console.log(`Building with base URL: ${base}`);
+  // For GitHub Pages, use the VITE_BASE_URL from environment or default to '/'
+  const base = env.VITE_BASE_URL || '/';
   
   return {
   plugins: [react()],

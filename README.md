@@ -205,4 +205,6 @@ This project is proprietary and confidential.
 
 ---
 
-**Children 4 World Children** - Empowering Kids And Changing Lives. 🌍
+**Children 4 World Children** - Empowering Young People And Changing Lives. 🌍
+
+*Last updated: December 2024*

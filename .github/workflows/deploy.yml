@@ -27,9 +27,7 @@ jobs:
         run: npm ci
         
       - name: Build
-        env:
-          VITE_BASE_URL: /children4worldchildren/
-        run: npm run build
+        run: npm run build:prod
         
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

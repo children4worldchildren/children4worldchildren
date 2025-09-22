@@ -1,0 +1,59 @@
+export interface Volunteer {
+  id: string;
+  name: string;
+  role: string;
+  image: string;
+  bio?: string;
+}
+
+export const volunteers: Volunteer[] = [
+  {
+    id: "1",
+    name: "Christabel Flourish Ategie",
+    role: "Founder: Children 4 World Children International",
+    image: "cfa.jpg",
+    bio: "Visionary founder who started C4WC at age 12 with a passion for empowering young people and creating positive change in communities worldwide."
+  },
+  {
+    id: "2",
+    name: "Kesava Gollapalli",
+    role: "Chief Executive Officer",
+    image: "ceo.jpg",
+    bio: "Experienced leader dedicated to driving organizational growth and ensuring effective program delivery across all C4WC initiatives."
+  },
+  {
+    id: "3",
+    name: "Wunmi Excel Ategie",
+    role: "Program Director",
+    image: "wea.jpg",
+    bio: "Passionate program leader overseeing the development and implementation of educational and community empowerment initiatives."
+  },
+  {
+    id: "4",
+    name: "Ikenna Brendan Iwuoha",
+    role: "IT Team Lead",
+    image: "cto.jpg",
+    bio: "Technology expert ensuring C4WC's digital infrastructure supports our mission to reach and empower more communities globally."
+  },
+  {
+    id: "5",
+    name: "Tracy Yow",
+    role: "Event Manager",
+    image: "evmgr.jpg",
+    bio: "Creative event coordinator bringing communities together through engaging programs and meaningful cultural exchange activities."
+  },
+  /*{
+    id: "6",
+    name: "Masego Kwenamore",
+    role: "Compliance Officer",
+    image: "compliance.jpg",
+    bio: "Dedicated professional ensuring C4WC maintains the highest standards of child protection and organizational compliance."
+  },*/
+  {
+    id: "7",
+    name: "Abiodun-Maryam Idowu",
+    role: "Executive Treasurer",
+    image: "ext.jpg",
+    bio: "Financial expert managing C4WC's resources with transparency and accountability to ensure maximum impact for our programs and beneficiaries."
+  }
+];

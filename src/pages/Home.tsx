@@ -5,6 +5,7 @@ import { Button } from '../components/ui/Button';
 import HeroSection from '../components/HeroSection';
 import { trackComponentRender } from '../utils/performance';
 import { getStatsByLabels } from '../data/stats';
+import { volunteers } from '../data/volunteers';
 
 const Home = () => {
   const componentStartTime = performance.now();
@@ -281,61 +282,34 @@ wider mission to foster inclusion and empowerment.
             <h2 className="heading-section !mb-0 text-center sm:text-left">
               Our Volunteers
             </h2>
-            <div className="btn-secondary opacity-50 cursor-not-allowed whitespace-nowrap" title="Coming Soon">
-              Become a Volunteer
+            <Link to="/about#team" className="btn-secondary whitespace-nowrap">
+              Meet Our Team
               <ArrowRight className="icon-arrow" />
-            </div>
+            </Link>
           </div>
 
-          {/* Volunteers Container */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Volunteer 1 */}
-            <div className="text-center">
-              <div className="mb-4">
-                <img
-                  src={`${import.meta.env.BASE_URL}cfa.jpg`}
-                  alt="Christabel Flourish Ategie"
-                  className="w-32 h-32 rounded-full object-cover mx-auto shadow-lg"
-                  onLoad={() => {}}
-                />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800">
-                Christabel Flourish Ategie
-              </h3>
-              <p className="text-gray-600">Founder; Children 4 World Children International</p>
+          {/* Volunteers Container - Thumbnails Only (Limited to 6) */}
+          <div className="flex justify-center">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 md:gap-6">
+              {volunteers.slice(0, 6).map((volunteer) => (
+                <div key={volunteer.id} className="group cursor-pointer">
+                  <div className="relative">
+                    <img
+                      src={`${import.meta.env.BASE_URL}${volunteer.image}`}
+                      alt={volunteer.name}
+                      className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full object-cover shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 rounded-full bg-purple-600 bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+                  </div>
+                </div>
+              ))}
             </div>
-
-            {/* Volunteer 2 */}
-            <div className="text-center">
-              <div className="mb-4">
-                <img
-                  src={`${import.meta.env.BASE_URL}wea.jpg`}
-                  alt="Wunmi Excel Ategie"
-                  className="w-32 h-32 rounded-full object-cover mx-auto shadow-lg"
-                  onLoad={() => {}}
-                />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800">
-                Wunmi Excel Ategie
-              </h3>
-              <p className="text-gray-600">Program Director</p>
-            </div>
-
-            {/* Volunteer 3 */}
-            <div className="text-center">
-              <div className="mb-4">
-                <img
-                  src={`${import.meta.env.BASE_URL}cto.jpg`}
-                  alt="Ikenna Brendan Iwuoha"
-                  className="w-32 h-32 rounded-full object-cover mx-auto shadow-lg"
-                  onLoad={() => {}}
-                />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800">
-                Ikenna Brendan Iwuoha
-              </h3>
-              <p className="text-gray-600">IT Team Lead</p>
-            </div>
+          </div>
+          
+          <div className="text-center mt-8">
+            <p className="text-gray-600 text-sm">
+              Click "Meet Our Team" to learn more about our dedicated volunteers
+            </p>
           </div>
         </div>
       </section>

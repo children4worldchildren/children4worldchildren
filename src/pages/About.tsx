@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Target, Eye, Award, Globe, Star, Shield, Building2 } from 'lucide-react';
+import { Target, Eye, Award, Globe, Star, Shield, Building2, Users } from 'lucide-react';
 import HeroSection from '../components/HeroSection';
 import { defaultContactInfo } from '../data/contactInfo';
 import type { ContactInfo } from '../data/contactInfo';
 import { getStatsByLabels } from '../data/stats';
 import { offices } from '../data/offices';
 import Stats from '../components/Stats';
+import { volunteers } from '../data/volunteers';
 
 interface CompanyInfo {
   name: string;
@@ -76,6 +77,23 @@ const About = () => {
     window.addEventListener('adminPanelSaved', handleAdminSave);
     return () => window.removeEventListener('adminPanelSaved', handleAdminSave);
   }, [companyInfo.name]);
+
+  // Handle scrolling to team section when hash is present
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash === '#team') {
+      // Use setTimeout to ensure the page has fully rendered
+      setTimeout(() => {
+        const teamElement = document.getElementById('team');
+        if (teamElement) {
+          teamElement.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }, 100);
+    }
+  }, []);
 
   const goals = [
     {
@@ -206,6 +224,62 @@ const About = () => {
                 src={aboutImage}
                 alt="Children 4 World Children International"
               />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Team */}
+      <section id="team" className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="heading-section">Meet Our Team</h2>
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto mt-4">
+              Our dedicated volunteers are the heart of C4WC, bringing passion, expertise, and commitment to empowering young people worldwide.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {volunteers.map((volunteer) => (
+              <div key={volunteer.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <div className="p-8 text-center">
+                  <div className="mb-6">
+                    <img
+                      src={`${import.meta.env.BASE_URL}${volunteer.image}`}
+                      alt={volunteer.name}
+                      className="w-32 h-32 rounded-full object-cover mx-auto shadow-lg"
+                    />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    {volunteer.name}
+                  </h3>
+                  <p className="text-purple-600 font-semibold mb-4">
+                    {volunteer.role}
+                  </p>
+                  {volunteer.bio && (
+                    <p className="text-gray-600 leading-relaxed text-sm">
+                      {volunteer.bio}
+                    </p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="text-center mt-12">
+            <div className="bg-purple-50 rounded-xl p-8">
+              <div className="flex items-center justify-center mb-4">
+                <Users className="h-8 w-8 text-purple-600 mr-3" />
+                <h3 className="text-2xl font-bold text-gray-900">Join Our Team</h3>
+              </div>
+              <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
+                We're always looking for passionate individuals who want to make a difference in young people's lives. 
+                Whether you have a few hours a week or want to take on a leadership role, there's a place for you at C4WC.
+              </p>
+              <div className="inline-flex items-center px-6 py-3 bg-purple-400 text-white rounded-lg cursor-not-allowed opacity-75" title="Coming Soon">
+                Become a Volunteer
+                <Users className="ml-2 h-5 w-5" />
+              </div>
             </div>
           </div>
         </div>

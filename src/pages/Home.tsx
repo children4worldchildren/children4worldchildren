@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Shield, Users, Award, Target, CheckCircle } from 'lucide-react';

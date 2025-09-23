@@ -19,44 +19,54 @@ export default defineConfig(({ mode }) => {
   }
 
   return {
-  plugins: [react()],
-  base,
-  server: {
-    port: 5173,
-    host: true
-  },
-  define: {
-    'process.env.VITE_GOOGLE_MAPS_API_KEY': JSON.stringify(env.VITE_GOOGLE_MAPS_API_KEY),
-  },
-  build: {
-    target: 'es2015',
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
+    plugins: [react()],
+    base,
+    server: {
+      port: 5173,
+      host: true,
+      // Dev proxy to avoid CORS when calling the backend from the browser
+      proxy: mode !== 'production' ? {
+        '/api': {
+          target: env.VITE_DEV_API_TARGET || 'https://your-backend-url.railway.app',
+          changeOrigin: true,
+          secure: false,
+          // keep '/api' prefix so backend receives '/api/...'
+          // rewrite: (path) => path, // no-op
+        }
+      } : undefined,
     },
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          icons: ['lucide-react'],
+    define: {
+      'process.env.VITE_GOOGLE_MAPS_API_KEY': JSON.stringify(env.VITE_GOOGLE_MAPS_API_KEY),
+    },
+    build: {
+      target: 'es2015',
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
         },
-        chunkFileNames: 'assets/js/[name]-[hash].js',
-        entryFileNames: 'assets/js/[name]-[hash].js',
-        assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
       },
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['react', 'react-dom'],
+            router: ['react-router-dom'],
+            icons: ['lucide-react'],
+          },
+          chunkFileNames: 'assets/js/[name]-[hash].js',
+          entryFileNames: 'assets/js/[name]-[hash].js',
+          assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
+        },
+      },
+      chunkSizeWarningLimit: 1000,
     },
-    chunkSizeWarningLimit: 1000,
-  },
-  optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom'],
-    exclude: [],
-  },
-  css: {
-    devSourcemap: false,
+    optimizeDeps: {
+      include: ['react', 'react-dom', 'react-router-dom'],
+      exclude: [],
+    },
+    css: {
+      devSourcemap: false,
     },
   };
 });

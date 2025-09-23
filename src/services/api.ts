@@ -1,6 +1,9 @@
-// Use environment variable for API URL, fallback to localhost for development
-// TODO: Replace with your actual Railway/Render/Heroku backend URL when deployed
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://your-backend-url.railway.app/api';
+// API base strategy:
+// - Development: use '/api' and let Vite devServer proxy forward to the real backend
+// - Production: use VITE_API_URL (must include '/api' path) or fallback placeholder
+const API_BASE_URL = import.meta.env.DEV
+  ? '/api'
+  : (import.meta.env.VITE_API_URL || 'https://your-backend-url.railway.app/api');
 
 interface LoginResponse {
   message: string;

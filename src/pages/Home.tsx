@@ -61,6 +61,14 @@ const Home = () => {
           </>
         }
         subtitle="Dedicated to creating a platform for integrating, reintegrating, and empowering people from diverse ethnic groups through peer-to-peer learning."
+        images={[
+          `${import.meta.env.BASE_URL}hero2.jpg`,
+          `${import.meta.env.BASE_URL}hero3.jpg`,
+          `${import.meta.env.BASE_URL}hero4.jpg`,
+        ]}
+        intervalMs={5000}
+        showWaves={false}
+        imagePosition="center 20%"
       />
 
       {/* About Us Preview Section */}

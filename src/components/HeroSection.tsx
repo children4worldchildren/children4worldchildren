@@ -8,6 +8,10 @@ interface HeroSectionProps {
   titleClassName?: string;
   subtitleClassName?: string;
   children?: React.ReactNode;
+  images?: string[];
+  intervalMs?: number;
+  showWaves?: boolean;
+  imagePosition?: string;
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({
@@ -17,9 +21,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   titleClassName = '',
   subtitleClassName = '',
   children,
+  images,
+  intervalMs,
+  showWaves,
+  imagePosition,
 }) => {
   return (
-    <HeroBackground className={className}>
+    <HeroBackground className={className} images={images} intervalMs={intervalMs} showWaves={showWaves} imagePosition={imagePosition}>
       <div className="text-center max-w-4xl mx-auto px-4">
         <div className="space-y-5">
           <h1 className={`text-3xl md:text-4xl lg:text-5xl font-medium text-gray-900 leading-tight tracking-tight ${titleClassName}`}>

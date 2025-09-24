@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import HeroSection from '../components/HeroSection';
 import { Calendar, MapPin, Users, DollarSign, Heart, Star } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 const Events = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [showExternalLinkModal, setShowExternalLinkModal] = useState(false);
 
   const categories = [
     { id: 'all', name: 'All Events' },
+    { id: 'sports', name: 'Sports & Fitness' },
     { id: 'fundraising', name: 'Fundraising' },
     { id: 'awareness', name: 'Awareness' },
     { id: 'volunteer', name: 'Volunteer' },
@@ -16,17 +20,34 @@ const Events = () => {
   const events = [
     {
       id: 1,
-      title: "Annual Charity Gala",
-      category: "fundraising",
-      date: "December 15, 2024",
-      time: "7:00 PM",
-      location: "Grand Hotel, Dublin",
-      description: "Join us for our biggest fundraising event of the year. An evening of fine dining, entertainment, and giving back to children in need.",
-      image: "/public/ceo.jpg",
-      attendees: 250,
-      target: 50000,
-      raised: 35000,
-      featured: true
+      title: "Sports Across the World 2025",
+      category: "sports",
+      date: "Sat 1 Nov 2025",
+      time: "3:00 – 6:30 PM",
+      location: "Mulhuddart Community Centre, Dublin 15",
+      description: "Get ready for Sports Across the World 2025, a fun-filled day where people of all ages, cultures, and backgrounds come together to play, connect and celebrate through sport and games!",
+      fullDescription: "From field sports and board games to competitions, music, food and exhibitions, this festival is all about laughter, community and unity that crosses borders. But it's not just an event, it's a platform for collaboration. Each year, we welcome community groups, schools, embassies, sports clubs, local businesses and media partners to showcase their projects, connect with young people and promote healthy, active lifestyles.",
+      image: "/public/children-4-world-children.png",
+      attendees: 0,
+      target: 0,
+      raised: 0,
+      featured: true,
+      highlights: [
+        "Free sports activities & fitness sessions",
+        "Medals for participants",
+        "Demonstrations of traditional and modern sports from across the globe",
+        "Cultural performances and exhibitions",
+        "Booth stalls for businesses and organisations",
+        "Networking and community-building opportunities",
+        "Exciting prizes to be won — and more!"
+
+      ],
+      audience: "Everyone! Young people, families, schools, community groups — all are welcome. Admission is free (just register to secure your spot).",
+      fundedBy: "Fingal County Council",
+      contact: "hello@children4worldchildren.com",
+      social: {
+        facebook: "https://facebook.com/Caring4worldchildren"
+      }
     },
     {
       id: 2,
@@ -111,73 +132,107 @@ const Events = () => {
     }).format(amount);
   };
 
+  const confirmExternalLink = () => {
+    window.open('https://www.eventbrite.ie/e/sports-across-the-world-2025-tickets-1732112076849?aff=oddtdtcreator', '_blank');
+    setShowExternalLinkModal(false);
+  };
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
       <HeroSection
       title={
         <>
-          <span className="block">Upcoming Events</span>
+          <span className="block">Join Our Community Events</span>
         </>
       }
-      subtitle="Join us in our mission to help children worldwide. From fundraising galas to community awareness events, there's something for everyone."
+      subtitle="Be part of meaningful experiences that bring people together. From sports festivals to awareness walks, discover events that inspire and connect."
       />
 
-      {/* Featured Event */}
+      {/* Featured / Upcoming Event */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured Event</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured: Sports Across the World 2025</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">A celebration of sports, culture, and community</p>
           </div>
           
           {events.filter(event => event.featured).map(event => (
-            <div key={event.id} className="bg-gradient-to-r from-purple-600 to-purple-800 rounded-2xl p-8 text-white">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                <div>
+            <div key={event.id} className="bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl p-8 text-white">
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                {/* Left Column - Event Info */}
+                <div className="lg:col-span-3">
                   <div className="flex items-center mb-4">
                     <Star className="h-6 w-6 text-yellow-300 mr-2" />
                     <span className="text-purple-200 font-semibold">Featured Event</span>
                   </div>
                   <h3 className="text-3xl font-bold mb-4">{event.title}</h3>
-                  <p className="text-purple-100 mb-6">{event.description}</p>
+                  <p className="text-purple-100 mb-4">{event.description}</p>
+                  <p className="text-purple-100 mb-6">{(event as any).fullDescription}</p>
                   
-                  <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="flex items-center">
-                      <Calendar className="h-5 w-5 mr-2" />
-                      <span>{event.date}</span>
+                  {/* Event Details */}
+                  <div className="space-y-4 mb-6">
+                    <div className="flex items-start">
+                      <Calendar className="h-5 w-5 mr-3 mt-0.5 flex-shrink-0 text-purple-200" />
+                      <div>
+                        <p className="font-medium text-purple-50">When</p>
+                        <p className="text-purple-100">{event.date} • {event.time}</p>
+                      </div>
                     </div>
-                    <div className="flex items-center">
-                      <MapPin className="h-5 w-5 mr-2" />
-                      <span>{event.location}</span>
+                    <div className="flex items-start">
+                      <MapPin className="h-5 w-5 mr-3 mt-0.5 flex-shrink-0 text-purple-200" />
+                      <div>
+                        <p className="font-medium text-purple-50">Where</p>
+                        <p className="text-purple-100">{event.location}</p>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <Users className="h-5 w-5 mr-2" />
-                      <span>{event.attendees} attending</span>
+                    
+                    {/* Registration Section - Moved Up */}
+                    <div className="mt-6 pt-6 border-t border-white/20">
+                      <h4 className="text-xl font-bold mb-3 text-white">Who's it for?</h4>
+                      <p className="text-purple-100 mb-4 text-base leading-relaxed">{(event as any).audience}</p>
+                      <button 
+                        onClick={() => setShowExternalLinkModal(true)}
+                        className="w-full px-6 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 whitespace-nowrap text-center shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                      >
+                        Register Now <FaExternalLinkAlt className="text-xs" />
+                      </button>
                     </div>
-                    <button className="px-6 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200">
-                      Register Now
-                    </button>
                   </div>
                 </div>
                 
-                <div className="bg-white rounded-lg p-6 text-gray-900">
-                  <h4 className="text-xl font-bold mb-4">Fundraising Progress</h4>
-                  <div className="mb-4">
-                    <div className="flex justify-between text-sm mb-2">
-                      <span>Raised</span>
-                      <span>{formatCurrency(event.raised)}</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
-                        className="bg-purple-600 h-2 rounded-full" 
-                        style={{ width: `${(event.raised / event.target) * 100}%` }}
-                      ></div>
-                    </div>
-                    <div className="text-sm text-gray-600 mt-1">
-                      Goal: {formatCurrency(event.target)}
+                {/* Right Column - Highlights - Wider */}
+                <div className="lg:col-span-2 lg:-mt-2">
+                  <div className="bg-white rounded-lg p-8 text-gray-900 h-full flex flex-col">
+                    <h4 className="text-2xl font-bold mb-6 text-purple-800">Highlights</h4>
+                    <ul className="space-y-4 mb-8 flex-grow">
+                      {Array.isArray((event as any).highlights) && (event as any).highlights.map((item: string, idx: number) => (
+                        <li key={idx} className="flex items-start">
+                          <span className="flex-shrink-0 w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3"></span>
+                          <span className="text-gray-700 leading-relaxed">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-auto pt-6 border-t border-gray-100">
+                      <div className="text-sm text-gray-600 space-y-2">
+                        <p><span className="font-medium">Funded by:</span> {(event as any).fundedBy}</p>
+                        <p>
+                          <span className="font-medium">Contact:</span> <a href={`mailto:${(event as any).contact}`} className="text-purple-600 hover:underline">{(event as any).contact}</a>
+                        </p>
+                        {Boolean((event as any).social?.facebook) && (
+                          <p>
+                            <span className="font-medium">Facebook:</span>{' '}
+                            <a 
+                              href={(event as any).social.facebook} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              className="text-purple-600 hover:underline"
+                            >
+                              Children 4 World Children
+                            </a>
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -292,8 +347,42 @@ const Events = () => {
           </div>
         </div>
       </section>
+
+      {/* External Link Confirmation Modal */}
+      <AnimatePresence>
+        {showExternalLinkModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="bg-white rounded-xl p-6 max-w-md w-full mx-4"
+            >
+              <h3 className="text-xl font-bold text-gray-900 mb-4">You're leaving our website</h3>
+              <p className="text-gray-600 mb-6">
+                You're about to be redirected to Eventbrite to complete your registration. 
+                Please note that you'll be taken to an external website.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={confirmExternalLink}
+                  className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex-1 flex items-center justify-center gap-2"
+                >
+                  Continue to Eventbrite <FaExternalLinkAlt className="text-sm" />
+                </button>
+                <button
+                  onClick={() => setShowExternalLinkModal(false)}
+                  className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex-1"
+                >
+                  Cancel
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
 
-export default Events; 
+export default Events;

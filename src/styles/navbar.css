@@ -1,0 +1,27 @@
+/* Navbar specific styles */
+.nav-button {
+  color: white !important;
+}
+
+.nav-button:hover,
+.nav-button:active,
+.nav-button:focus {
+  color: white !important;
+}
+
+/* Ensure the button text is white in all states */
+.bg-purple-600 .nav-button,
+.bg-purple-700 .nav-button,
+.bg-purple-800 .nav-button,
+.hover\:bg-purple-700:hover .nav-button,
+.hover\:bg-purple-700:focus .nav-button {
+  color: white !important;
+}
+
+/* Specific selector for the Support button text */
+nav a[href*="donate"] span,
+nav a[href*="donate"]:hover span,
+nav a[href*="donate"]:active span,
+nav a[href*="donate"]:focus span {
+  color: white !important;
+}

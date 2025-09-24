@@ -1,9 +1,9 @@
-import React from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Shield, Users, Award, Target, CheckCircle } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import HeroSection from '../components/HeroSection';
+import EventNotice from '../components/EventNotice';
 import { trackComponentRender } from '../utils/performance';
 import { getStatsByLabels } from '../data/stats';
 import { volunteers } from '../data/volunteers';
@@ -52,6 +52,8 @@ const Home = () => {
 
   return (
     <div className="overflow-hidden">
+      {/* Event Notice Modal - Will only show if not dismissed and before event date */}
+      <EventNotice />
       {/* Hero Section */}
       <HeroSection 
         title={
@@ -61,6 +63,7 @@ const Home = () => {
           </>
         }
         subtitle="Dedicated to creating a platform for integrating, reintegrating, and empowering people from diverse ethnic groups through peer-to-peer learning."
+        subtitleClassName="text-purple-700"
         images={[
           `${import.meta.env.BASE_URL}hero2.jpg`,
           `${import.meta.env.BASE_URL}hero3.jpg`,

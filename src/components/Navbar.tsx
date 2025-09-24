@@ -1,30 +1,72 @@
-import React from 'react';
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import LogoUpload from './LogoUpload';
+import '../styles/navbar.css';
+
+const EVENT_DATE = new Date('2025-11-01T15:00:00');
 
 interface NavItem {
   name: string;
   href: string;
   isButton?: boolean;
+  hasNotification?: boolean;
 }
-// import { useAuth } from '../contexts/AuthContext';
-// import LoginModal from './LoginModal';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  // const [showLoginModal, setShowLoginModal] = useState(false);
   const location = useLocation();
-  // const { isAuthenticated, user } = useAuth();
+
+  const [showEventBadge, setShowEventBadge] = useState(false);
+
+  // Check if the event has passed and update badge visibility
+  const updateEventBadge = () => {
+    const today = new Date();
+    const timeDiff = EVENT_DATE.getTime() - today.getTime();
+    const eventHasPassed = timeDiff < 0;
+    
+    // Always show badge if event hasn't passed, regardless of notice dismissal
+    setShowEventBadge(!eventHasPassed);
+  };
+
+  // Initial check and setup daily check for event date
+  useEffect(() => {
+    updateEventBadge();
+    
+    // Check daily if the event has passed
+    const checkEventDate = () => {
+      updateEventBadge();
+    };
+    
+    // Check daily at midnight
+    const now = new Date();
+    const msUntilMidnight = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate() + 1, // Next day
+      0, 0, 1 // 00:00:01
+    ).getTime() - now.getTime();
+    
+    const dailyCheckTimer = setTimeout(() => {
+      checkEventDate();
+      // Set up daily checks
+      const dailyInterval = setInterval(checkEventDate, 24 * 60 * 60 * 1000);
+      return () => clearInterval(dailyInterval);
+    }, msUntilMidnight);
+    
+    return () => {
+      clearTimeout(dailyCheckTimer);
+    };
+  }, []);
 
   const navigation: NavItem[] = [
     { name: 'Home', href: '/' },
     { name: 'About Us', href: '/about' },
-    // { name: 'Programs', href: '/programs' },
-    { name: 'Events', href: '/events' },
-    // { name: 'Impact', href: '/impact' },
-    // { name: 'Volunteer', href: '/volunteer' },
+    { 
+      name: 'Events', 
+      href: '/events',
+      hasNotification: showEventBadge
+    },
     { name: 'Contact', href: '/contact' },
     { 
       name: 'Support', 
@@ -63,7 +105,7 @@ const Navbar = () => {
                             ? 'bg-purple-800 text-white shadow-inner' 
                             : 'bg-purple-600 text-white hover:bg-purple-700 hover:shadow-lg hover:-translate-y-0.5'
                           }
-                          text-white hover:text-white active:text-white
+                          !text-white hover:!text-white active:!text-white focus:!text-white
                         ` 
                         : `
                           px-2 py-2
@@ -75,7 +117,20 @@ const Navbar = () => {
                       }
                     `}
                   >
-                    {item.name}
+                    <>
+                      {item.isButton ? (
+                        <span className="nav-button">{item.name}</span>
+                      ) : (
+                        <div className="relative">
+                          {item.name}
+                          {item.hasNotification && (
+                            <span className="absolute -top-2 -right-3 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </>
                   </Link>
                 );
               })}
@@ -128,7 +183,7 @@ const Navbar = () => {
                             ? 'bg-purple-800 text-white shadow-inner'
                             : 'bg-purple-600 text-white hover:bg-purple-700'
                           }
-                          text-white hover:text-white active:text-white
+                          !text-white hover:!text-white active:!text-white focus:!text-white
                         `
                         : isActiveLink
                         ? 'text-purple-600 bg-purple-50'
@@ -137,7 +192,20 @@ const Navbar = () => {
                     `}
                     onClick={() => setIsOpen(false)}
                   >
-                    {item.name}
+                    <>
+                      {item.isButton ? (
+                        <span className="nav-button">{item.name}</span>
+                      ) : (
+                        <div className="relative">
+                          {item.name}
+                          {item.hasNotification && (
+                            <span className="absolute -top-2 -right-3 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </>
                   </Link>
                 );
               })}

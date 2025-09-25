@@ -28,6 +28,24 @@
   scrollbar-width: none;  /* Firefox */
 }
 
+/* Sliding Background Animation */
+@keyframes slide {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-slide {
+  animation: slide 30s ease infinite;
+  background-size: 200% auto;
+}
+
 /* Wave Animation */
 .wave-bg {
   position: relative;

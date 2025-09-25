@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import HeroSection from '../components/HeroSection';
-import { Calendar, MapPin, Users, DollarSign, Heart, Star } from 'lucide-react';
+import { Calendar, MapPin, Star, Users } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 
@@ -28,6 +28,7 @@ const Events = () => {
       description: "Get ready for Sports Across the World 2025, a fun-filled day where people of all ages, cultures, and backgrounds come together to play, connect and celebrate through sport and games!",
       fullDescription: "From field sports and board games to competitions, music, food and exhibitions, this festival is all about laughter, community and unity that crosses borders. But it's not just an event, it's a platform for collaboration. Each year, we welcome community groups, schools, embassies, sports clubs, local businesses and media partners to showcase their projects, connect with young people and promote healthy, active lifestyles.",
       image: "/public/children-4-world-children.png",
+      emoji: "⚽🏀🏓",
       attendees: 0,
       target: 0,
       raised: 0,
@@ -58,6 +59,7 @@ const Events = () => {
       location: "Phoenix Park, Dublin",
       description: "A family-friendly walk to raise awareness about children's rights and our mission to protect vulnerable children worldwide.",
       image: "/public/children-4-world-children.png",
+      emoji: "🚶‍♂️👨‍👩‍👧‍👦✊",
       attendees: 150,
       target: 10000,
       raised: 7500,
@@ -72,6 +74,7 @@ const Events = () => {
       location: "Community Center, Cork",
       description: "Learn how you can make a difference as a volunteer. Training session for new volunteers interested in our programs.",
       image: "/pic1.JPG",
+      emoji: "👥📚💡",
       attendees: 30,
       target: 0,
       raised: 0,
@@ -86,6 +89,7 @@ const Events = () => {
       location: "Various Locations",
       description: "Help us collect school supplies for children in need. Drop-off locations across the city.",
       image: "/pic2.JPG",
+      emoji: "🎒📚✏️",
       attendees: 100,
       target: 0,
       raised: 0,
@@ -100,6 +104,7 @@ const Events = () => {
       location: "Shopping Centers Nationwide",
       description: "Spread joy this holiday season by donating toys for children who might otherwise go without.",
       image: "/pic3.JPG",
+      emoji: "🎄🎁🤶",
       attendees: 200,
       target: 15000,
       raised: 12000,
@@ -114,6 +119,7 @@ const Events = () => {
       location: "Convention Center, Galway",
       description: "Empowering young leaders to create positive change in their communities through workshops and networking.",
       image: "/pic4.JPG",
+      emoji: "🌟👥💪",
       attendees: 80,
       target: 0,
       raised: 0,
@@ -139,77 +145,90 @@ const Events = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <HeroSection
-      title={
-        <>
-          <span className="block">Join Our Community Events</span>
-        </>
-      }
-      subtitle="Be part of meaningful experiences that bring people together. From sports festivals to awareness walks, discover events that inspire and connect."
-      />
-
-      {/* Featured / Upcoming Event */}
-      <section className="py-16 bg-white">
+      {/* Featured Event - Moved to top */}
+      <section className="pt-12 pb-16 bg-gradient-to-b from-purple-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured: Sports Across the World 2025</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">A celebration of sports, culture, and community</p>
+          <div className="text-center mb-10">
+            <h2 className="text-4xl font-bold text-purple-900 mb-3">Featured Event</h2>
+            <p className="text-lg text-purple-700 max-w-3xl mx-auto">Join us for our upcoming community celebration</p>
           </div>
           
           {events.filter(event => event.featured).map(event => (
-            <div key={event.id} className="bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl p-8 text-white">
-              <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+            <div key={event.id} className="bg-gradient-to-br from-purple-600 to-purple-800 p-8 text-white">
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 shadow-xl rounded-2xl overflow-hidden bg-white">
                 {/* Left Column - Event Info */}
-                <div className="lg:col-span-3">
-                  <div className="flex items-center mb-4">
-                    <Star className="h-6 w-6 text-yellow-300 mr-2" />
-                    <span className="text-purple-200 font-semibold">Featured Event</span>
+                <div className="lg:col-span-3 p-8 bg-purple-900">
+                  <div className="relative overflow-hidden rounded-lg mb-4 sm:mb-6">
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center opacity-20 animate-slide" 
+                      style={{ 
+                        backgroundImage: `url(${import.meta.env.BASE_URL}pstr.jpg)`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat'
+                      }}
+                    />
+                    <div className="relative p-4 sm:p-6">
+                      <div className="flex items-center mb-2">
+                        <Star className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-300 mr-2" />
+                        <span className="text-sm sm:text-base text-purple-200 font-semibold bg-purple-900/80 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">
+                          Featured Event
+                        </span>
+                      </div>
+                      <h3 className="text-2xl sm:text-4xl font-bold mb-2 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
+                        {event.title}
+                      </h3>
+                    </div>
                   </div>
-                  <h3 className="text-3xl font-bold mb-4">{event.title}</h3>
-                  <p className="text-purple-100 mb-4">{event.description}</p>
-                  <p className="text-purple-100 mb-6">{(event as any).fullDescription}</p>
+                  <p className="text-purple-100 text-sm sm:text-base mb-4">{event.description}</p>
+                  <p className="text-purple-100 text-sm sm:text-base mb-6">{(event as any).fullDescription}</p>
                   
                   {/* Event Details */}
                   <div className="space-y-4 mb-6">
                     <div className="flex items-start">
-                      <Calendar className="h-5 w-5 mr-3 mt-0.5 flex-shrink-0 text-purple-200" />
-                      <div>
-                        <p className="font-medium text-purple-50">When</p>
-                        <p className="text-purple-100">{event.date} • {event.time}</p>
+                      <div className="flex-shrink-0 mt-0.5">
+                        <Calendar className="h-5 w-5 text-purple-200" />
+                      </div>
+                      <div className="ml-3">
+                        <p className="font-medium text-purple-50 text-sm sm:text-base">When</p>
+                        <p className="text-purple-100 text-sm sm:text-base">{event.date} • {event.time}</p>
                       </div>
                     </div>
                     <div className="flex items-start">
-                      <MapPin className="h-5 w-5 mr-3 mt-0.5 flex-shrink-0 text-purple-200" />
-                      <div>
-                        <p className="font-medium text-purple-50">Where</p>
-                        <p className="text-purple-100">{event.location}</p>
+                      <div className="flex-shrink-0 mt-0.5">
+                        <MapPin className="h-5 w-5 text-purple-200" />
+                      </div>
+                      <div className="ml-3">
+                        <p className="font-medium text-purple-50 text-sm sm:text-base">Where</p>
+                        <p className="text-purple-100 text-sm sm:text-base">{event.location}</p>
                       </div>
                     </div>
                     
                     {/* Registration Section - Moved Up */}
                     <div className="mt-6 pt-6 border-t border-white/20">
-                      <h4 className="text-xl font-bold mb-3 text-white">Who's it for?</h4>
-                      <p className="text-purple-100 mb-4 text-base leading-relaxed">{(event as any).audience}</p>
+                      <h4 className="text-lg sm:text-xl font-bold mb-3 text-white">Who's it for?</h4>
+                      <p className="text-purple-100 mb-4 text-sm sm:text-base leading-relaxed">
+                        {(event as any).audience}
+                      </p>
                       <button 
                         onClick={() => setShowExternalLinkModal(true)}
-                        className="w-full px-6 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 whitespace-nowrap text-center shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                        className="w-full px-4 sm:px-6 py-2 sm:py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 whitespace-nowrap text-center shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-base sm:text-lg"
                       >
-                        Register Now <FaExternalLinkAlt className="text-xs" />
+                        Register Now <FaExternalLinkAlt className="ml-1" />
                       </button>
                     </div>
                   </div>
                 </div>
                 
                 {/* Right Column - Highlights - Wider */}
-                <div className="lg:col-span-2 lg:-mt-2">
-                  <div className="bg-white rounded-lg p-8 text-gray-900 h-full flex flex-col">
-                    <h4 className="text-2xl font-bold mb-6 text-purple-800">Highlights</h4>
-                    <ul className="space-y-4 mb-8 flex-grow">
+                <div className="lg:col-span-2 lg:-mt-2 mt-6 lg:mt-0">
+                  <div className="bg-white rounded-lg p-4 sm:p-6 lg:p-8 text-gray-900 h-full flex flex-col">
+                    <h4 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-purple-800">Highlights</h4>
+                    <ul className="space-y-3 sm:space-y-4 mb-6 sm:mb-8 flex-grow">
                       {Array.isArray((event as any).highlights) && (event as any).highlights.map((item: string, idx: number) => (
                         <li key={idx} className="flex items-start">
-                          <span className="flex-shrink-0 w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3"></span>
-                          <span className="text-gray-700 leading-relaxed">{item}</span>
+                          <span className="flex-shrink-0 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-purple-500 rounded-full mt-2 sm:mt-2.5 mr-2 sm:mr-3"></span>
+                          <span className="text-sm sm:text-base text-gray-700 leading-relaxed">{item}</span>
                         </li>
                       ))}
                     </ul>
@@ -242,12 +261,26 @@ const Events = () => {
         </div>
       </section>
 
+      {/* Hero Section - Made more compact */}
+      <div className="bg-purple-50">
+        <HeroSection
+          title={
+            <>
+              <span className="block">Join Our Community Events</span>
+            </>
+          }
+          subtitle="Be part of meaningful experiences that bring people together. From sports festivals to awareness walks, discover events that inspire and connect."
+          showWaves={false}
+          className="py-12"
+        />
+      </div>
+
       {/* Event Categories */}
-      <section className="py-16">
+      <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">All Events</h2>
-            <p className="text-xl text-gray-600">Find an event that matches your interests and availability.</p>
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-gray-900">More Upcoming Events</h2>
+            <p className="mt-2 text-lg text-gray-600">Discover and join our other activities</p>
           </div>
 
           {/* Category Filters */}
@@ -272,7 +305,7 @@ const Events = () => {
             {filteredEvents.filter(event => !event.featured).map(event => (
               <div key={event.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                 <div className="h-48 bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
-                  <Heart className="h-16 w-16 text-white" />
+                  <div className="text-4xl text-white">{event.emoji || '🎉'}</div>
                 </div>
                 
                 <div className="p-6">

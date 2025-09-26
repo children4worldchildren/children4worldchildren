@@ -43,28 +43,45 @@ const Contact: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitError('');
+    setSubmitSuccess(false);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // In a real app, you would send the form data to your backend here
-      console.log('Form submitted:', formData);
-      
-      // Show success message
-      setSubmitSuccess(true);
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        organization: '',
-        program: '',
-        message: ''
+      const response = await fetch('https://formspree.io/f/xanpnvkj', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          organization: formData.organization,
+          program: formData.program,
+          message: formData.message,
+          _subject: `New Contact Form Submission from ${formData.name}`
+        })
       });
+      
+      if (response.ok) {
+        // Show success message
+        setSubmitSuccess(true);
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          organization: '',
+          program: '',
+          message: ''
+        });
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to submit form');
+      }
     } catch (error) {
-      setSubmitError('An error occurred while submitting the form. Please try again.');
       console.error('Form submission error:', error);
+      setSubmitError('An error occurred while submitting the form. Please try again or contact us directly.');
     } finally {
       setIsSubmitting(false);
     }
@@ -167,7 +184,10 @@ const Contact: React.FC = () => {
             <div className="lg:col-span-7">
               <div className="bg-gray-50 p-8 rounded-xl">
                 <h2 className="text-3xl font-bold text-gray-900 mb-6">Send us a Message</h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form 
+                  onSubmit={handleSubmit} 
+                  className="space-y-6"
+                >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
@@ -257,7 +277,7 @@ const Contact: React.FC = () => {
                     <textarea
                       id="message"
                       name="message"
-                      rows={4}
+                      rows={5}
                       required
                       value={formData.message}
                       onChange={handleInputChange}
@@ -265,24 +285,29 @@ const Contact: React.FC = () => {
                       placeholder="How can we help you?"
                     ></textarea>
                   </div>
+                  
+                  {/* Hidden honeypot field for spam prevention */}
+                  <input type="text" name="_gotcha" className="hidden" />
+                  
+                  {/* Form status messages */}
+                  {submitSuccess && (
+                    <div className="p-4 bg-green-50 text-green-700 rounded-lg">
+                      Thank you for your message! We'll get back to you soon.
+                    </div>
+                  )}
+                  {submitError && (
+                    <div className="p-4 bg-red-50 text-red-700 rounded-lg">
+                      {submitError}
+                    </div>
+                  )}
 
-                  <div className="mt-8">
+                  <div>
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full px-6 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
                     >
-                      {isSubmitting ? (
-                        <>
-                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                          Sending...
-                        </>
-                      ) : (
-                        'Send Message'
-                      )}
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
                     </button>
                     
                     {submitSuccess && (

@@ -124,8 +124,27 @@ const Events = () => {
       target: 0,
       raised: 0,
       featured: false
+    },
+    {
+      id: 7,
+      title: "Grand Finale: A Wall of Change",
+      category: "awareness",
+      date: "October 17, 2025",
+      time: "2:00 PM - 4:30 PM",
+      location: "Blanchardstown Library",
+      description: "Join us for the Grand Finale of A Wall of Change as we come together on the United Nations International Day for the Eradication of Poverty to share one action that can build a future without poverty.",
+      image: "/events/wall-of-change-grand-finale.jpg",
+      emoji: "🧱🌍💜",
+      attendees: 0,
+      target: 0,
+      raised: 0,
+      featured: true,
+      primaryFeatured: true
     }
   ];
+
+  const primaryFeaturedEvent = events.find(event => (event as any).primaryFeatured);
+  const secondaryFeaturedEvents = events.filter(event => event.featured && !(event as any).primaryFeatured);
 
   const filteredEvents = selectedCategory === 'all' 
     ? events 
@@ -153,7 +172,63 @@ const Events = () => {
             <p className="text-lg text-purple-700 max-w-3xl mx-auto">Join us for our upcoming community celebration</p>
           </div>
           
-          {events.filter(event => event.featured).map(event => (
+          {primaryFeaturedEvent && (
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-10">
+              <div className="grid grid-cols-1 lg:grid-cols-2">
+                <div className="p-8 lg:p-10 bg-gradient-to-br from-purple-700 via-purple-600 to-purple-500 text-white flex flex-col justify-between">
+                  <div>
+                  <div className="flex items-center mb-2">
+                        <Star className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-300 mr-2" />
+                        <span className="text-sm sm:text-base text-purple-200 font-semibold bg-purple-900/80 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">
+                          Featured Event
+                        </span>
+                      </div>
+                    <h3 className="mt-4 text-3xl lg:text-4xl font-bold leading-tight bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
+                      {primaryFeaturedEvent.title}
+                    </h3>
+                    <p className="mt-4 text-purple-100 text-base lg:text-lg leading-relaxed">
+                      {primaryFeaturedEvent.description}
+                    </p>
+                  </div>
+
+                  <div className="mt-8 space-y-4 text-sm lg:text-base">
+                    <div className="flex items-start gap-3">
+                      <Calendar className="h-5 w-5 text-purple-200 flex-shrink-0" />
+                      <div>
+                        <p className="font-semibold text-white/90">When</p>
+                        <p className="text-purple-100">{primaryFeaturedEvent.date} • {primaryFeaturedEvent.time}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <MapPin className="h-5 w-5 text-purple-200 flex-shrink-0" />
+                      <div>
+                        <p className="font-semibold text-white/90">Where</p>
+                        <p className="text-purple-100">{primaryFeaturedEvent.location}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Users className="h-5 w-5 text-purple-200 flex-shrink-0" />
+                      <div>
+                        <p className="font-semibold text-white/90">Theme</p>
+                        <p className="text-purple-100">Together, we build a future without poverty.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="relative min-h-[260px] sm:min-h-[320px] lg:min-h-full">
+                  <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{
+                      backgroundImage: `url(${import.meta.env.BASE_URL.replace(/\/$/, '') + primaryFeaturedEvent.image})`
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {secondaryFeaturedEvents.map(event => (
             <div key={event.id} className="bg-gradient-to-br from-purple-600 to-purple-800 p-8 text-white">
               <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 shadow-xl rounded-2xl overflow-hidden bg-white">
                 {/* Left Column - Event Info */}

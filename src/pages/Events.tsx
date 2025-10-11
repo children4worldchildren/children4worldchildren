@@ -215,14 +215,12 @@ const Events = () => {
                     </div>
                   </div>
                 </div>
-                <div className="relative min-h-[260px] sm:min-h-[320px] lg:min-h-full">
-                  <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{
-                      backgroundImage: `url(${import.meta.env.BASE_URL.replace(/\/$/, '') + primaryFeaturedEvent.image})`
-                    }}
+                <div className="relative min-h-[260px] sm:min-h-[320px] lg:min-h-full flex items-center justify-center bg-purple-900">
+                  <img
+                    src={`${import.meta.env.BASE_URL.replace(/\/$/, '') + primaryFeaturedEvent.image}`}
+                    alt={primaryFeaturedEvent.title}
+                    className="w-full h-full object-contain p-4 sm:p-6"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
                 </div>
               </div>
             </div>

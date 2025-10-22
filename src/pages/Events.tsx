@@ -217,6 +217,103 @@ const Events = () => {
 
   return (
     <div className="min-h-screen">
+      <style jsx>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+          animation: marquee 30s linear infinite;
+        }
+      `}</style>
+
+      {/* Moving Past Events Banner */}
+      {filteredPastEvents.length > 0 && (
+        <div className="bg-gradient-to-r from-indigo-700 via-purple-700 to-indigo-800 text-white py-2 overflow-hidden relative shadow-lg">
+          <div className="flex">
+            <div className="flex items-center whitespace-nowrap animate-marquee">
+              {filteredPastEvents.slice(0, 5).map((event, index) => (
+                <div key={event.id} className="flex items-center mx-6">
+                  <div className="flex items-center space-x-3">
+                    {(event as any).image ? (
+                      <img
+                        src={`${import.meta.env.BASE_URL.replace(/\/$/, '') + (event as any).image}`}
+                        alt={event.title}
+                        className="w-6 h-6 object-cover rounded-full border border-white/30"
+                      />
+                    ) : (
+                      <div className="text-lg">{event.emoji || '🎉'}</div>
+                    )}
+                    <div className="text-sm font-semibold">
+                      <span className="text-white drop-shadow-sm">{event.title}</span>
+                      <span className="mx-2 text-purple-200">•</span>
+                      <span className="text-purple-100">{event.attendees} attended</span>
+                      {Boolean((event as any).social?.facebook) && (
+                        <>
+                          <span className="mx-2 text-purple-200">•</span>
+                          <a
+                            href={(event as any).social.facebook}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-200 hover:text-blue-100 underline hover:no-underline font-medium"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            Gallery
+                          </a>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  {index < filteredPastEvents.slice(0, 5).length - 1 && (
+                    <div className="mx-4 text-purple-300 text-lg">✦</div>
+                  )}
+                </div>
+              ))}
+            </div>
+            {/* Duplicate for seamless loop */}
+            <div className="flex items-center whitespace-nowrap animate-marquee">
+              {filteredPastEvents.slice(0, 5).map((event, index) => (
+                <div key={`duplicate-${event.id}`} className="flex items-center mx-6">
+                  <div className="flex items-center space-x-3">
+                    {(event as any).image ? (
+                      <img
+                        src={`${import.meta.env.BASE_URL.replace(/\/$/, '') + (event as any).image}`}
+                        alt={event.title}
+                        className="w-6 h-6 object-cover rounded-full border border-white/30"
+                      />
+                    ) : (
+                      <div className="text-lg">{event.emoji || '🎉'}</div>
+                    )}
+                    <div className="text-sm font-semibold">
+                      <span className="text-white drop-shadow-sm">{event.title}</span>
+                      <span className="mx-2 text-purple-200">•</span>
+                      <span className="text-purple-100">{event.attendees} attended</span>
+                      {Boolean((event as any).social?.facebook) && (
+                        <>
+                          <span className="mx-2 text-purple-200">•</span>
+                          <a
+                            href={(event as any).social.facebook}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-200 hover:text-blue-100 underline hover:no-underline font-medium"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            Gallery
+                          </a>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  {index < filteredPastEvents.slice(0, 5).length - 1 && (
+                    <div className="mx-4 text-purple-300 text-lg">✦</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Featured Event - Moved to top */}
       <section className="pt-12 pb-16 bg-gradient-to-b from-purple-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -386,84 +483,6 @@ const Events = () => {
           ))}
         </div>
       </section>
-
-      {/* Past Events Highlights - Early visibility */}
-      {filteredPastEvents.length > 0 && (
-        <section className="py-12 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Recent Past Events</h2>
-              <p className="text-gray-600 text-sm">Take a look at our memorable events and view galleries</p>
-            </div>
-
-            {/* Past Events Highlights Grid - Show only first 2-3 events */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredPastEvents.slice(0, 3).map(event => (
-                <div key={event.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                  <div className="h-32 bg-gradient-to-br from-gray-400 to-gray-600 flex items-center justify-center relative">
-                    {(event as any).image ? (
-                      <img
-                        src={`${import.meta.env.BASE_URL.replace(/\/$/, '') + (event as any).image}`}
-                        alt={event.title}
-                        className="w-full h-full object-contain p-1"
-                      />
-                    ) : (
-                      <div className="text-2xl text-white">{event.emoji || '🎉'}</div>
-                    )}
-                    <div className="absolute top-1 right-1 bg-gray-800 text-white px-1.5 py-0.5 rounded text-xs font-medium">
-                      Past
-                    </div>
-                  </div>
-
-                  <div className="p-4">
-                    <h3 className="text-sm font-semibold text-gray-900 mb-1 line-clamp-2">{event.title}</h3>
-                    <p className="text-xs text-gray-500 mb-2">{event.date}</p>
-
-                    <div className="flex items-center justify-between text-xs text-gray-600 mb-3">
-                      <div className="flex items-center">
-                        <Users className="h-3 w-3 mr-1" />
-                        {event.attendees} attended
-                      </div>
-                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                        event.category === 'fundraising' ? 'bg-red-100 text-red-800' :
-                        event.category === 'awareness' ? 'bg-blue-100 text-blue-800' :
-                        event.category === 'volunteer' ? 'bg-green-100 text-green-800' :
-                        'bg-purple-100 text-purple-800'
-                      }`}>
-                        {categories.find(c => c.id === event.category)?.name}
-                      </span>
-                    </div>
-
-                    {Boolean((event as any).social?.facebook) && (
-                      <a
-                        href={(event as any).social.facebook}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full px-3 py-1.5 bg-blue-600 text-white font-medium rounded text-xs hover:bg-blue-700 transition-colors duration-200 text-center block"
-                      >
-                        View Gallery
-                      </a>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Link to full past events section */}
-            <div className="text-center mt-6">
-              <a
-                href="#past-events"
-                className="inline-flex items-center px-4 py-2 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors duration-200 text-sm"
-              >
-                View All Past Events
-                <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Hero Section - Made more compact */}
       <div className="bg-purple-50">

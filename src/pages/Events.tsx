@@ -17,6 +17,57 @@ const Events = () => {
     { id: 'community', name: 'Community' }
   ];
 
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-IE', {
+      style: 'currency',
+      currency: 'EUR'
+    }).format(amount);
+  };
+
+  const parseEventDate = (dateString: string) => {
+    // Handle various date formats
+    // "Sat 1 Nov 2025" format
+    const format1 = /^(\w{3})\s+(\d{1,2})\s+(\w{3})\s+(\d{4})$/;
+    // "November 20, 2024" or "October 17, 2025" format
+    const format2 = /^(\w+)\s+(\d{1,2}),?\s+(\d{4})$/;
+
+    let match = dateString.match(format1);
+    if (match) {
+      const [, , day, month, year] = match;
+      const monthNames = {
+        'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
+        'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
+      };
+      const monthIndex = monthNames[month as keyof typeof monthNames];
+      if (monthIndex !== undefined) {
+        return new Date(parseInt(year), monthIndex, parseInt(day));
+      }
+    }
+
+    match = dateString.match(format2);
+    if (match) {
+      const [, month, day, year] = match;
+      const monthNames = {
+        'January': 0, 'February': 1, 'March': 2, 'April': 3, 'May': 4, 'June': 5,
+        'July': 6, 'August': 7, 'September': 8, 'October': 9, 'November': 10, 'December': 11
+      };
+      const monthIndex = monthNames[month as keyof typeof monthNames];
+      if (monthIndex !== undefined) {
+        return new Date(parseInt(year), monthIndex, parseInt(day));
+      }
+    }
+
+    return null;
+  };
+
+  const isEventPast = (event: any) => {
+    const eventDate = parseEventDate(event.date);
+    if (!eventDate) return false;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Reset time to start of day for comparison
+    return eventDate < today;
+  };
+
   const events = [
     {
       id: 1,
@@ -54,7 +105,7 @@ const Events = () => {
       id: 2,
       title: "Children's Rights Awareness Walk",
       category: "awareness",
-      date: "November 20, 2024",
+      date: "November 15, 2025",
       time: "10:00 AM",
       location: "Phoenix Park, Dublin",
       description: "A family-friendly walk to raise awareness about children's rights and our mission to protect vulnerable children worldwide.",
@@ -69,7 +120,7 @@ const Events = () => {
       id: 3,
       title: "Volunteer Training Workshop",
       category: "volunteer",
-      date: "November 25, 2024",
+      date: "November 30, 2025",
       time: "2:00 PM",
       location: "Community Center, Cork",
       description: "Learn how you can make a difference as a volunteer. Training session for new volunteers interested in our programs.",
@@ -84,7 +135,7 @@ const Events = () => {
       id: 4,
       title: "School Supply Drive",
       category: "community",
-      date: "December 1, 2024",
+      date: "December 5, 2025",
       time: "9:00 AM - 5:00 PM",
       location: "Various Locations",
       description: "Help us collect school supplies for children in need. Drop-off locations across the city.",
@@ -99,7 +150,7 @@ const Events = () => {
       id: 5,
       title: "Holiday Toy Drive",
       category: "fundraising",
-      date: "December 10, 2024",
+      date: "December 15, 2025",
       time: "All Day",
       location: "Shopping Centers Nationwide",
       description: "Spread joy this holiday season by donating toys for children who might otherwise go without.",
@@ -114,7 +165,7 @@ const Events = () => {
       id: 6,
       title: "Youth Leadership Summit",
       category: "community",
-      date: "January 15, 2025",
+      date: "January 20, 2026",
       time: "9:00 AM",
       location: "Convention Center, Galway",
       description: "Empowering young leaders to create positive change in their communities through workshops and networking.",
@@ -135,27 +186,29 @@ const Events = () => {
       description: "Join us for the Grand Finale of A Wall of Change as we come together on the United Nations International Day for the Eradication of Poverty to share one action that can build a future without poverty.",
       image: "/events/wall-of-change-grand-finale.jpg",
       emoji: "🧱🌍💜",
-      attendees: 0,
+      attendees: 80,
       target: 0,
       raised: 0,
-      featured: true,
-      primaryFeatured: true
+      featured: false,
+      social: {
+        facebook: "https://www.facebook.com/share/p/16TFvMfZXX/?mibextid=wwXIfr"
+      }
     }
   ];
 
-  const primaryFeaturedEvent = events.find(event => (event as any).primaryFeatured);
-  const secondaryFeaturedEvents = events.filter(event => event.featured && !(event as any).primaryFeatured);
+  const primaryFeaturedEvent = events.find(event => (event as any).primaryFeatured && !isEventPast(event));
+  const secondaryFeaturedEvents = events.filter(event => event.featured && !(event as any).primaryFeatured && !isEventPast(event));
 
-  const filteredEvents = selectedCategory === 'all' 
-    ? events 
-    : events.filter(event => event.category === selectedCategory);
+  const upcomingEvents = events.filter(event => !isEventPast(event));
+  const pastEvents = events.filter(event => isEventPast(event));
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-IE', {
-      style: 'currency',
-      currency: 'EUR'
-    }).format(amount);
-  };
+  const filteredUpcomingEvents = selectedCategory === 'all' 
+    ? upcomingEvents 
+    : upcomingEvents.filter(event => event.category === selectedCategory);
+
+  const filteredPastEvents = selectedCategory === 'all' 
+    ? pastEvents 
+    : pastEvents.filter(event => event.category === selectedCategory);
 
   const confirmExternalLink = () => {
     window.open('https://www.eventbrite.ie/e/sports-across-the-world-2025-tickets-1732112076849?aff=oddtdtcreator', '_blank');
@@ -334,6 +387,84 @@ const Events = () => {
         </div>
       </section>
 
+      {/* Past Events Highlights - Early visibility */}
+      {filteredPastEvents.length > 0 && (
+        <section className="py-12 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Recent Past Events</h2>
+              <p className="text-gray-600 text-sm">Take a look at our memorable events and view galleries</p>
+            </div>
+
+            {/* Past Events Highlights Grid - Show only first 2-3 events */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredPastEvents.slice(0, 3).map(event => (
+                <div key={event.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                  <div className="h-32 bg-gradient-to-br from-gray-400 to-gray-600 flex items-center justify-center relative">
+                    {(event as any).image ? (
+                      <img
+                        src={`${import.meta.env.BASE_URL.replace(/\/$/, '') + (event as any).image}`}
+                        alt={event.title}
+                        className="w-full h-full object-contain p-1"
+                      />
+                    ) : (
+                      <div className="text-2xl text-white">{event.emoji || '🎉'}</div>
+                    )}
+                    <div className="absolute top-1 right-1 bg-gray-800 text-white px-1.5 py-0.5 rounded text-xs font-medium">
+                      Past
+                    </div>
+                  </div>
+
+                  <div className="p-4">
+                    <h3 className="text-sm font-semibold text-gray-900 mb-1 line-clamp-2">{event.title}</h3>
+                    <p className="text-xs text-gray-500 mb-2">{event.date}</p>
+
+                    <div className="flex items-center justify-between text-xs text-gray-600 mb-3">
+                      <div className="flex items-center">
+                        <Users className="h-3 w-3 mr-1" />
+                        {event.attendees} attended
+                      </div>
+                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${
+                        event.category === 'fundraising' ? 'bg-red-100 text-red-800' :
+                        event.category === 'awareness' ? 'bg-blue-100 text-blue-800' :
+                        event.category === 'volunteer' ? 'bg-green-100 text-green-800' :
+                        'bg-purple-100 text-purple-800'
+                      }`}>
+                        {categories.find(c => c.id === event.category)?.name}
+                      </span>
+                    </div>
+
+                    {Boolean((event as any).social?.facebook) && (
+                      <a
+                        href={(event as any).social.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full px-3 py-1.5 bg-blue-600 text-white font-medium rounded text-xs hover:bg-blue-700 transition-colors duration-200 text-center block"
+                      >
+                        View Gallery
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Link to full past events section */}
+            <div className="text-center mt-6">
+              <a
+                href="#past-events"
+                className="inline-flex items-center px-4 py-2 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors duration-200 text-sm"
+              >
+                View All Past Events
+                <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Hero Section - Made more compact */}
       <div className="bg-purple-50">
         <HeroSection
@@ -375,7 +506,7 @@ const Events = () => {
 
           {/* Events Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredEvents.filter(event => !event.featured).map(event => (
+            {filteredUpcomingEvents.filter(event => !event.featured).map(event => (
               <div key={event.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                 <div className="h-48 bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
                   <div className="text-4xl text-white">{event.emoji || '🎉'}</div>
@@ -436,6 +567,98 @@ const Events = () => {
           </div>
         </div>
       </section>
+
+      {/* Past Events */}
+      {filteredPastEvents.length > 0 && (
+        <section id="past-events" className="py-12 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-bold text-gray-900">Past Events</h2>
+              <p className="mt-2 text-lg text-gray-600">Check out our previous events and view galleries</p>
+            </div>
+
+            {/* Past Events Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredPastEvents.map(event => (
+                <div key={event.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border-2 border-gray-100">
+                  <div className="h-48 bg-gradient-to-br from-gray-400 to-gray-600 flex items-center justify-center relative">
+                    {(event as any).image ? (
+                      <img
+                        src={`${import.meta.env.BASE_URL.replace(/\/$/, '') + (event as any).image}`}
+                        alt={event.title}
+                        className="w-full h-full object-contain p-2"
+                      />
+                    ) : (
+                      <div className="text-4xl text-white">{event.emoji || '🎉'}</div>
+                    )}
+                    <div className="absolute top-2 right-2 bg-gray-800 text-white px-2 py-1 rounded-full text-xs font-medium">
+                      Past Event
+                    </div>
+                  </div>
+                  
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        event.category === 'fundraising' ? 'bg-red-100 text-red-800' :
+                        event.category === 'awareness' ? 'bg-blue-100 text-blue-800' :
+                        event.category === 'volunteer' ? 'bg-green-100 text-green-800' :
+                        'bg-purple-100 text-purple-800'
+                      }`}>
+                        {categories.find(c => c.id === event.category)?.name}
+                      </span>
+                      <span className="text-sm text-gray-500">{event.date}</span>
+                    </div>
+                    
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">{event.title}</h3>
+                    <p className="text-gray-600 mb-4 line-clamp-3">{event.description}</p>
+                    
+                    <div className="space-y-2 mb-6">
+                      <div className="flex items-center text-sm text-gray-500">
+                        <Calendar className="h-4 w-4 mr-2" />
+                        {event.time}
+                      </div>
+                      <div className="flex items-center text-sm text-gray-500">
+                        <MapPin className="h-4 w-4 mr-2" />
+                        {event.location}
+                      </div>
+                      <div className="flex items-center text-sm text-gray-500">
+                        <Users className="h-4 w-4 mr-2" />
+                        {event.attendees} attended
+                      </div>
+                    </div>
+                    
+                    {event.target > 0 && (
+                      <div className="mb-4">
+                        <div className="flex justify-between text-sm mb-2">
+                          <span className="text-gray-600">Fundraising Goal</span>
+                          <span className="font-medium">{formatCurrency(event.raised)} raised</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div 
+                            className="bg-green-600 h-2 rounded-full" 
+                            style={{ width: `${(event.raised / event.target) * 100}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {Boolean((event as any).social?.facebook) && (
+                      <a 
+                        href={(event as any).social.facebook} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200 text-center block"
+                      >
+                        View Gallery
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Call to Action */}
       <section className="py-16 bg-purple-600">

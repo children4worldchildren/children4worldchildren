@@ -78,7 +78,7 @@ const Events = () => {
       location: "Mulhuddart Community Centre, Dublin 15",
       description: "Get ready for Sports Across the World 2025, a fun-filled day where people of all ages, cultures, and backgrounds come together to play, connect and celebrate through sport and games!",
       fullDescription: "From field sports and board games to competitions, music, food and exhibitions, this festival is all about laughter, community and unity that crosses borders. But it's not just an event, it's a platform for collaboration. Each year, we welcome community groups, schools, embassies, sports clubs, local businesses and media partners to showcase their projects, connect with young people and promote healthy, active lifestyles.",
-      image: "/public/children-4-world-children.png",
+      image: "/events/sports-across-the-world-2025.jpg",
       emoji: "⚽🏀🏓",
       attendees: 280,
       target: 0,

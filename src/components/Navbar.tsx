@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import LogoUpload from './LogoUpload';
 import '../styles/navbar.css';
 
-const EVENT_DATE = new Date('2025-11-01T15:00:00');
+const EVENT_DATE = new Date('2025-12-13T15:00:00');
 
 interface NavItem {
   name: string;

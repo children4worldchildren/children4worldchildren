@@ -25,13 +25,14 @@ const Events = () => {
   };
 
   const parseEventDate = (dateString: string) => {
+    const normalizedDate = dateString.trim();
     // Handle various date formats
     // "Sat 1 Nov 2025" format
     const format1 = /^(\w{3})\s+(\d{1,2})\s+(\w{3})\s+(\d{4})$/;
     // "November 20, 2024" or "October 17, 2025" format
     const format2 = /^(\w+)\s+(\d{1,2}),?\s+(\d{4})$/;
 
-    let match = dateString.match(format1);
+    let match = normalizedDate.match(format1);
     if (match) {
       const [, , day, month, year] = match;
       const monthNames = {
@@ -44,7 +45,7 @@ const Events = () => {
       }
     }
 
-    match = dateString.match(format2);
+    match = normalizedDate.match(format2);
     if (match) {
       const [, month, day, year] = match;
       const monthNames = {
@@ -57,7 +58,35 @@ const Events = () => {
       }
     }
 
-    return null;
+    const fallbackDate = new Date(normalizedDate);
+    return Number.isNaN(fallbackDate.getTime()) ? null : fallbackDate;
+  };
+
+  const getEventTimestamp = (event: any) => {
+    const parsedDate = parseEventDate(event.date);
+    return parsedDate ? parsedDate.getTime() : null;
+  };
+
+  const compareEventsByDateAsc = (a: any, b: any) => {
+    const timeA = getEventTimestamp(a);
+    const timeB = getEventTimestamp(b);
+
+    if (timeA === null && timeB === null) return 0;
+    if (timeA === null) return 1;
+    if (timeB === null) return -1;
+
+    return timeA - timeB;
+  };
+
+  const compareEventsByDateDesc = (a: any, b: any) => {
+    const timeA = getEventTimestamp(a);
+    const timeB = getEventTimestamp(b);
+
+    if (timeA === null && timeB === null) return 0;
+    if (timeA === null) return 1;
+    if (timeB === null) return -1;
+
+    return timeB - timeA;
   };
 
   const isEventPast = (event: any) => {
@@ -69,6 +98,36 @@ const Events = () => {
   };
 
   const events = [
+    {
+      id: 0,
+      title: "Mediterranean Day Concert 2025",
+      category: "community",
+      date: "Sat 13 Dec 2025",
+      time: "3:00 – 7:00 PM",
+      location: "Draiocht Blanchardstown, D15 RYX6",
+      description: "Celebrate Mediterranean Day with an afternoon of live music, culture, and community at Draiocht, Blanchardstown.",
+      fullDescription: "Children 4 World joins 43 network member organisations across the EU–Mediterranean region to present the Med Day Concert — a vibrant, multicultural celebration filled with energetic performances, cultural showcases, and a welcoming atmosphere for all ages.",
+      image: "/events/mdc.jpg",
+      emoji: "🎶🌍✨",
+      attendees: 320,
+      target: 0,
+      raised: 0,
+      featured: true,
+      primaryFeatured: true,
+      highlights: [
+        "Energetic live performances and cross-cultural collaborations",
+        "Celebrations themed \"Voices From the Grassroots\"",
+        "Interactive cultural showcases for families and young people",
+        "Supported by Fingal County Council, Fingal Integration Office & Empower"
+      ],
+      audience: "Families, youth groups, cultural communities, and music lovers of all ages.",
+      fundedBy: "Fingal County Council, Fingal Integration Office & Empower",
+      contact: "hello@children4worldchildren.com",
+      social: {
+        facebook: "https://facebook.com/Caring4worldchildren"
+      },
+      theme: "Voices From the Grassroots"
+    },
     {
       id: 1,
       title: "Sports Across the World 2025",
@@ -83,7 +142,7 @@ const Events = () => {
       attendees: 280,
       target: 0,
       raised: 0,
-      featured: true,
+      featured: false,
       highlights: [
         "Free sports activities & fitness sessions",
         "Medals for participants",
@@ -196,11 +255,21 @@ const Events = () => {
     }
   ];
 
-  const primaryFeaturedEvent = events.find(event => (event as any).primaryFeatured && !isEventPast(event));
-  const secondaryFeaturedEvents = events.filter(event => event.featured && !(event as any).primaryFeatured && !isEventPast(event));
+  const upcomingEvents = events
+    .filter(event => !isEventPast(event))
+    .sort(compareEventsByDateAsc);
 
-  const upcomingEvents = events.filter(event => !isEventPast(event));
-  const pastEvents = events.filter(event => isEventPast(event));
+  const pastEvents = events
+    .filter(event => isEventPast(event))
+    .sort(compareEventsByDateDesc);
+
+  const primaryFeaturedEvent = events.find(event => (event as any).primaryFeatured)
+    || events.find(event => event.featured)
+    || null;
+
+  const secondaryFeaturedEvents = events.filter(
+    event => event.featured && event !== primaryFeaturedEvent
+  );
 
   const filteredUpcomingEvents = selectedCategory === 'all' 
     ? upcomingEvents 
@@ -217,7 +286,7 @@ const Events = () => {
 
   return (
     <div className="min-h-screen">
-      <style jsx>{`
+      <style>{`
         @keyframes marquee {
           0% { transform: translateX(0); }
           100% { transform: translateX(-100%); }
@@ -323,158 +392,188 @@ const Events = () => {
           </div>
           
           {primaryFeaturedEvent && (
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-10">
-              <div className="grid grid-cols-1 lg:grid-cols-2">
-                <div className="p-8 lg:p-10 bg-gradient-to-br from-purple-700 via-purple-600 to-purple-500 text-white flex flex-col justify-between">
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-12">
+              <div className="flex flex-col lg:flex-row">
+                <div className="lg:w-1/2 p-8 lg:p-10 bg-gradient-to-br from-purple-700 via-purple-600 to-purple-500 text-white flex flex-col justify-between">
                   <div>
-                  <div className="flex items-center mb-2">
-                        <Star className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-300 mr-2" />
-                        <span className="text-sm sm:text-base text-purple-200 font-semibold bg-purple-900/80 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">
-                          Featured Event
-                        </span>
-                      </div>
-                    <h3 className="mt-4 text-3xl lg:text-4xl font-bold leading-tight bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
+                    <div className="flex items-center mb-4">
+                      <Star className="h-6 w-6 text-yellow-300 mr-3" />
+                      <span className="text-sm sm:text-base text-purple-100 font-semibold bg-purple-900/70 px-3 py-1 rounded-full">
+                        Featured Event
+                      </span>
+                    </div>
+                    <h3 className="text-3xl lg:text-4xl font-bold leading-tight bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent text-center">
                       {primaryFeaturedEvent.title}
                     </h3>
-                    <p className="mt-4 text-purple-100 text-base lg:text-lg leading-relaxed">
+                    <p className="mt-4 text-white/95 text-base lg:text-lg leading-relaxed text-center">
                       {primaryFeaturedEvent.description}
                     </p>
+                    {(primaryFeaturedEvent as any).fullDescription && (
+                      <p className="mt-4 text-purple-50 text-sm lg:text-base leading-relaxed text-center">
+                        {(primaryFeaturedEvent as any).fullDescription}
+                      </p>
+                    )}
                   </div>
 
                   <div className="mt-8 space-y-4 text-sm lg:text-base">
                     <div className="flex items-start gap-3">
-                      <Calendar className="h-5 w-5 text-purple-200 flex-shrink-0" />
+                      <Calendar className="h-5 w-5 text-purple-100 flex-shrink-0" />
                       <div>
                         <p className="font-semibold text-white/90">When</p>
                         <p className="text-purple-100">{primaryFeaturedEvent.date} • {primaryFeaturedEvent.time}</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <MapPin className="h-5 w-5 text-purple-200 flex-shrink-0" />
+                      <MapPin className="h-5 w-5 text-purple-100 flex-shrink-0" />
                       <div>
                         <p className="font-semibold text-white/90">Where</p>
                         <p className="text-purple-100">{primaryFeaturedEvent.location}</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <Users className="h-5 w-5 text-purple-200 flex-shrink-0" />
+                      <Users className="h-5 w-5 text-purple-100 flex-shrink-0" />
                       <div>
                         <p className="font-semibold text-white/90">Theme</p>
-                        <p className="text-purple-100">Together, we build a future without poverty.</p>
+                        <p className="text-purple-100">{(primaryFeaturedEvent as any).theme || 'Join us for a powerful community celebration.'}</p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="relative min-h-[260px] sm:min-h-[320px] lg:min-h-full flex items-center justify-center bg-purple-900">
+
+                <div className="lg:w-1/2 bg-white flex flex-col items-center justify-center p-4 sm:p-6">
                   <img
                     src={`${import.meta.env.BASE_URL.replace(/\/$/, '') + primaryFeaturedEvent.image}`}
                     alt={primaryFeaturedEvent.title}
-                    className="w-full h-full object-contain p-4 sm:p-6"
+                    className="w-full h-auto max-h-[320px] object-contain rounded-xl shadow-md"
                   />
+
+                  {Array.isArray((primaryFeaturedEvent as any).highlights) && (primaryFeaturedEvent as any).highlights.length > 0 && (
+                    <div className="mt-6 w-full max-w-xl text-gray-900">
+                      <h4 className="text-base font-semibold text-purple-800 mb-2">Highlights</h4>
+                      <ul className="space-y-1.5 text-sm sm:text-base text-gray-700 list-disc list-outside pl-5">
+                        {(primaryFeaturedEvent as any).highlights.map((item: string, idx: number) => (
+                          <li key={idx} className="leading-relaxed">
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+
+                      {((primaryFeaturedEvent as any).fundedBy || (primaryFeaturedEvent as any).contact) && (
+                        <div className="mt-4 pt-3 border-t border-gray-200 text-xs sm:text-sm text-gray-700 space-y-1.5">
+                          {(primaryFeaturedEvent as any).fundedBy && (
+                            <p><span className="font-semibold">Funded by:</span> {(primaryFeaturedEvent as any).fundedBy}</p>
+                          )}
+                          {(primaryFeaturedEvent as any).contact && (
+                            <p>
+                              <span className="font-semibold">Contact:</span>{' '}
+                              <a href={`mailto:${(primaryFeaturedEvent as any).contact}`} className="text-purple-700 hover:underline">
+                                {(primaryFeaturedEvent as any).contact}
+                              </a>
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
           )}
 
           {secondaryFeaturedEvents.map(event => (
-            <div key={event.id} className="bg-gradient-to-br from-purple-600 to-purple-800 p-8 text-white">
-              <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 shadow-xl rounded-2xl overflow-hidden bg-white">
-                {/* Left Column - Event Info */}
-                <div className="lg:col-span-3 p-8 bg-purple-900">
-                  <div className="relative overflow-hidden rounded-lg mb-4 sm:mb-6">
-                    <div 
-                      className="absolute inset-0 bg-cover bg-center opacity-20 animate-slide" 
-                      style={{ 
-                        backgroundImage: `url(${import.meta.env.BASE_URL}pstr.jpg)`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat'
-                      }}
-                    />
-                    <div className="relative p-4 sm:p-6">
-                      <div className="flex items-center mb-2">
-                        <Star className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-300 mr-2" />
-                        <span className="text-sm sm:text-base text-purple-200 font-semibold bg-purple-900/80 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">
-                          Featured Event
-                        </span>
-                      </div>
-                      <h3 className="text-2xl sm:text-4xl font-bold mb-2 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
-                        {event.title}
-                      </h3>
-                    </div>
+            <div key={event.id} className="bg-white rounded-2xl shadow-lg overflow-hidden mb-10">
+              <div className="flex flex-col lg:flex-row">
+                <div className="lg:w-1/2 p-8 bg-purple-900 text-white flex flex-col">
+                  <div className="flex items-center mb-4">
+                    <Star className="h-5 w-5 text-yellow-300 mr-2" />
+                    <span className="text-xs sm:text-sm text-purple-100 font-semibold bg-purple-700/80 px-3 py-1 rounded-full">
+                      Featured Event
+                    </span>
                   </div>
+                  <h3 className="text-2xl sm:text-3xl font-bold mb-4 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
+                    {event.title}
+                  </h3>
                   <p className="text-purple-100 text-sm sm:text-base mb-4">{event.description}</p>
-                  <p className="text-purple-100 text-sm sm:text-base mb-6">{(event as any).fullDescription}</p>
-                  
-                  {/* Event Details */}
-                  <div className="space-y-4 mb-6">
-                    <div className="flex items-start">
-                      <div className="flex-shrink-0 mt-0.5">
-                        <Calendar className="h-5 w-5 text-purple-200" />
-                      </div>
-                      <div className="ml-3">
-                        <p className="font-medium text-purple-50 text-sm sm:text-base">When</p>
-                        <p className="text-purple-100 text-sm sm:text-base">{event.date} • {event.time}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start">
-                      <div className="flex-shrink-0 mt-0.5">
-                        <MapPin className="h-5 w-5 text-purple-200" />
-                      </div>
-                      <div className="ml-3">
-                        <p className="font-medium text-purple-50 text-sm sm:text-base">Where</p>
-                        <p className="text-purple-100 text-sm sm:text-base">{event.location}</p>
+                  {(event as any).fullDescription && (
+                    <p className="text-purple-100 text-sm sm:text-base mb-6">{(event as any).fullDescription}</p>
+                  )}
+
+                  <div className="space-y-4 text-sm sm:text-base">
+                    <div className="flex items-start gap-3">
+                      <Calendar className="h-5 w-5 text-purple-100" />
+                      <div>
+                        <p className="font-medium text-purple-50">When</p>
+                        <p className="text-purple-100">{event.date} • {event.time}</p>
                       </div>
                     </div>
-                    
-                    {/* Registration Section - Moved Up */}
-                    <div className="mt-6 pt-6 border-t border-white/20">
-                      <h4 className="text-lg sm:text-xl font-bold mb-3 text-white">Who's it for?</h4>
-                      <p className="text-purple-100 mb-4 text-sm sm:text-base leading-relaxed">
-                        {(event as any).audience}
-                      </p>
-                      <button 
-                        onClick={() => setShowExternalLinkModal(true)}
-                        className="w-full px-4 sm:px-6 py-2 sm:py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 whitespace-nowrap text-center shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-base sm:text-lg"
-                      >
-                        Register Now <FaExternalLinkAlt className="ml-1" />
-                      </button>
+                    <div className="flex items-start gap-3">
+                      <MapPin className="h-5 w-5 text-purple-100" />
+                      <div>
+                        <p className="font-medium text-purple-50">Where</p>
+                        <p className="text-purple-100">{event.location}</p>
+                      </div>
                     </div>
+                    {(event as any).audience && (
+                      <div className="flex items-start gap-3">
+                        <Users className="h-5 w-5 text-purple-100" />
+                        <div>
+                          <p className="font-medium text-purple-50">Who's it for?</p>
+                          <p className="text-purple-100">{(event as any).audience}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="mt-6 pt-6 border-t border-white/20">
+                    <button 
+                      onClick={() => setShowExternalLinkModal(true)}
+                      className="w-full px-6 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 flex items-center justify-center gap-2"
+                    >
+                      Register Now <FaExternalLinkAlt className="ml-1" />
+                    </button>
                   </div>
                 </div>
-                
-                {/* Right Column - Highlights - Wider */}
-                <div className="lg:col-span-2 lg:-mt-2 mt-6 lg:mt-0">
-                  <div className="bg-white rounded-lg p-4 sm:p-6 lg:p-8 text-gray-900 h-full flex flex-col">
-                    <h4 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-purple-800">Highlights</h4>
-                    <ul className="space-y-3 sm:space-y-4 mb-6 sm:mb-8 flex-grow">
+
+                <div className="lg:w-1/2 bg-white flex flex-col lg:flex-row">
+                  <div className="w-full lg:w-2/3 flex items-center justify-center bg-white">
+                    <img
+                      src={`${import.meta.env.BASE_URL.replace(/\/$/, '') + event.image}`}
+                      alt={event.title}
+                      className="w-full h-full object-cover max-h-[380px]"
+                    />
+                  </div>
+                  <div className="w-full lg:w-1/3 bg-white border-t lg:border-t-0 lg:border-l border-gray-100 p-6 flex flex-col">
+                    <h4 className="text-lg font-semibold text-purple-800 mb-4">Highlights</h4>
+                    <ul className="space-y-3 text-sm text-gray-700 flex-1">
                       {Array.isArray((event as any).highlights) && (event as any).highlights.map((item: string, idx: number) => (
-                        <li key={idx} className="flex items-start">
-                          <span className="flex-shrink-0 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-purple-500 rounded-full mt-2 sm:mt-2.5 mr-2 sm:mr-3"></span>
-                          <span className="text-sm sm:text-base text-gray-700 leading-relaxed">{item}</span>
+                        <li key={idx} className="flex items-start gap-2">
+                          <span className="mt-1 inline-block w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+                          <span>{item}</span>
                         </li>
                       ))}
                     </ul>
-                    <div className="mt-auto pt-6 border-t border-gray-100">
-                      <div className="text-sm text-gray-600 space-y-2">
+                    <div className="pt-4 mt-auto border-t border-gray-100 text-sm text-gray-600 space-y-2">
+                      {(event as any).fundedBy && (
                         <p><span className="font-medium">Funded by:</span> {(event as any).fundedBy}</p>
+                      )}
+                      {(event as any).contact && (
                         <p>
                           <span className="font-medium">Contact:</span> <a href={`mailto:${(event as any).contact}`} className="text-purple-600 hover:underline">{(event as any).contact}</a>
                         </p>
-                        {Boolean((event as any).social?.facebook) && (
-                          <p>
-                            <span className="font-medium">Facebook:</span>{' '}
-                            <a 
-                              href={(event as any).social.facebook} 
-                              target="_blank" 
-                              rel="noopener noreferrer" 
-                              className="text-purple-600 hover:underline"
-                            >
-                              Children 4 World Children
-                            </a>
-                          </p>
-                        )}
-                      </div>
+                      )}
+                      {Boolean((event as any).social?.facebook) && (
+                        <p>
+                          <span className="font-medium">Facebook:</span>{' '}
+                          <a 
+                            href={(event as any).social.facebook} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="text-purple-600 hover:underline"
+                          >
+                            Children 4 World Children
+                          </a>
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>

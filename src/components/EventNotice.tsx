@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { X, Calendar, Clock, MapPin, Award, Activity, ArrowRight } from 'lucide-react';
+import { X, Calendar, Clock, MapPin, Award, ArrowRight, Music } from 'lucide-react';
 import '../styles/eventNotice.css';
 
-const EVENT_DATE = new Date('2025-11-01T15:00:00');
-const STORAGE_KEY = 'sports_event_notice_dismissed';
+const EVENT_DATE = new Date('2025-12-13T15:00:00');
+const STORAGE_KEY = 'med_day_concert_notice_dismissed';
 
 interface EventNoticeProps {
   onDismiss?: () => void;
@@ -55,7 +55,7 @@ const EventNotice: React.FC<EventNoticeProps> = ({ onDismiss }) => {
     left: 0,
     right: 0,
     bottom: 0,
-    background: 'linear-gradient(90deg, #6d28d9, #7c3aed, #8b5cf6, #9f7aea, #8b5cf6, #7c3aed, #6d28d9)',
+    background: 'linear-gradient(90deg, #0f172a, #0369a1, #0ea5e9, #22d3ee, #0ea5e9, #0369a1, #0f172a)',
     backgroundSize: '400% 100%',
     animation: 'gradient 10s ease infinite',
     WebkitAnimation: 'gradient 10s ease infinite',
@@ -87,57 +87,60 @@ const EventNotice: React.FC<EventNoticeProps> = ({ onDismiss }) => {
             
             <div className="relative z-10">
               <div className="text-center mb-6">
-                <div className="flex items-center justify-center mb-2">
-                  <div className="bg-purple-100 p-3 rounded-full mr-4">
-                    <Activity className="h-8 w-8 text-purple-600" />
+                <div className="flex flex-col items-center justify-center gap-3 mb-2">
+                  <div className="flex items-center justify-center">
+                    <div className="bg-sky-100 p-3 rounded-full mr-4">
+                      <Music className="h-8 w-8 text-sky-600" />
+                    </div>
+                    <h2 className="text-3xl font-bold text-sky-900 text-center">Mediterranean Day Concert 2025</h2>
                   </div>
-                  <h2 className="text-3xl font-bold text-purple-800">Sports Across the World 2025</h2>
+                  <span className="inline-flex items-center gap-2 bg-sky-900/10 text-sky-800 text-sm font-semibold px-3 py-1 rounded-full uppercase tracking-wide">Voices From the Grassroots</span>
                 </div>
-                <p className="text-purple-700 font-medium text-xl">
-                  {daysUntilEvent > 0 
+                <p className="text-sky-700 font-medium text-xl text-center">
+                  {daysUntilEvent > 0
                     ? `Only ${daysUntilEvent} day${daysUntilEvent !== 1 ? 's' : ''} to go!`
-                    : "Today's the day! Join us!"}
+                    : "Today's the day! Celebrate with us!"}
                 </p>
               </div>
               
-              <div className="bg-purple-50 rounded-xl p-6 mb-6">
+              <div className="bg-sky-50 rounded-xl p-6 mb-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
                     <div className="flex items-start">
-                      <Calendar className="h-5 w-5 text-purple-600 mt-0.5 mr-3 flex-shrink-0" />
+                      <Calendar className="h-5 w-5 text-sky-600 mt-0.5 mr-3 flex-shrink-0" />
                       <div>
                         <p className="font-medium text-gray-900">Date</p>
                         <p className="text-gray-700">{formattedDate}</p>
                       </div>
                     </div>
                     <div className="flex items-start">
-                      <Clock className="h-5 w-5 text-purple-600 mt-0.5 mr-3 flex-shrink-0" />
+                      <Clock className="h-5 w-5 text-sky-600 mt-0.5 mr-3 flex-shrink-0" />
                       <div>
                         <p className="font-medium text-gray-900">Time</p>
-                        <p className="text-gray-700">3:00 PM - 6:30 PM</p>
+                        <p className="text-gray-700">3:00 PM - 7:00 PM</p>
                       </div>
                     </div>
                     <div className="flex items-start">
-                      <MapPin className="h-5 w-5 text-purple-600 mt-0.5 mr-3 flex-shrink-0" />
+                      <MapPin className="h-5 w-5 text-sky-600 mt-0.5 mr-3 flex-shrink-0" />
                       <div>
                         <p className="font-medium text-gray-900">Location</p>
                         <p className="text-gray-700">
-                          Mulhuddart Community Centre,<br />
-                          Dublin 15
+                          Draiocht Blanchardstown,<br />
+                          Dublin 15, D15 RYX6
                         </p>
                       </div>
                     </div>
                   </div>
                   <div className="space-y-4">
                     <div className="flex items-start">
-                      <Award className="h-5 w-5 text-purple-600 mt-0.5 mr-3 flex-shrink-0" />
+                      <Award className="h-5 w-5 text-sky-600 mt-0.5 mr-3 flex-shrink-0" />
                       <div>
                         <p className="font-medium text-gray-900">Highlights</p>
                         <ul className="list-disc list-inside text-gray-700 space-y-1 mt-1">
-                          <li>Free sports activities</li>
-                          <li>Cultural performances</li>
-                          <li>Community networking</li>
-                          <li>Fun for all ages</li>
+                          <li>Energetic live performances from across the Mediterranean</li>
+                          <li>Cultural showcases celebrating unity and diversity</li>
+                          <li>Family-friendly atmosphere for all ages</li>
+                          <li>Community voices amplified through "Voices From the Grassroots"</li>
                         </ul>
                       </div>
                     </div>
@@ -147,27 +150,27 @@ const EventNotice: React.FC<EventNoticeProps> = ({ onDismiss }) => {
               
               <div className="bg-white p-4 rounded-lg border border-purple-100 mb-6">
                 <p className="text-gray-700 text-center mb-4">
-                  A fun-filled day where people of all ages, cultures, and backgrounds come together to play, 
-                  connect and celebrate through sport and games!
+                  Join Children 4 World and partners from across the EU–Mediterranean region for an evening of music,
+                  culture, and connection at Draiocht, Blanchardstown.
                 </p>
-                <p className="text-purple-700 font-medium text-center mb-4">
-                  Don't miss out on this exciting community event! Register now to secure your spot.
+                <p className="text-sky-700 font-medium text-center mb-4">
+                  Experience the warmth of Mediterranean culture as communities come together to celebrate unity and shared heritage.
                 </p>
                 <div className="text-center">
                   <a
-                    href="https://www.eventbrite.ie/e/sports-across-the-world-2025-tickets-1732112076849?aff=oddtdtcreator"
+                    href="https://children4worldchildren.com/events"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors"
+                    className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors"
                   >
-                    <span>Register Now on Eventbrite</span>
+                    <span>Explore Event Details</span>
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </a>
                 </div>
               </div>
               
               <div className="text-center text-sm text-gray-600 mb-6">
-                <p>Questions? Email us at <a href="mailto:hello@children4worldchildren.com" className="text-purple-600 hover:underline">hello@children4worldchildren.com</a></p>
+                <p>Questions? Email us at <a href="mailto:hello@children4worldchildren.com" className="text-sky-600 hover:underline">hello@children4worldchildren.com</a></p>
               </div>
             </div>
           </div>
@@ -175,16 +178,16 @@ const EventNotice: React.FC<EventNoticeProps> = ({ onDismiss }) => {
           <div className="bg-white border-t border-gray-100 px-6 py-4 z-10">
             <div className="flex flex-col sm:flex-row justify-center gap-3">
               <a
-                href="https://www.eventbrite.ie/e/sports-across-the-world-2025-tickets-1732112076849?aff=oddtdtcreator"
+                href="https://children4worldchildren.com/events"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                className="inline-flex items-center justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
               >
                 View Event Details
               </a>
               <button
                 onClick={handleClose}
-                className="inline-flex items-center justify-center px-6 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                className="inline-flex items-center justify-center px-6 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
               >
                 Remind Me Later
               </button>

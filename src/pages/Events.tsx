@@ -263,11 +263,11 @@ const Events = () => {
     .filter(event => isEventPast(event))
     .sort(compareEventsByDateDesc);
 
-  const primaryFeaturedEvent = events.find(event => (event as any).primaryFeatured)
-    || events.find(event => event.featured)
+  const primaryFeaturedEvent = upcomingEvents.find(event => (event as any).primaryFeatured)
+    || upcomingEvents.find(event => event.featured)
     || null;
 
-  const secondaryFeaturedEvents = events.filter(
+  const secondaryFeaturedEvents = upcomingEvents.filter(
     event => event.featured && event !== primaryFeaturedEvent
   );
 
@@ -384,12 +384,13 @@ const Events = () => {
       )}
 
       {/* Featured Event - Moved to top */}
-      <section className="pt-12 pb-16 bg-gradient-to-b from-purple-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-4xl font-bold text-purple-900 mb-3">Featured Event</h2>
-            <p className="text-lg text-purple-700 max-w-3xl mx-auto">Join us for our upcoming community celebration</p>
-          </div>
+      {(primaryFeaturedEvent || secondaryFeaturedEvents.length > 0) && (
+        <section className="pt-12 pb-16 bg-gradient-to-b from-purple-50 to-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-10">
+              <h2 className="text-4xl font-bold text-purple-900 mb-3">Featured Event</h2>
+              <p className="text-lg text-purple-700 max-w-3xl mx-auto">Join us for our upcoming community celebration</p>
+            </div>
           
           {primaryFeaturedEvent && (
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-12">
@@ -582,6 +583,7 @@ const Events = () => {
           ))}
         </div>
       </section>
+      )}
 
       {/* Hero Section - Made more compact */}
       <div className="bg-purple-50">

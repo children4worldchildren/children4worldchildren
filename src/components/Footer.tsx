@@ -118,10 +118,17 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Sponsor Section */}
+        <div className="mt-8 text-center">
+          <p className="text-sm text-purple-300 font-medium">
+            C4WC projects are proudly funded and supported by <span className="text-white font-bold">Fingal County Council</span> and <span className="text-white font-bold">Empower</span>.
+          </p>
+        </div>
+
         <div className="border-t border-gray-700 mt-8 pt-8">
           <div className="text-center">
             <p className="text-sm text-gray-300">
-              © 2025 Children 4 World Children. All rights reserved.
+              &copy; 2025 Children 4 World Children. All rights reserved.
             </p>
           </div>
         </div>

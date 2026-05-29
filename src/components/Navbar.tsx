@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import LogoUpload from './LogoUpload';
+import { getPrimaryFeaturedEvent } from '../data/events';
 import '../styles/navbar.css';
-
-const EVENT_DATE = new Date('2025-12-13T15:00:00');
 
 interface NavItem {
   name: string;
@@ -20,14 +19,9 @@ const Navbar = () => {
 
   const [showEventBadge, setShowEventBadge] = useState(false);
 
-  // Check if the event has passed and update badge visibility
+  // Show the badge whenever there is a featured upcoming event
   const updateEventBadge = () => {
-    const today = new Date();
-    const timeDiff = EVENT_DATE.getTime() - today.getTime();
-    const eventHasPassed = timeDiff < 0;
-    
-    // Always show badge if event hasn't passed, regardless of notice dismissal
-    setShowEventBadge(!eventHasPassed);
+    setShowEventBadge(getPrimaryFeaturedEvent() !== null);
   };
 
   // Initial check and setup daily check for event date

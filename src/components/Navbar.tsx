@@ -11,6 +11,7 @@ interface NavItem {
   href: string;
   isButton?: boolean;
   hasNotification?: boolean;
+  external?: boolean;
 }
 
 const Navbar = () => {
@@ -62,10 +63,15 @@ const Navbar = () => {
   const navigation: NavItem[] = [
     { name: 'Home', href: '/' },
     { name: 'About Us', href: '/about' },
-    { 
-      name: 'Events', 
+    {
+      name: 'Events',
       href: '/events',
       hasNotification: showEventBadge
+    },
+    {
+      name: 'Peer 2 Peer Learning',
+      href: 'https://peer2peer-learning-rishi-mvp.base44.app/',
+      external: true,
     },
     { name: 'Contact', href: '/contact' },
     { 
@@ -92,45 +98,60 @@ const Navbar = () => {
             <div className="hidden md:flex items-center space-x-6 mr-8">
               {navigation.map((item) => {
                 const isActiveLink = isActive(item.href);
-                return (
+                const linkClassName = `
+                  text-sm font-medium transition-all duration-200 whitespace-nowrap
+                  ${item.isButton
+                    ? `
+                      ml-2 px-4 py-2 rounded-lg shadow-md
+                      ${isActiveLink
+                        ? 'bg-purple-800 text-white shadow-inner'
+                        : 'bg-purple-600 text-white hover:bg-purple-700 hover:shadow-lg hover:-translate-y-0.5'
+                      }
+                      !text-white hover:!text-white active:!text-white focus:!text-white
+                    `
+                    : `
+                      px-2 py-2
+                      ${isActiveLink
+                        ? 'text-purple-600 border-b-2 border-purple-600'
+                        : 'text-gray-700 hover:text-purple-600 hover:border-b-2 hover:border-purple-300'
+                      }
+                    `
+                  }
+                `;
+                const linkContent = (
+                  <>
+                    {item.isButton ? (
+                      <span className="nav-button">{item.name}</span>
+                    ) : (
+                      <div className="relative">
+                        {item.name}
+                        {item.hasNotification && (
+                          <span className="absolute -top-2 -right-3 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </>
+                );
+
+                return item.external ? (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={linkClassName}
+                  >
+                    {linkContent}
+                  </a>
+                ) : (
                   <Link
                     key={item.name}
                     to={item.href}
-                    className={`
-                      text-sm font-medium transition-all duration-200
-                      ${item.isButton 
-                        ? `
-                          ml-2 px-4 py-2 rounded-lg shadow-md 
-                          ${isActiveLink 
-                            ? 'bg-purple-800 text-white shadow-inner' 
-                            : 'bg-purple-600 text-white hover:bg-purple-700 hover:shadow-lg hover:-translate-y-0.5'
-                          }
-                          !text-white hover:!text-white active:!text-white focus:!text-white
-                        ` 
-                        : `
-                          px-2 py-2
-                          ${isActiveLink 
-                            ? 'text-purple-600 border-b-2 border-purple-600' 
-                            : 'text-gray-700 hover:text-purple-600 hover:border-b-2 hover:border-purple-300'
-                          }
-                        `
-                      }
-                    `}
+                    className={linkClassName}
                   >
-                    <>
-                      {item.isButton ? (
-                        <span className="nav-button">{item.name}</span>
-                      ) : (
-                        <div className="relative">
-                          {item.name}
-                          {item.hasNotification && (
-                            <span className="absolute -top-2 -right-3 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    </>
+                    {linkContent}
                   </Link>
                 );
               })}
@@ -170,42 +191,58 @@ const Navbar = () => {
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigation.map((item) => {
                 const isActiveLink = isActive(item.href);
-                return (
+                const linkClassName = `
+                  block px-4 py-3 text-base font-medium transition-colors duration-200
+                  ${item.isButton
+                    ? `
+                      mx-2 my-1 rounded-lg text-center
+                      ${isActiveLink
+                        ? 'bg-purple-800 text-white shadow-inner'
+                        : 'bg-purple-600 text-white hover:bg-purple-700'
+                      }
+                      !text-white hover:!text-white active:!text-white focus:!text-white
+                    `
+                    : isActiveLink
+                    ? 'text-purple-600 bg-purple-50'
+                    : 'text-gray-700 hover:text-purple-600 hover:bg-purple-50'
+                  }
+                `;
+                const linkContent = (
+                  <>
+                    {item.isButton ? (
+                      <span className="nav-button">{item.name}</span>
+                    ) : (
+                      <div className="relative">
+                        {item.name}
+                        {item.hasNotification && (
+                          <span className="absolute -top-2 -right-3 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </>
+                );
+
+                return item.external ? (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={linkClassName}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {linkContent}
+                  </a>
+                ) : (
                   <Link
                     key={item.name}
                     to={item.href}
-                    className={`
-                      block px-4 py-3 text-base font-medium transition-colors duration-200
-                      ${item.isButton
-                        ? `
-                          mx-2 my-1 rounded-lg text-center
-                          ${isActiveLink
-                            ? 'bg-purple-800 text-white shadow-inner'
-                            : 'bg-purple-600 text-white hover:bg-purple-700'
-                          }
-                          !text-white hover:!text-white active:!text-white focus:!text-white
-                        `
-                        : isActiveLink
-                        ? 'text-purple-600 bg-purple-50'
-                        : 'text-gray-700 hover:text-purple-600 hover:bg-purple-50'
-                      }
-                    `}
+                    className={linkClassName}
                     onClick={() => setIsOpen(false)}
                   >
-                    <>
-                      {item.isButton ? (
-                        <span className="nav-button">{item.name}</span>
-                      ) : (
-                        <div className="relative">
-                          {item.name}
-                          {item.hasNotification && (
-                            <span className="absolute -top-2 -right-3 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    </>
+                    {linkContent}
                   </Link>
                 );
               })}

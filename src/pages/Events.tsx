@@ -99,6 +99,34 @@ const Events = () => {
 
   const events = [
     {
+      id: 8,
+      title: "Sounds From Africa 2026",
+      category: "community",
+      date: "Sat 30 May 2026",
+      time: "3:00 – 6:30 PM",
+      location: "Mulhuddart Community Centre, Dublin 15",
+      description: "Celebrate Africa Day with Sounds From Africa — a vibrant celebration of unity through music and culture.",
+      fullDescription: "Join Children 4 World Children for Sounds From Africa 2026, an Africa Day celebration bringing communities together through live music, dance, and cultural performances under the theme \"Celebrating Unity Through Music & Culture\".",
+      image: "/events/afrday.png",
+      emoji: "🥁🌍🎶",
+      attendees: 0,
+      target: 0,
+      raised: 0,
+      featured: true,
+      primaryFeatured: true,
+      highlights: [
+        "Live music, dance and cultural performances celebrating Africa Day",
+        "A vibrant showcase of African heritage, rhythm and community",
+        "Family-friendly celebration welcoming all ages and backgrounds"
+      ],
+      theme: "Celebrating Unity Through Music & Culture",
+      fundedBy: "Fingal County Council",
+      contact: "hello@children4worldchildren.com",
+      social: {
+        facebook: "https://facebook.com/Caring4worldchildren"
+      }
+    },
+    {
       id: 0,
       title: "Mediterranean Day Concert 2025",
       category: "community",
@@ -394,7 +422,7 @@ const Events = () => {
           
           {primaryFeaturedEvent && (
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-12">
-              <div className="flex flex-col lg:flex-row">
+              <div className="flex flex-col lg:flex-row-reverse">
                 <div className="lg:w-1/2 p-8 lg:p-10 bg-gradient-to-br from-purple-700 via-purple-600 to-purple-500 text-white flex flex-col justify-between">
                   <div>
                     <div className="flex items-center mb-4">

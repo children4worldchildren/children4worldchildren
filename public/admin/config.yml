@@ -1,0 +1,77 @@
+# Decap CMS configuration.
+#
+# LOCAL EDITING (recommended workflow for this static / GitHub Pages site):
+#   1. Terminal A:  npx decap-server     (proxy that reads/writes local files)
+#   2. Terminal B:  npm run dev
+#   3. Open:        http://localhost:5173/admin/
+#   4. Edit/add an event, upload its image, and Publish.
+#      -> writes src/content/events/<slug>.json + public/events/<image>
+#   5. git add -A && git commit && npm run deploy   (build + push to Pages)
+#
+# `local_backend: true` makes the CMS talk to decap-server and edit local
+# files directly — no GitHub auth needed. The `backend` block below is only
+# used for online editing, which would additionally require a GitHub OAuth
+# provider (not set up here).
+local_backend: true
+
+backend:
+  name: github
+  repo: children4worldchildren/children4worldchildren
+  branch: main
+
+# Uploaded images go into public/events/ and are referenced as /events/<file>
+# (matching how the site resolves EventItem.image).
+media_folder: "public/events"
+public_folder: "/events"
+
+collections:
+  - name: "events"
+    label: "Events"
+    label_singular: "Event"
+    folder: "src/content/events"
+    extension: "json"
+    format: "json"
+    create: true
+    slug: "{{fields.title}}"
+    summary: "{{title}} — {{date}}"
+    sortable_fields: ["date", "title"]
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options: ["sports", "fundraising", "awareness", "volunteer", "community"]
+        default: "community"
+      # --- Timing (preferred) ---------------------------------------------
+      # Set Starts at / Ends at and the displayed date & time are derived from
+      # them automatically, and the event expires (badge/notice/Past move) at
+      # exactly "Ends at". Use the event's timezone (Ireland +01:00 in summer,
+      # +00:00 in winter).
+      - { label: "Starts at", name: "startsAt", widget: "datetime", required: false, format: "YYYY-MM-DDTHH:mm:ssZ", hint: "Date & start time. Drives the displayed date and time." }
+      - { label: "Ends at", name: "endsAt", widget: "datetime", required: false, format: "YYYY-MM-DDTHH:mm:ssZ", hint: "When the event finishes. The featured card, navbar badge and notice all disappear exactly at this moment." }
+      - { label: "Time override (optional)", name: "timeOverride", widget: "string", required: false, hint: "Only for special cases like \"All Day\". Overrides the derived time text." }
+      # --- Timing (legacy, free text) -------------------------------------
+      # Older events use these. Leave blank when using Starts at / Ends at.
+      - { label: "Date (legacy text)", name: "date", widget: "string", required: false, hint: "Leave blank if using Starts at. e.g. \"Sat 30 May 2026\" or \"May 30, 2026\"." }
+      - { label: "Time (legacy text)", name: "time", widget: "string", required: false, hint: "Leave blank if using Starts at / Ends at." }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Short description", name: "description", widget: "text" }
+      - { label: "Full description", name: "fullDescription", widget: "text", required: false }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "Emoji (fallback when no image)", name: "emoji", widget: "string", required: false }
+      - { label: "Attendees", name: "attendees", widget: "number", default: 0, value_type: "int", min: 0 }
+      - { label: "Fundraising target (€)", name: "target", widget: "number", default: 0, value_type: "int", min: 0 }
+      - { label: "Amount raised (€)", name: "raised", widget: "number", default: 0, value_type: "int", min: 0 }
+      - { label: "Featured?", name: "featured", widget: "boolean", default: false, hint: "Show this event in the Featured section." }
+      - { label: "Primary featured? (the one hero card + badge + notice)", name: "primaryFeatured", widget: "boolean", default: false, required: false }
+      - { label: "Theme", name: "theme", widget: "string", required: false }
+      - { label: "Highlights", name: "highlights", widget: "list", required: false, hint: "One bullet per line." }
+      - { label: "Audience", name: "audience", widget: "text", required: false }
+      - { label: "Funded by", name: "fundedBy", widget: "string", required: false }
+      - { label: "Contact email", name: "contact", widget: "string", required: false }
+      - label: "Social"
+        name: "social"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Facebook URL", name: "facebook", widget: "string", required: false }

@@ -1,5 +1,22 @@
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig, loadEnv, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
+
+// Dev-only: serve the Decap CMS at /admin/ (and /admin). Vite's SPA fallback
+// otherwise serves the React app for the trailing-slash path, which has no
+// /admin route. On static hosts (GitHub Pages) /admin/ resolves to its
+// index.html automatically, so this only matters for `vite dev`.
+const adminIndexFallback = (): Plugin => ({
+  name: 'admin-index-fallback',
+  configureServer(server) {
+    server.middlewares.use((req, _res, next) => {
+      const url = req.url?.split('?')[0];
+      if (url === '/admin' || url === '/admin/') {
+        req.url = '/admin/index.html';
+      }
+      next();
+    });
+  },
+});
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -19,7 +36,7 @@ export default defineConfig(({ mode }) => {
   }
 
   return {
-    plugins: [react()],
+    plugins: [react(), adminIndexFallback()],
     base,
     server: {
       port: 5173,

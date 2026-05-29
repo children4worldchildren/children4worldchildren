@@ -3,6 +3,7 @@ import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import LogoUpload from './LogoUpload';
 import { getPrimaryFeaturedEvent } from '../data/events';
+import { P2P_LEARNING_URL } from '../data/links';
 import '../styles/navbar.css';
 
 interface NavItem {
@@ -24,16 +25,26 @@ const Navbar = () => {
     setShowEventBadge(getPrimaryFeaturedEvent() !== null);
   };
 
-  // Initial check and setup daily check for event date
+  // Initial check, plus timers so the badge hides exactly at the event's end
+  // time and is re-checked daily for date-only events.
   useEffect(() => {
     updateEventBadge();
-    
-    // Check daily if the event has passed
-    const checkEventDate = () => {
-      updateEventBadge();
-    };
-    
-    // Check daily at midnight
+
+    const timeouts: ReturnType<typeof setTimeout>[] = [];
+    let dailyInterval: ReturnType<typeof setInterval> | undefined;
+
+    // Re-check the moment the current featured event ends, so the badge hides
+    // at the event's end time without needing a page refresh.
+    const featured = getPrimaryFeaturedEvent();
+    if (featured?.endsAt) {
+      const msUntilEnd = new Date(featured.endsAt).getTime() - Date.now();
+      // setTimeout overflows past ~24.8 days; the daily re-check covers longer ranges.
+      if (msUntilEnd > 0 && msUntilEnd < 2147483647) {
+        timeouts.push(setTimeout(updateEventBadge, msUntilEnd));
+      }
+    }
+
+    // Check daily at midnight (covers date-only events with no `endsAt`).
     const now = new Date();
     const msUntilMidnight = new Date(
       now.getFullYear(),
@@ -41,16 +52,15 @@ const Navbar = () => {
       now.getDate() + 1, // Next day
       0, 0, 1 // 00:00:01
     ).getTime() - now.getTime();
-    
-    const dailyCheckTimer = setTimeout(() => {
-      checkEventDate();
-      // Set up daily checks
-      const dailyInterval = setInterval(checkEventDate, 24 * 60 * 60 * 1000);
-      return () => clearInterval(dailyInterval);
-    }, msUntilMidnight);
-    
+
+    timeouts.push(setTimeout(() => {
+      updateEventBadge();
+      dailyInterval = setInterval(updateEventBadge, 24 * 60 * 60 * 1000);
+    }, msUntilMidnight));
+
     return () => {
-      clearTimeout(dailyCheckTimer);
+      timeouts.forEach(clearTimeout);
+      if (dailyInterval) clearInterval(dailyInterval);
     };
   }, []);
 
@@ -64,7 +74,7 @@ const Navbar = () => {
     },
     {
       name: 'Peer 2 Peer Learning',
-      href: 'https://peer2peer-learning-rishi-mvp.base44.app/',
+      href: P2P_LEARNING_URL,
       external: true,
     },
     { name: 'Contact', href: '/contact' },

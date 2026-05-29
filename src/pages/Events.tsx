@@ -65,7 +65,7 @@ const Events = () => {
           <div className="flex">
             <div className="flex items-center whitespace-nowrap animate-marquee">
               {filteredPastEvents.slice(0, 5).map((event, index) => (
-                <div key={event.id} className="flex items-center mx-6">
+                <div key={event.slug} className="flex items-center mx-6">
                   <div className="flex items-center space-x-3">
                     {(event as any).image ? (
                       <img
@@ -105,7 +105,7 @@ const Events = () => {
             {/* Duplicate for seamless loop */}
             <div className="flex items-center whitespace-nowrap animate-marquee">
               {filteredPastEvents.slice(0, 5).map((event, index) => (
-                <div key={`duplicate-${event.id}`} className="flex items-center mx-6">
+                <div key={`duplicate-${event.slug}`} className="flex items-center mx-6">
                   <div className="flex items-center space-x-3">
                     {(event as any).image ? (
                       <img
@@ -245,7 +245,7 @@ const Events = () => {
           )}
 
           {secondaryFeaturedEvents.map(event => (
-            <div key={event.id} className="bg-white rounded-2xl shadow-lg overflow-hidden mb-10">
+            <div key={event.slug} className="bg-white rounded-2xl shadow-lg overflow-hidden mb-10">
               <div className="flex flex-col lg:flex-row">
                 <div className="lg:w-1/2 p-8 bg-purple-900 text-white flex flex-col">
                   <div className="flex items-center mb-4">
@@ -390,7 +390,7 @@ const Events = () => {
           {/* Events Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredUpcomingEvents.filter(event => !event.featured).map(event => (
-              <div key={event.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <div key={event.slug} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                 <div className="h-48 bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
                   <div className="text-4xl text-white">{event.emoji || '🎉'}</div>
                 </div>
@@ -463,7 +463,7 @@ const Events = () => {
             {/* Past Events Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredPastEvents.map(event => (
-                <div key={event.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border-2 border-gray-100">
+                <div key={event.slug} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border-2 border-gray-100">
                   <div className="h-48 bg-gradient-to-br from-gray-400 to-gray-600 flex items-center justify-center relative">
                     {(event as any).image ? (
                       <img

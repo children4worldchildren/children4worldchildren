@@ -6,6 +6,7 @@
   "homepage": "https://children4worldchildren.github.io/children4worldchildren",
   "scripts": {
     "dev": "vite",
+    "cms": "npx --yes decap-server",
     "build": "vite build",
     "build:dev": "vite build",
     "build:prod": "vite build --mode production",

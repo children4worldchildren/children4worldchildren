@@ -1,0 +1,14 @@
+{
+  "title": "Holiday Toy Drive",
+  "category": "fundraising",
+  "date": "December 15, 2025",
+  "time": "All Day",
+  "location": "Shopping Centers Nationwide",
+  "description": "Spread joy this holiday season by donating toys for children who might otherwise go without.",
+  "image": "/pic3.JPG",
+  "emoji": "🎄🎁🤶",
+  "attendees": 200,
+  "target": 15000,
+  "raised": 12000,
+  "featured": false
+}

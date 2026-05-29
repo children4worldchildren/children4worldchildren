@@ -1,9 +1,19 @@
 export interface EventItem {
-  id: number;
+  /** Stable identifier, derived from the content filename (set by the CMS). */
+  slug: string;
   title: string;
   category: string;
+  // Resolved display strings. The loader fills these from startsAt/endsAt when
+  // present, otherwise from the legacy free-text fields below.
   date: string;
   time: string;
+  // Machine-readable timing (ISO 8601 with timezone offset). When set, these are
+  // the single source of truth: the display date/time are derived from them and
+  // the "is this event over" cutover is exact to the minute.
+  startsAt?: string;
+  endsAt?: string;
+  /** Optional display override for the time, e.g. "All Day". */
+  timeOverride?: string;
   location: string;
   description: string;
   fullDescription?: string;
@@ -24,190 +34,78 @@ export interface EventItem {
   theme?: string;
 }
 
-export const events: EventItem[] = [
-  {
-    id: 8,
-    title: "Sounds From Africa 2026",
-    category: "community",
-    date: "Sat 30 May 2026",
-    time: "3:00 – 6:30 PM",
-    location: "Mulhuddart Community Centre, Dublin 15",
-    description: "Celebrate Africa Day with Sounds From Africa — a vibrant celebration of unity through music and culture.",
-    fullDescription: "Join Children 4 World Children for Sounds From Africa 2026, an Africa Day celebration bringing communities together through live music, dance, and cultural performances under the theme \"Celebrating Unity Through Music & Culture\".",
-    image: "/events/afrday.png",
-    emoji: "🥁🌍🎶",
-    attendees: 0,
-    target: 0,
-    raised: 0,
-    featured: true,
-    primaryFeatured: true,
-    highlights: [
-      "Live music, dance and cultural performances celebrating Africa Day",
-      "A vibrant showcase of African heritage, rhythm and community",
-      "Family-friendly celebration welcoming all ages and backgrounds"
-    ],
-    theme: "Celebrating Unity Through Music & Culture",
-    fundedBy: "Fingal County Council",
-    contact: "hello@children4worldchildren.com",
-    social: {
-      facebook: "https://facebook.com/Caring4worldchildren"
-    }
-  },
-  {
-    id: 0,
-    title: "Mediterranean Day Concert 2025",
-    category: "community",
-    date: "Sat 13 Dec 2025",
-    time: "3:00 – 7:00 PM",
-    location: "Draiocht Blanchardstown, D15 RYX6",
-    description: "Celebrate Mediterranean Day with an afternoon of live music, culture, and community at Draiocht, Blanchardstown.",
-    fullDescription: "Children 4 World joins 43 network member organisations across the EU–Mediterranean region to present the Med Day Concert — a vibrant, multicultural celebration filled with energetic performances, cultural showcases, and a welcoming atmosphere for all ages.",
-    image: "/events/mdc.jpg",
-    emoji: "🎶🌍✨",
-    attendees: 320,
-    target: 0,
-    raised: 0,
-    featured: true,
-    primaryFeatured: true,
-    highlights: [
-      "Energetic live performances and cross-cultural collaborations",
-      "Celebrations themed \"Voices From the Grassroots\"",
-      "Interactive cultural showcases for families and young people",
-      "Supported by Fingal County Council, Fingal Integration Office & Empower"
-    ],
-    audience: "Families, youth groups, cultural communities, and music lovers of all ages.",
-    fundedBy: "Fingal County Council, Fingal Integration Office & Empower",
-    contact: "hello@children4worldchildren.com",
-    social: {
-      facebook: "https://facebook.com/Caring4worldchildren"
-    },
-    theme: "Voices From the Grassroots"
-  },
-  {
-    id: 1,
-    title: "Sports Across the World 2025",
-    category: "sports",
-    date: "Sat 1 Nov 2025",
-    time: "3:00 – 6:30 PM",
-    location: "Mulhuddart Community Centre, Dublin 15",
-    description: "Get ready for Sports Across the World 2025, a fun-filled day where people of all ages, cultures, and backgrounds come together to play, connect and celebrate through sport and games!",
-    fullDescription: "From field sports and board games to competitions, music, food and exhibitions, this festival is all about laughter, community and unity that crosses borders. But it's not just an event, it's a platform for collaboration. Each year, we welcome community groups, schools, embassies, sports clubs, local businesses and media partners to showcase their projects, connect with young people and promote healthy, active lifestyles.",
-    image: "/events/sports-across-the-world-2025.jpg",
-    emoji: "⚽🏀🏓",
-    attendees: 280,
-    target: 0,
-    raised: 0,
-    featured: false,
-    highlights: [
-      "Free sports activities & fitness sessions",
-      "Medals for participants",
-      "Demonstrations of traditional and modern sports from across the globe",
-      "Cultural performances and exhibitions",
-      "Booth stalls for businesses and organisations",
-      "Networking and community-building opportunities",
-      "Exciting prizes to be won — and more!"
-    ],
-    audience: "Everyone! Young people, families, schools, community groups — all are welcome. Admission is free (just register to secure your spot).",
-    fundedBy: "Fingal County Council",
-    contact: "hello@children4worldchildren.com",
-    social: {
-      facebook: "https://facebook.com/Caring4worldchildren"
-    }
-  },
-  {
-    id: 2,
-    title: "Children's Rights Awareness Walk",
-    category: "awareness",
-    date: "November 15, 2025",
-    time: "10:00 AM",
-    location: "Phoenix Park, Dublin",
-    description: "A family-friendly walk to raise awareness about children's rights and our mission to protect vulnerable children worldwide.",
-    image: "/public/children-4-world-children.png",
-    emoji: "🚶‍♂️👨‍👩‍👧‍👦✊",
-    attendees: 150,
-    target: 10000,
-    raised: 7500,
-    featured: false
-  },
-  {
-    id: 3,
-    title: "Volunteer Training Workshop",
-    category: "volunteer",
-    date: "November 30, 2025",
-    time: "2:00 PM",
-    location: "Community Center, Cork",
-    description: "Learn how you can make a difference as a volunteer. Training session for new volunteers interested in our programs.",
-    image: "/pic1.JPG",
-    emoji: "👥📚💡",
-    attendees: 30,
-    target: 0,
-    raised: 0,
-    featured: false
-  },
-  {
-    id: 4,
-    title: "School Supply Drive",
-    category: "community",
-    date: "December 5, 2025",
-    time: "9:00 AM - 5:00 PM",
-    location: "Various Locations",
-    description: "Help us collect school supplies for children in need. Drop-off locations across the city.",
-    image: "/pic2.JPG",
-    emoji: "🎒📚✏️",
-    attendees: 100,
-    target: 0,
-    raised: 0,
-    featured: false
-  },
-  {
-    id: 5,
-    title: "Holiday Toy Drive",
-    category: "fundraising",
-    date: "December 15, 2025",
-    time: "All Day",
-    location: "Shopping Centers Nationwide",
-    description: "Spread joy this holiday season by donating toys for children who might otherwise go without.",
-    image: "/pic3.JPG",
-    emoji: "🎄🎁🤶",
-    attendees: 200,
-    target: 15000,
-    raised: 12000,
-    featured: false
-  },
-  {
-    id: 6,
-    title: "Youth Leadership Summit",
-    category: "community",
-    date: "January 20, 2026",
-    time: "9:00 AM",
-    location: "Convention Center, Galway",
-    description: "Empowering young leaders to create positive change in their communities through workshops and networking.",
-    image: "/pic4.JPG",
-    emoji: "🌟👥💪",
-    attendees: 80,
-    target: 0,
-    raised: 0,
-    featured: false
-  },
-  {
-    id: 7,
-    title: "Grand Finale: A Wall of Change",
-    category: "awareness",
-    date: "October 17, 2025",
-    time: "2:00 PM - 4:30 PM",
-    location: "Blanchardstown Library",
-    description: "Join us for the Grand Finale of A Wall of Change as we come together on the United Nations International Day for the Eradication of Poverty to share one action that can build a future without poverty.",
-    image: "/events/wall-of-change-grand-finale.jpg",
-    emoji: "🧱🌍💜",
-    attendees: 300,
-    target: 0,
-    raised: 0,
-    featured: false,
-    social: {
-      facebook: "https://www.facebook.com/share/p/16TFvMfZXX/?mibextid=wwXIfr"
-    }
-  }
-];
+// Shape of the raw JSON authored in the CMS: date/time may be absent when
+// startsAt/endsAt are used instead.
+type RawEventData = Omit<EventItem, 'slug' | 'date' | 'time'> & {
+  date?: string;
+  time?: string;
+};
+
+// --- Display formatting from ISO datetimes -------------------------------
+// The ISO strings carry the event's local wall-clock time and its offset
+// (e.g. "2026-05-30T15:00:00+01:00"). We format the *displayed* date/time from
+// the wall-clock parts directly, so they read the same for every visitor
+// regardless of their own timezone. Absolute instants (for cutover/sorting)
+// still go through `new Date(...)`, which honours the offset.
+
+const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+interface IsoParts {
+  year: number;
+  month: number; // 1-12
+  day: number;
+  hour: number;
+  minute: number;
+}
+
+const parseIsoParts = (iso: string): IsoParts | null => {
+  const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+  if (!m) return null;
+  return { year: +m[1], month: +m[2], day: +m[3], hour: +m[4], minute: +m[5] };
+};
+
+const formatDisplayDate = (iso: string): string => {
+  const p = parseIsoParts(iso);
+  if (!p) return '';
+  const weekday = WEEKDAYS[new Date(Date.UTC(p.year, p.month - 1, p.day)).getUTCDay()];
+  return `${weekday} ${p.day} ${MONTHS[p.month - 1]} ${p.year}`;
+};
+
+const formatClock = (p: IsoParts): string => {
+  const period = p.hour >= 12 ? 'PM' : 'AM';
+  const hour12 = p.hour % 12 === 0 ? 12 : p.hour % 12;
+  const minute = p.minute.toString().padStart(2, '0');
+  return `${hour12}:${minute} ${period}`;
+};
+
+const formatDisplayTime = (startIso: string, endIso?: string): string => {
+  const start = parseIsoParts(startIso);
+  if (!start) return '';
+  if (!endIso) return formatClock(start);
+  const end = parseIsoParts(endIso);
+  return end ? `${formatClock(start)} – ${formatClock(end)}` : formatClock(start);
+};
+
+// --- Load + normalize content --------------------------------------------
+// Events are authored via Decap CMS (see public/admin) as one JSON file per
+// event under src/content/events/. Vite bundles them at build time, so editing/
+// adding a file and rebuilding is all that's needed — the filename is the slug.
+const modules = import.meta.glob<{ default: RawEventData }>(
+  '../content/events/*.json',
+  { eager: true }
+);
+
+export const events: EventItem[] = Object.entries(modules).map(([path, mod]) => {
+  const slug = path.split('/').pop()!.replace(/\.json$/, '');
+  const raw = mod.default;
+
+  const date = raw.startsAt ? formatDisplayDate(raw.startsAt) : (raw.date ?? '');
+  const time = raw.timeOverride
+    ?? (raw.startsAt ? formatDisplayTime(raw.startsAt, raw.endsAt) : (raw.time ?? ''));
+
+  return { ...raw, slug, date, time };
+});
 
 export const parseEventDate = (dateString: string): Date | null => {
   const normalizedDate = dateString.trim();
@@ -247,11 +145,25 @@ export const parseEventDate = (dateString: string): Date | null => {
 };
 
 const getEventTimestamp = (event: EventItem): number | null => {
+  // Prefer the precise start instant when available.
+  if (event.startsAt) {
+    const t = new Date(event.startsAt).getTime();
+    if (!Number.isNaN(t)) return t;
+  }
   const parsedDate = parseEventDate(event.date);
   return parsedDate ? parsedDate.getTime() : null;
 };
 
 export const isEventPast = (event: EventItem): boolean => {
+  // When a precise end datetime is set, the event is "past" the moment it ends.
+  if (event.endsAt) {
+    const ends = new Date(event.endsAt);
+    if (!Number.isNaN(ends.getTime())) {
+      return Date.now() > ends.getTime();
+    }
+  }
+
+  // Otherwise fall back to date-only granularity (past once the day is over).
   const eventDate = parseEventDate(event.date);
   if (!eventDate) return false;
   const today = new Date();

@@ -16,7 +16,7 @@ const EventNotice: React.FC<EventNoticeProps> = ({ onDismiss }) => {
 
   // Per-event dismissal so a new featured event re-shows even if a previous
   // notice was dismissed.
-  const storageKey = event ? `event_notice_dismissed_${event.id}` : '';
+  const storageKey = event ? `event_notice_dismissed_${event.slug}` : '';
 
   useEffect(() => {
     if (!event) return;

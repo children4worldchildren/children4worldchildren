@@ -1,0 +1,14 @@
+{
+  "title": "School Supply Drive",
+  "category": "community",
+  "date": "December 5, 2025",
+  "time": "9:00 AM - 5:00 PM",
+  "location": "Various Locations",
+  "description": "Help us collect school supplies for children in need. Drop-off locations across the city.",
+  "image": "/pic2.JPG",
+  "emoji": "🎒📚✏️",
+  "attendees": 100,
+  "target": 0,
+  "raised": 0,
+  "featured": false
+}

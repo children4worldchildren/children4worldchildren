@@ -1,0 +1,29 @@
+{
+  "title": "Mediterranean Day Concert 2025",
+  "category": "community",
+  "date": "Sat 13 Dec 2025",
+  "time": "3:00 – 7:00 PM",
+  "location": "Draiocht Blanchardstown, D15 RYX6",
+  "description": "Celebrate Mediterranean Day with an afternoon of live music, culture, and community at Draiocht, Blanchardstown.",
+  "fullDescription": "Children 4 World joins 43 network member organisations across the EU–Mediterranean region to present the Med Day Concert — a vibrant, multicultural celebration filled with energetic performances, cultural showcases, and a welcoming atmosphere for all ages.",
+  "image": "/events/mdc.jpg",
+  "emoji": "🎶🌍✨",
+  "attendees": 320,
+  "target": 0,
+  "raised": 0,
+  "featured": true,
+  "primaryFeatured": true,
+  "highlights": [
+    "Energetic live performances and cross-cultural collaborations",
+    "Celebrations themed \"Voices From the Grassroots\"",
+    "Interactive cultural showcases for families and young people",
+    "Supported by Fingal County Council, Fingal Integration Office & Empower"
+  ],
+  "audience": "Families, youth groups, cultural communities, and music lovers of all ages.",
+  "fundedBy": "Fingal County Council, Fingal Integration Office & Empower",
+  "contact": "hello@children4worldchildren.com",
+  "theme": "Voices From the Grassroots",
+  "social": {
+    "facebook": "https://facebook.com/Caring4worldchildren"
+  }
+}

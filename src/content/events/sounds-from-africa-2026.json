@@ -1,0 +1,27 @@
+{
+  "contact": "hello@children4worldchildren.com",
+  "startsAt": "2026-05-30T15:00:00+01:00",
+  "emoji": "🥁🌍🎶",
+  "theme": "Celebrating Unity Through Music & Culture",
+  "endsAt": "2026-05-30T19:00:00+0100",
+  "fullDescription": "Join Children 4 World Children for Sounds From Africa 2026, an Africa Day celebration bringing communities together through live music, dance, and cultural performances under the theme \"Celebrating Unity Through Music & Culture\".",
+  "social": {
+    "facebook": "https://facebook.com/Caring4worldchildren"
+  },
+  "featured": true,
+  "primaryFeatured": true,
+  "target": 0,
+  "location": "Mulhuddart Community Centre, Dublin 15",
+  "raised": 0,
+  "title": "Sounds From Africa 2026",
+  "attendees": 0,
+  "image": "/events/afrday.png",
+  "fundedBy": "Fingal County Council",
+  "description": "Celebrate Africa Day with Sounds From Africa — a vibrant celebration of unity through music and culture.",
+  "category": "community",
+  "highlights": [
+    "Live music, dance and cultural performances celebrating Africa Day",
+    "A vibrant showcase of African heritage, rhythm and community",
+    "Family-friendly celebration welcoming all ages and backgrounds"
+  ]
+}

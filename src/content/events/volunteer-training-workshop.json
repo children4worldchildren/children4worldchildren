@@ -1,0 +1,14 @@
+{
+  "title": "Volunteer Training Workshop",
+  "category": "volunteer",
+  "date": "November 30, 2025",
+  "time": "2:00 PM",
+  "location": "Community Center, Cork",
+  "description": "Learn how you can make a difference as a volunteer. Training session for new volunteers interested in our programs.",
+  "image": "/pic1.JPG",
+  "emoji": "👥📚💡",
+  "attendees": 30,
+  "target": 0,
+  "raised": 0,
+  "featured": false
+}

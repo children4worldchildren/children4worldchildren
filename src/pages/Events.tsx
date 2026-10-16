@@ -226,7 +226,7 @@ const Events = () => {
                           {(primaryFeaturedEvent as any).contact && (
                             <p>
                               <span className="font-semibold text-white">Contact:</span>{' '}
-                              <a href={`mailto:${(primaryFeaturedEvent as any).contact}`} className="underline hover:text-white">
+                              <a href={`mailto:${(primaryFeaturedEvent as any).contact}`} className="font-medium text-white underline decoration-white/80 hover:decoration-white">
                                 {(primaryFeaturedEvent as any).contact}
                               </a>
                             </p>

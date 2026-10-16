@@ -208,7 +208,7 @@ const Events = () => {
                   <img
                     src={`${import.meta.env.BASE_URL.replace(/\/$/, '') + primaryFeaturedEvent.image}`}
                     alt={primaryFeaturedEvent.title}
-                    className="w-full h-auto max-h-[320px] object-contain rounded-xl shadow-md"
+                    className="w-full h-auto max-h-[680px] object-contain rounded-xl shadow-md"
                   />
 
                   {Array.isArray((primaryFeaturedEvent as any).highlights) && (primaryFeaturedEvent as any).highlights.length > 0 && (

@@ -8,6 +8,7 @@ import { getUpcomingEvents, getPastEvents, getPrimaryFeaturedEvent } from '../da
 const Events = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showExternalLinkModal, setShowExternalLinkModal] = useState(false);
+  const [featuredVideoRatio, setFeaturedVideoRatio] = useState<number | null>(null);
 
   const categories = [
     { id: 'all', name: 'All Events' },
@@ -233,14 +234,21 @@ const Events = () => {
                   )}
                 </div>
 
-                <div className="lg:w-1/2 relative flex items-center justify-center bg-black min-h-[320px] lg:min-h-0">
+                <div className="lg:w-1/2 relative flex items-center justify-center bg-white min-h-[320px] lg:min-h-0">
                   {primaryFeaturedEvent.video ? (
                     <video
                       controls
                       playsInline
                       preload="metadata"
                       poster={`${import.meta.env.BASE_URL.replace(/\/$/, '') + primaryFeaturedEvent.image}`}
-                      className="max-h-[70vh] w-full object-contain lg:absolute lg:inset-0 lg:h-full lg:max-h-none"
+                      onLoadedMetadata={(event) => {
+                        const { videoWidth, videoHeight } = event.currentTarget;
+                        if (videoWidth && videoHeight) {
+                          setFeaturedVideoRatio(videoWidth / videoHeight);
+                        }
+                      }}
+                      style={featuredVideoRatio ? { aspectRatio: featuredVideoRatio } : undefined}
+                      className="h-auto max-h-[70vh] w-auto max-w-full bg-white object-contain lg:absolute lg:inset-y-0 lg:left-1/2 lg:h-full lg:max-h-none lg:w-auto lg:-translate-x-1/2"
                     >
                       <source
                         src={`${import.meta.env.BASE_URL.replace(/\/$/, '') + primaryFeaturedEvent.video}`}

@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import HeroSection from '../components/HeroSection';
-import { Calendar, MapPin, Star, Users } from 'lucide-react';
+import { Calendar, MapPin, Play, Star, Users } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { getUpcomingEvents, getPastEvents, getPrimaryFeaturedEvent } from '../data/events';
@@ -9,6 +9,9 @@ const Events = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showExternalLinkModal, setShowExternalLinkModal] = useState(false);
   const [featuredVideoRatio, setFeaturedVideoRatio] = useState<number | null>(null);
+  const [featuredVideoDuration, setFeaturedVideoDuration] = useState(0);
+  const [featuredVideoStarted, setFeaturedVideoStarted] = useState(false);
+  const featuredVideoRef = useRef<HTMLVideoElement>(null);
 
   const categories = [
     { id: 'all', name: 'All Events' },
@@ -234,32 +237,82 @@ const Events = () => {
                   )}
                 </div>
 
-                <div className="lg:w-1/2 relative flex items-center justify-center bg-white min-h-[320px] lg:min-h-0">
+                <div className="lg:w-1/2 flex items-center justify-center bg-white px-4 py-6 lg:px-6">
                   {primaryFeaturedEvent.video ? (
-                    <video
-                      controls
-                      playsInline
-                      preload="metadata"
-                      poster={`${import.meta.env.BASE_URL.replace(/\/$/, '') + primaryFeaturedEvent.image}`}
-                      onLoadedMetadata={(event) => {
-                        const { videoWidth, videoHeight } = event.currentTarget;
-                        if (videoWidth && videoHeight) {
-                          setFeaturedVideoRatio(videoWidth / videoHeight);
-                        }
-                      }}
-                      style={featuredVideoRatio ? { aspectRatio: featuredVideoRatio } : undefined}
-                      className="h-auto max-h-[70vh] w-auto max-w-full bg-white object-contain lg:absolute lg:inset-y-0 lg:left-1/2 lg:h-full lg:max-h-none lg:w-auto lg:-translate-x-1/2"
+                    <div
+                      className="relative w-full max-w-[420px] lg:h-full lg:w-auto lg:max-h-full lg:max-w-full"
+                      style={{ aspectRatio: featuredVideoRatio ?? 478 / 850 }}
                     >
-                      <source
-                        src={`${import.meta.env.BASE_URL.replace(/\/$/, '') + primaryFeaturedEvent.video}`}
-                        type="video/mp4"
-                      />
-                    </video>
+                      <video
+                        ref={featuredVideoRef}
+                        controls={featuredVideoStarted}
+                        playsInline
+                        preload="metadata"
+                        width={478}
+                        height={850}
+                        onLoadedMetadata={(event) => {
+                          const { videoWidth, videoHeight, duration } = event.currentTarget;
+                          if (videoWidth && videoHeight) {
+                            setFeaturedVideoRatio(videoWidth / videoHeight);
+                          }
+                          if (Number.isFinite(duration)) {
+                            setFeaturedVideoDuration(duration);
+                          }
+                        }}
+                        onPlay={() => setFeaturedVideoStarted(true)}
+                        className="block h-full w-full bg-white"
+                      >
+                        <source
+                          src={`${import.meta.env.BASE_URL.replace(/\/$/, '') + primaryFeaturedEvent.video}`}
+                          type="video/mp4"
+                        />
+                      </video>
+                      {!featuredVideoStarted && (
+                        <>
+                          <button
+                            type="button"
+                            className="absolute inset-x-0 top-0 bottom-12 z-10"
+                            aria-label={`Play ${primaryFeaturedEvent.title} video`}
+                            onClick={() => {
+                              setFeaturedVideoStarted(true);
+                              void featuredVideoRef.current?.play();
+                            }}
+                          >
+                            <img
+                              src={`${import.meta.env.BASE_URL.replace(/\/$/, '') + primaryFeaturedEvent.image}`}
+                              alt={primaryFeaturedEvent.title}
+                              className="h-full w-full bg-white object-contain"
+                            />
+                            <span className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/70 text-white shadow-lg">
+                              <Play className="ml-1 h-7 w-7 fill-white" />
+                            </span>
+                          </button>
+                          <button
+                            type="button"
+                            className="absolute inset-x-0 bottom-0 z-10 flex h-12 items-center gap-2 bg-black/80 px-3 text-xs text-white"
+                            aria-label={`Play ${primaryFeaturedEvent.title} video`}
+                            onClick={() => {
+                              setFeaturedVideoStarted(true);
+                              void featuredVideoRef.current?.play();
+                            }}
+                          >
+                            <Play className="h-4 w-4 fill-white" />
+                            <span>0:00</span>
+                            <span className="h-1 flex-1 rounded-full bg-white/35" />
+                            <span>
+                              {Number.isFinite(featuredVideoDuration) && featuredVideoDuration > 0
+                                ? `${Math.floor(featuredVideoDuration / 60)}:${Math.floor(featuredVideoDuration % 60).toString().padStart(2, '0')}`
+                                : '0:00'}
+                            </span>
+                          </button>
+                        </>
+                      )}
+                    </div>
                   ) : (
                     <img
                       src={`${import.meta.env.BASE_URL.replace(/\/$/, '') + primaryFeaturedEvent.image}`}
                       alt={primaryFeaturedEvent.title}
-                      className="max-h-[70vh] w-full object-contain lg:absolute lg:inset-0 lg:h-full lg:max-h-none"
+                      className="max-h-[70vh] w-full object-contain"
                     />
                   )}
                 </div>

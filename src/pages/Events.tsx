@@ -158,7 +158,7 @@ const Events = () => {
           {primaryFeaturedEvent && (
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-12">
               <div className="flex flex-col lg:flex-row-reverse">
-                <div className="lg:w-1/2 p-8 lg:p-10 bg-gradient-to-br from-purple-700 via-purple-600 to-purple-500 text-white flex flex-col justify-between">
+                <div className="lg:w-1/2 p-8 lg:p-10 bg-gradient-to-br from-purple-700 via-purple-600 to-purple-500 text-white flex flex-col gap-8">
                   <div>
                     <div className="flex items-center mb-4">
                       <Star className="h-6 w-6 text-yellow-300 mr-3" />
@@ -179,7 +179,7 @@ const Events = () => {
                     )}
                   </div>
 
-                  <div className="mt-8 space-y-4 text-sm lg:text-base">
+                  <div className="space-y-4 text-sm lg:text-base">
                     <div className="flex items-start gap-3">
                       <Calendar className="h-5 w-5 text-purple-100 flex-shrink-0" />
                       <div>
@@ -202,19 +202,11 @@ const Events = () => {
                       </div>
                     </div>
                   </div>
-                </div>
-
-                <div className="lg:w-1/2 bg-white flex flex-col items-center justify-center p-4 sm:p-6">
-                  <img
-                    src={`${import.meta.env.BASE_URL.replace(/\/$/, '') + primaryFeaturedEvent.image}`}
-                    alt={primaryFeaturedEvent.title}
-                    className="w-full h-auto max-h-[680px] object-contain rounded-xl shadow-md"
-                  />
 
                   {Array.isArray((primaryFeaturedEvent as any).highlights) && (primaryFeaturedEvent as any).highlights.length > 0 && (
-                    <div className="mt-6 w-full max-w-xl text-gray-900">
-                      <h4 className="text-base font-semibold text-purple-800 mb-2">Highlights</h4>
-                      <ul className="space-y-1.5 text-sm sm:text-base text-gray-700 list-disc list-outside pl-5">
+                    <div>
+                      <h4 className="text-base font-semibold text-white mb-2">Highlights</h4>
+                      <ul className="space-y-1.5 text-sm sm:text-base text-purple-100 list-disc list-outside pl-5">
                         {(primaryFeaturedEvent as any).highlights.map((item: string, idx: number) => (
                           <li key={idx} className="leading-relaxed">
                             {item}
@@ -223,14 +215,14 @@ const Events = () => {
                       </ul>
 
                       {((primaryFeaturedEvent as any).fundedBy || (primaryFeaturedEvent as any).contact) && (
-                        <div className="mt-4 pt-3 border-t border-gray-200 text-xs sm:text-sm text-gray-700 space-y-1.5">
+                        <div className="mt-4 pt-3 border-t border-white/20 text-xs sm:text-sm text-purple-100 space-y-1.5">
                           {(primaryFeaturedEvent as any).fundedBy && (
-                            <p><span className="font-semibold">Funded by:</span> {(primaryFeaturedEvent as any).fundedBy}</p>
+                            <p><span className="font-semibold text-white">Funded by:</span> {(primaryFeaturedEvent as any).fundedBy}</p>
                           )}
                           {(primaryFeaturedEvent as any).contact && (
                             <p>
-                              <span className="font-semibold">Contact:</span>{' '}
-                              <a href={`mailto:${(primaryFeaturedEvent as any).contact}`} className="text-purple-700 hover:underline">
+                              <span className="font-semibold text-white">Contact:</span>{' '}
+                              <a href={`mailto:${(primaryFeaturedEvent as any).contact}`} className="underline hover:text-white">
                                 {(primaryFeaturedEvent as any).contact}
                               </a>
                             </p>
@@ -238,6 +230,29 @@ const Events = () => {
                         </div>
                       )}
                     </div>
+                  )}
+                </div>
+
+                <div className="lg:w-1/2 relative flex items-center justify-center bg-black min-h-[320px] lg:min-h-0">
+                  {primaryFeaturedEvent.video ? (
+                    <video
+                      controls
+                      playsInline
+                      preload="metadata"
+                      poster={`${import.meta.env.BASE_URL.replace(/\/$/, '') + primaryFeaturedEvent.image}`}
+                      className="max-h-[70vh] w-full object-contain lg:absolute lg:inset-0 lg:h-full lg:max-h-none"
+                    >
+                      <source
+                        src={`${import.meta.env.BASE_URL.replace(/\/$/, '') + primaryFeaturedEvent.video}`}
+                        type="video/mp4"
+                      />
+                    </video>
+                  ) : (
+                    <img
+                      src={`${import.meta.env.BASE_URL.replace(/\/$/, '') + primaryFeaturedEvent.image}`}
+                      alt={primaryFeaturedEvent.title}
+                      className="max-h-[70vh] w-full object-contain lg:absolute lg:inset-0 lg:h-full lg:max-h-none"
+                    />
                   )}
                 </div>
               </div>

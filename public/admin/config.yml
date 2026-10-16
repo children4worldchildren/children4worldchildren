@@ -58,6 +58,7 @@ collections:
       - { label: "Short description", name: "description", widget: "text" }
       - { label: "Full description", name: "fullDescription", widget: "text", required: false }
       - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "Video (MP4)", name: "video", widget: "file", required: false, hint: "Use this for an MP4. The Image field only accepts pictures, so video files are greyed out there." }
       - { label: "Emoji (fallback when no image)", name: "emoji", widget: "string", required: false }
       - { label: "Attendees", name: "attendees", widget: "number", default: 0, value_type: "int", min: 0 }
       - { label: "Fundraising target (€)", name: "target", widget: "number", default: 0, value_type: "int", min: 0 }

@@ -18,6 +18,8 @@ export interface EventItem {
   description: string;
   fullDescription?: string;
   image: string;
+  /** Public path to an MP4, e.g. "/events/wish-tree.mp4". */
+  video?: string;
   emoji?: string;
   attendees: number;
   target: number;
